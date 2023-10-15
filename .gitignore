@@ -2,6 +2,13 @@
 # ----------------------------------------------------------------------------
 
 *~
+*.qml
+imports
+asset_imports
+content
+CMakeLists.txt
+*.conf
+qml*
 *.autosave
 *.a
 *.core
