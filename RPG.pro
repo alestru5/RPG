@@ -13,7 +13,6 @@ SOURCES += \
     hero.cpp \
     main.cpp \
     mainwindow.cpp \
-    map.cpp \
     title.cpp \
     view.cpp
 
@@ -21,14 +20,12 @@ HEADERS += \
     gamewindow.h \
     hero.h \
     mainwindow.h \
-    map.h \
     title.h \
     view.h
 
 FORMS += \
     gamewindow.ui \
     mainwindow.ui \
-    map.ui \
     title.ui \
     view.ui
 
