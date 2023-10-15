@@ -46,7 +46,7 @@ qml*
 insight
 *.qml*
 *.ui
-*.pro
+
 
 # QtCreator CMake
 CMakeLists.txt.user*
