@@ -42,6 +42,11 @@ target_wrapper.*
 # QtCreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+qml*
+insight
+*.qml*
+*.ui
+*.pro
 
 # QtCreator CMake
 CMakeLists.txt.user*
