@@ -13,6 +13,10 @@
 object_script.*.Release
 object_script.*.Debug
 *_plugin_import.cpp
+/asset_imports
+/content
+/imports
+/src
 /.qmake.cache
 /.qmake.stash
 *.pro.user
