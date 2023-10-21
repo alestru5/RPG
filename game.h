@@ -4,16 +4,17 @@
 
 #include "dungeon.h"
 #include "hero.h"
+
 class Hero;
 class Character;
 
 class Game{
-public:
-    Game();
-    static Dungeon dungeon;
-    static Hero hero;
-    static int mapWidth;
-    static int mapHeight;
+    public:
+        Game();
+        static Dungeon dungeon;
+        static Hero hero;
+        static int mapWidth;
+        static int mapHeight;
 };
 
 #endif // GAME_H

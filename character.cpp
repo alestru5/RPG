@@ -24,6 +24,7 @@ bool Character::move(std::string direction){
     } else{
         return false;
     }
+
     if (destination.getType() != type_cell::wall){
         Game::dungeon.getLevels()[0].swap(x, y, i2, j2);
         x = i2;

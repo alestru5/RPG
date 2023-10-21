@@ -15,22 +15,21 @@
 #include <iostream>
 
 #include "cell.h"
-class GameWindow : public QMainWindow
-{
+class GameWindow : public QMainWindow{
     Q_OBJECT
 
-public:
-    explicit GameWindow(QMainWindow *parent = nullptr);
-    void keyPressEvent(QKeyEvent* e);
-    void setSize();
-private:
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    QPixmap wallPix;
-    std::vector<QPixmap> playerPix;
-    std::vector<std::vector<QLabel*>> tile;
-    QPixmap nothingPix;
-    const int tileHeight = 40;
-    const int infoHeight = 80;
+    public:
+        explicit GameWindow(QMainWindow *parent = nullptr);
+        void keyPressEvent(QKeyEvent* e);
+        void setSize();
+    private:
+        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        QPixmap wallPix;
+        std::vector<QPixmap> playerPix;
+        std::vector<std::vector<QLabel*>> tile;
+        QPixmap nothingPix;
+        const int tileHeight = 40;
+        const int infoHeight = 80;
 };
 
 #endif // GAMEWINDOW_H

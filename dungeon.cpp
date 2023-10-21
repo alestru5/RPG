@@ -6,9 +6,11 @@ Dungeon::Dungeon(){
     std::vector<std::vector<Cell>> data;
     std::vector<std::string> map;
     std::string temp;
+
     while (in >> temp){
         map.push_back(temp);
     }
+
     for (int i = 0; i < map.size(); i++){
         std::vector<Cell> tmp;
         for (int j = 0; j < map[0].size(); j++){

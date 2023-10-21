@@ -14,17 +14,15 @@ class Title;
 class MainWindow : public QMainWindow{
     Q_OBJECT
 
-public:
-    MainWindow(QWidget *parent = nullptr);
-    void setSize();
+    public:
+        MainWindow(QWidget *parent = nullptr);
+        void setSize();
 
-private:
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    void createScene();
-    enum { maxState = 10 };
-    Title *title;
-    View *view;
+    private:
+        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        void createScene();
 
-
+        Title *title;
+        View *view;
 };
 #endif // MAINWINDOW_H

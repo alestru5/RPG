@@ -1,24 +1,12 @@
-#include "mainwindow.h"
-
+#include <QMainWindow>
 #include <QApplication>
-#include <QLocale>
-#include <QTranslator>
 #include <QLabel>
 
+#include "mainwindow.h"
 #include "game.h"
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
 
-    /*QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        const QString baseName = "RPG_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            a.installTranslator(&translator);
-            break;
-        }
-    }*/
+int main(int argc, char *argv[]){
+    QApplication a(argc, argv);
     Game::dungeon;
     MainWindow w;
     w.setSize();

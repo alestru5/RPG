@@ -2,18 +2,17 @@
 #include "cell.h"
 #include "character.h"
 #include "game.h"
-GameWindow::GameWindow(QMainWindow *parent)
-    : QMainWindow(parent){
+GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     setWindowTitle("Vagabund");
     playerPix.resize(1);
 
-    // Load images
     wallPix.load("/home/alestru/PetProjects/RPG/img/wall.png");
     playerPix[0].load("/home/alestru/PetProjects/RPG/img/player1.png");
     nothingPix.load("/home/alestru/PetProjects/RPG/img/nothing.png");
 
     Game::mapWidth = 32;
     Game::mapHeight = 16;
+
     tile.assign(100, std::vector<QLabel*>(200));
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
@@ -35,14 +34,14 @@ GameWindow::GameWindow(QMainWindow *parent)
     this->setStyleSheet("QMainWindow {background-color: black;}");
 }
 
-void GameWindow::keyPressEvent(QKeyEvent* e)
-{
+void GameWindow::keyPressEvent(QKeyEvent* e){
     std::string key = e->text().toLocal8Bit().constData();
     if (key == "w" || key == "a" || key == "s" || key == "d"){
         Game::hero.act(key);
     }else{
         return;
     }
+
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
             if (Game::dungeon.getLevels()[0][i][j].getType() == type_cell::hero){
