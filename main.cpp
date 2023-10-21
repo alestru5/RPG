@@ -4,6 +4,8 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QLabel>
+
+#include "game.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -17,9 +19,9 @@ int main(int argc, char *argv[])
             break;
         }
     }*/
+    Game::dungeon;
     MainWindow w;
     w.setSize();
-
     QTimer::singleShot(40,&w,SLOT(show()));
     return a.exec();
 }

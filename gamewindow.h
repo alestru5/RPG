@@ -1,31 +1,36 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include <QWidget>
+#include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QtCore>
+#include <QLabel>
+#include <vector>
 #include <QKeyEvent>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QPixmap>
+#include <QGraphicsView>
+#include <iostream>
 
-#include "hero.h"
-
-namespace Ui {
-class GameWindow;
-}
-
-class GameWindow : public QWidget
+#include "cell.h"
+class GameWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit GameWindow(QWidget *parent = nullptr);
-    ~GameWindow();
-protected:
+    explicit GameWindow(QMainWindow *parent = nullptr);
+    void keyPressEvent(QKeyEvent* e);
+    void setSize();
 private:
-    Ui::GameWindow *ui;
-    QGraphicsScene *scene;
-    Hero *hero;
-    QTimer *timer;
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    QPixmap wallPix;
+    std::vector<QPixmap> playerPix;
+    std::vector<std::vector<QLabel*>> tile;
+    QPixmap nothingPix;
+    const int tileHeight = 40;
+    const int infoHeight = 80;
 };
 
 #endif // GAMEWINDOW_H

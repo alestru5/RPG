@@ -33,7 +33,6 @@ Title::Title(View *view, QWidget *parent) : QGraphicsScene(parent){
     startButton->setToolTip("Start Game");
     startButton->setGeometry(QRect(640-300/2, 696 / 2 - 100 , 300, 50));
     connect(startButton, SIGNAL(clicked()), this, SLOT(startGame()));
-
     //Push Button to quit
     quitButton = new QPushButton(viewer);
     quitButton->setText("Quit");
@@ -47,8 +46,8 @@ Title::Title(View *view, QWidget *parent) : QGraphicsScene(parent){
 void Title::quitProgram(){
     qApp->quit();
 }
-
 void Title::startGame(){
-    qApp->quit();
+    gamewindow.setSize();
+    gamewindow.show();
 }
 

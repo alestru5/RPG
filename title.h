@@ -4,7 +4,7 @@
 #include <QPushButton>
 
 #include "mainwindow.h"
-/*#include "myscene.h"*/
+
 
 
 
@@ -20,7 +20,7 @@ public:
     Title(View *view, QWidget *parent = 0);
 
 signals:
-    /*void quitGame();*/
+    void quitGame();
 
 protected:
 
@@ -41,5 +41,7 @@ private:
     /*QPropertyAnimation *animation;*/
     QPushButton *quitButton;
     QPushButton *startButton;
+
+    GameWindow gamewindow;
 };
 #endif // TITLE_H

@@ -1,22 +1,14 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
+    : QMainWindow(parent){
     createScene();
     setCentralWidget(view);
     setWindowTitle("Vagabund");
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
 
 
 void MainWindow::setSize(){
@@ -28,9 +20,7 @@ void MainWindow::setSize(){
 }
 
 void MainWindow::createScene(){
-
     view = new View;
     title = new Title(view);
 }
-
 

@@ -10,9 +10,6 @@
 #include "title.h"
 
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
 class Title;
 class MainWindow : public QMainWindow{
     Q_OBJECT
@@ -20,11 +17,8 @@ class MainWindow : public QMainWindow{
 public:
     MainWindow(QWidget *parent = nullptr);
     void setSize();
-    ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-    GameWindow gamewindow;
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     void createScene();
     enum { maxState = 10 };
