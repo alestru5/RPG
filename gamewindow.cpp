@@ -9,24 +9,81 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     wallPix.load("/home/alestru/PetProjects/RPG/img/wall.png");
     playerPix[0].load("/home/alestru/PetProjects/RPG/img/player1.png");
     nothingPix.load("/home/alestru/PetProjects/RPG/img/nothing.png");
+    chestPix.load("/home/alestru/PetProjects/RPG/img/chest.png");
 
     Game::mapWidth = 32;
     Game::mapHeight = 16;
+
+    QPixmap avatar;
+    avatar.load("/home/alestru/PetProjects/RPG/img/player_avatar.png");
+    QLabel *avatarLabel = new QLabel(this);
+    avatarLabel->setGeometry(10, 10, 50, 50);
+    avatarLabel->setPixmap(avatar.scaledToHeight(50));
+
+    itemsPix["knife"].load("/home/alestru/PetProjects/RPG/img/knife.png");
+    itemsPix["sword"].load("/home/alestru/PetProjects/RPG/img/sword.png");
+    itemsPix["nunchucks"].load("/home/alestru/PetProjects/RPG/img/nunchucks.png");
+    itemsPix["helmet"].load("/home/alestru/PetProjects/RPG/img/helmet.png");
+    itemsPix["bib"].load("/home/alestru/PetProjects/RPG/img/bib.png");
+    itemsPix["leggings"].load("/home/alestru/PetProjects/RPG/img/leggings.png");
+    itemsPix["boots"].load("/home/alestru/PetProjects/RPG/img/boots.png");
+    itemsPix["bunch"].load("/home/alestru/PetProjects/RPG/img/bunch.png");
+    itemsPix["potion"].load("/home/alestru/PetProjects/RPG/img/potion.png");
+
+
+    statusLabel = new QLabel(this);
+    statusLabel->setGeometry(70, 10, 1920 - 50 - 20, 50);
+    statusLabel->setStyleSheet("color: white; font-family: Arial;font-style: normal;font-size: 8pt;font-weight: bold;");
+    statusLabel->setText(QString::fromStdString(Game::dungeon.getHero().status()));
 
     tile.assign(100, std::vector<QLabel*>(200));
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
             tile[i][j] = new QLabel(this);
             tile[i][j]->setGeometry(j * tileHeight,infoHeight + i * tileHeight, tileHeight, tileHeight);
-            if (Game::dungeon.getLevels()[0][i][j].getType() == type_cell::hero){
+            if (i == Game::dungeon.getHero().getX() && j == Game::dungeon.getHero().getY()){
                 tile[i][j]->setPixmap(playerPix[0].scaledToHeight(tileHeight));
-                Game::hero = Hero(i, j);
             }
-            else if (Game::dungeon.getLevels()[0][i][j].getType() == type_cell::wall){
+            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::wall){
                 tile[i][j]->setPixmap(wallPix.scaledToHeight(tileHeight));
             }
-            else
-            {
+            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::floor && Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getChest() != nullptr){
+                tile[i][j]->setPixmap(chestPix.scaledToHeight(tileHeight));  
+            }
+            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()){
+                if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::bunch){
+                    tile[i][j]->setPixmap(itemsPix["bunch"].scaledToHeight(tileHeight));
+                }
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment){
+                    if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::helmet){
+                        tile[i][j]->setPixmap(itemsPix["helmet"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::bib){
+                        tile[i][j]->setPixmap(itemsPix["bib"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::leggings){
+                        tile[i][j]->setPixmap(itemsPix["leggings"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::boots){
+                        tile[i][j]->setPixmap(itemsPix["boots"].scaledToHeight(tileHeight));
+                    }
+                }
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::potion){
+                    tile[i][j]->setPixmap(itemsPix["potion"].scaledToHeight(tileHeight));
+                }
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon){
+                    if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::knife){
+                        tile[i][j]->setPixmap(itemsPix["knife"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::nunchucks){
+                        tile[i][j]->setPixmap(itemsPix["nunchucks"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::sword){
+                        tile[i][j]->setPixmap(itemsPix["sword"].scaledToHeight(tileHeight));
+                    }
+                }
+            }
+            else{
                 tile[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));
             }
         }
@@ -36,18 +93,65 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
 
 void GameWindow::keyPressEvent(QKeyEvent* e){
     std::string key = e->text().toLocal8Bit().constData();
-    if (key == "w" || key == "a" || key == "s" || key == "d"){
-        Game::hero.act(key);
+    if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f"){
+        if (key == "a"){
+            playerPix[0].load("/home/alestru/PetProjects/RPG/img/player_left.png");
+        }
+        if (key == "d"){
+            playerPix[0].load("/home/alestru/PetProjects/RPG/img/player_right.png");
+        }
+        Game::dungeon.getHero().act(key);
     }else{
         return;
     }
 
+    statusLabel->setText(QString::fromStdString(Game::dungeon.getHero().status()));
+
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
-            if (Game::dungeon.getLevels()[0][i][j].getType() == type_cell::hero){
+            if (i == Game::dungeon.getHero().getX() && j == Game::dungeon.getHero().getY()){
                 tile[i][j]->setPixmap(playerPix[0].scaledToHeight(tileHeight));
             }
-            else if (Game::dungeon.getLevels()[0][i][j].getType() == type_cell::floor){
+            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::wall){
+                tile[i][j]->setPixmap(wallPix.scaledToHeight(tileHeight));
+            }
+            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::floor && Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getChest() != nullptr){
+                tile[i][j]->setPixmap(chestPix.scaledToHeight(tileHeight));
+            }
+            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()){
+                if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::bunch){
+                    tile[i][j]->setPixmap(itemsPix["bunch"].scaledToHeight(tileHeight));
+                }
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment){
+                    if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::helmet){
+                        tile[i][j]->setPixmap(itemsPix["helmet"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::bib){
+                        tile[i][j]->setPixmap(itemsPix["bib"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::leggings){
+                        tile[i][j]->setPixmap(itemsPix["leggings"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::boots){
+                        tile[i][j]->setPixmap(itemsPix["boots"].scaledToHeight(tileHeight));
+                    }
+                }
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::potion){
+                    tile[i][j]->setPixmap(itemsPix["potion"].scaledToHeight(tileHeight));
+                }
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon){
+                    if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::knife){
+                        tile[i][j]->setPixmap(itemsPix["knife"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::nunchucks){
+                        tile[i][j]->setPixmap(itemsPix["nunchucks"].scaledToHeight(tileHeight));
+                    }
+                    else if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::sword){
+                        tile[i][j]->setPixmap(itemsPix["sword"].scaledToHeight(tileHeight));
+                    }
+                }
+            }
+            else{
                 tile[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));
             }
         }

@@ -4,23 +4,37 @@
 #include <QObject>
 #include<string>
 
-#include "cell.h"
-#include "dungeon.h"
+
 
 class Dungeon;
 
 class Character{
     protected:
-        /*Table characteristic;
-         * Weapon weapon;
-         * Equipment equipment[4]
-         * Potion potion */
+        int experience;
+        int max_hp;
+        int cur_hp;
         int x;
         int y;
     public:
-        Character(): x(0), y(0){};
-        Character(int i, int j);
-        bool move(std::string direction);
+        Character(): experience(0), max_hp(100), cur_hp(100), x(14), y(1) {}
+        Character(int e, int m, int c, int x, int y);
+
+        void setX(int i);
+        void setY(int j);
+        void setExperience(int exp);
+        void setMax_Hp(int hp);
+        void setCur_Hp(int hp);
+
+        int getX() const noexcept {return x; }
+        int getY() const noexcept {return y; }
+        int getExperience() const noexcept { return experience; }
+        int getMax_Hp() const noexcept { return max_hp; }
+        int getCur_Hp() const noexcept { return cur_hp; }
+
+
+
+
+
 };
 
 #endif // CHARACTER_H

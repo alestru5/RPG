@@ -1,35 +1,54 @@
 #include "character.h"
 #include "game.h"
+#include "cell.h"
+#include "dungeon.h"
 
-Character::Character(int i, int j){
-    x = i;
+Character::Character(int e, int m, int c, int x, int y){
+    if (e < 0 || m < 0 || c < 0 || c > m || x < 0 || y < 0){
+        throw std::invalid_argument("negative argiments");
+    }
+    experience = e;
+    max_hp = m;
+    cur_hp = c;
+    this->x = x;
+    this->y = y;
+}
+
+
+void Character::setY(int j){
+    if (j < 0){
+        throw std::invalid_argument("invalid coord");
+    }
     y = j;
 }
 
-bool Character::move(std::string direction){
-    Cell destination;
-    int i2 = x, j2 = y;
-    if (direction == "south"){
-        destination = Game::dungeon.getLevels()[0][x + 1][y];
-        i2 += 1;
-    } else if (direction == "east"){
-        destination = Game::dungeon.getLevels()[0][x][y + 1];
-        j2 += 1;
-    } else if (direction == "west"){
-        destination = Game::dungeon.getLevels()[0][x][y -1];
-        j2 -= 1;
-    } else if (direction == "north"){
-        destination = Game::dungeon.getLevels()[0][x-1][y];
-        i2 -= 1;
-    } else{
-        return false;
+void Character::setX(int i){
+    if (i < 0){
+        throw std::invalid_argument("invalid coord");
     }
+    x = i;
+}
 
-    if (destination.getType() != type_cell::wall){
-        Game::dungeon.getLevels()[0].swap(x, y, i2, j2);
-        x = i2;
-        y = j2;
-        return true;
+void Character::setExperience(int exp){
+    if (exp <= 0){
+        std::invalid_argument("not positive experiece");
     }
-    return false;
+    experience = exp;
+}
+
+void Character::setMax_Hp(int hp){
+    if (hp <= 0){
+        std::invalid_argument("not positive hp");
+    }
+    max_hp = hp;
+}
+
+void Character::setCur_Hp(int hp){
+    if (hp <= 0){
+        std::invalid_argument("not positive hp");
+    }
+    if (hp > max_hp){
+        std::invalid_argument("hp is bigger then max_hp");
+    }
+    cur_hp = hp;
 }

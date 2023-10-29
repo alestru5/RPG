@@ -13,8 +13,9 @@
 #include <QPixmap>
 #include <QGraphicsView>
 #include <iostream>
-
+#include "hero.h"
 #include "cell.h"
+
 class GameWindow : public QMainWindow{
     Q_OBJECT
 
@@ -28,8 +29,11 @@ class GameWindow : public QMainWindow{
         std::vector<QPixmap> playerPix;
         std::vector<std::vector<QLabel*>> tile;
         QPixmap nothingPix;
+        QPixmap chestPix;
+        std::map<std::string, QPixmap> itemsPix;
+        QLabel* statusLabel;
         const int tileHeight = 40;
-        const int infoHeight = 80;
+        const int infoHeight = 70;
 };
 
 #endif // GAMEWINDOW_H
