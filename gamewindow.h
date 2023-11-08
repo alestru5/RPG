@@ -30,6 +30,7 @@ class GameWindow : public QMainWindow{
         std::vector<std::vector<QLabel*>> tile;
         QPixmap nothingPix;
         QPixmap chestPix;
+        QPixmap ladderPix;
         std::map<std::string, QPixmap> itemsPix;
         QLabel* statusLabel;
         const int tileHeight = 40;

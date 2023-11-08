@@ -28,6 +28,10 @@ Dungeon& Dungeon::initializeLevelsFile(){
                 Item *I = SetItem::createItem();
                 Chest *c = new Chest(1, I);
                 tmp.push_back(Cell(type_cell::floor, t, c));
+            } else if (map[i][j] == 'D'){
+                tmp.push_back(Cell(type_cell::down_ladder));
+            } else if (map[i][j] == 'U'){
+                tmp.push_back(Cell(type_cell::up_ladder));
             }
             else{
                 tmp.push_back(Cell(type_cell::floor));

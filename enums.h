@@ -97,8 +97,8 @@ enum class type_cell{
     floor,
     open_door,
     close_door,
-    up_lader,
-    down_lader,
+    up_ladder,
+    down_ladder,
     wall,
 };
 
