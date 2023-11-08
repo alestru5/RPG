@@ -10,12 +10,13 @@ class Chest{
     public:
         Chest(): level(1), item(nullptr) {}
         Chest(int l, Item *I);
+        ~Chest() { delete item; }
 
         int getLevel() const noexcept { return level; }
         Item *getItem() const noexcept { return item; }
 
         Chest& setLevel(int l);
-        Chest& setItem(Item *I) { item = I; }
+        Chest& setItem(Item *I) { item = I; return *this; }
 
         std::pair<bool, bool> tryToOpen() const noexcept;
 

@@ -9,6 +9,8 @@ class Item{
     public:
         Item(type_item T): item_type(T) {}
 
+        ~Item() {}
+
         type_item getItem_Type() const noexcept { return item_type; }
         void setType(type_item T) { item_type = T; }
 

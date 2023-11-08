@@ -18,7 +18,7 @@ class Dungeon{
         Matrix<Cell>* levels;
     public:
         Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr) {}
-        ~Dungeon() {delete [] levels; delete [] enemies; }
+        ~Dungeon();
 
         Dungeon& initializeLevelsFile();
 

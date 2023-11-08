@@ -26,7 +26,6 @@ Dungeon& Dungeon::initializeLevelsFile(){
             } else if (map[i][j] == 'C'){
                 Item *t = nullptr;
                 Item *I = SetItem::createItem();
-
                 Chest *c = new Chest(1, I);
                 tmp.push_back(Cell(type_cell::floor, t, c));
             }
@@ -54,4 +53,11 @@ Dungeon& Dungeon::move_door(int i, int j){
     } else{
         levels[count_levels-1][i][j].setType(type_cell::close_door);
     }
+}
+
+Dungeon::~Dungeon(){
+    for (int i = 0; i < count_levels; i++){
+        levels[i].~Matrix();
+    }
+    delete [] enemies;
 }

@@ -66,15 +66,13 @@ public:
                 matrix[i][j] = data[i][j];
             }
         }
+
     }
     ~Matrix(){
-        if (n > 0){
-            for (int i = 0; i < m; i++)
-                delete[] matrix[i];
+        for (int i = 0; i < this->m; i++){
+            delete [] matrix[i];
         }
-        if (m > 0){
-            delete[] matrix;
-        }
+        delete [] matrix;
     }
 
     int getM() const noexcept { return m; }
