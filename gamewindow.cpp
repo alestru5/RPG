@@ -54,7 +54,8 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
                 if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::bunch){
                     tile[i][j]->setPixmap(itemsPix["bunch"].scaledToHeight(tileHeight));
                 }
-                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment){
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment ||
+                         Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment_artifact){
                     if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::helmet){
                         tile[i][j]->setPixmap(itemsPix["helmet"].scaledToHeight(tileHeight));
                     }
@@ -71,7 +72,10 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
                 else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::potion){
                     tile[i][j]->setPixmap(itemsPix["potion"].scaledToHeight(tileHeight));
                 }
-                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon){
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon ||
+                           Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon_artifact ||
+                           Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon_artifact_enchantment ||
+                           Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon_enchantment){
                     if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::knife){
                         tile[i][j]->setPixmap(itemsPix["knife"].scaledToHeight(tileHeight));
                     }
@@ -122,7 +126,8 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
                 if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::bunch){
                     tile[i][j]->setPixmap(itemsPix["bunch"].scaledToHeight(tileHeight));
                 }
-                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment){
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment ||
+                         Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::equipment_artifact){
                     if (static_cast<Equipment*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getEquipment_Type() == type_equipment::helmet){
                         tile[i][j]->setPixmap(itemsPix["helmet"].scaledToHeight(tileHeight));
                     }
@@ -139,7 +144,10 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
                 else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::potion){
                     tile[i][j]->setPixmap(itemsPix["potion"].scaledToHeight(tileHeight));
                 }
-                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon){
+                else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon ||
+                         Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon_artifact ||
+                         Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon_artifact_enchantment ||
+                         Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem()->getItem_Type() == type_item::weapon_enchantment){
                     if (static_cast<Weapon*>(Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getItem())->getWeapon_Name() == name_weapon::knife){
                         tile[i][j]->setPixmap(itemsPix["knife"].scaledToHeight(tileHeight));
                     }

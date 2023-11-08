@@ -1,6 +1,5 @@
 #include "setitem.h"
 Item *SetItem::createItem(){
-    return new Potion(name_potion::agility);
     int a = rand() % 4;
     if (a == 0){
         int b = rand() % 4;
