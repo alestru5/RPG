@@ -5,6 +5,8 @@
 class EnumToString{
     public:
         static std::string toString(name_weapon n);
+        static std::string toString(type_artifact t);
+        static std::string toString(type_enchantment t);
         static std::string toString(name_equipment n, type_equipment t);
         static std::string toString(name_potion n);
 };

@@ -33,9 +33,18 @@ bool Cell::isChest() const noexcept{
     return false;
 }
 
+bool Cell::isLadder() const noexcept{
+    if (type == type_cell::down_ladder || type == type_cell::up_ladder){
+        return true;
+    }
+    return false;
+}
+
 Cell& Cell::operator=(const Cell &c){
     type = c.type;
     item = c.item;
     chest = c.chest;
     return *this;
 }
+
+

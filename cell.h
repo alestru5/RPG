@@ -26,6 +26,7 @@ class Cell{
         Cell& setChest(Chest *c) noexcept { chest = c; return *this; }
 
         bool isWall() const noexcept;
+        bool isLadder() const noexcept;
         bool isItem() const noexcept;
         bool isChest() const noexcept;
 

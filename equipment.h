@@ -23,6 +23,8 @@ class Equipment: public Item{
         Equipment& setNameType(name_equipment N, type_equipment T) noexcept;
         Equipment& operator=(const Equipment& I) noexcept;
 
+        Item* take(Hero *H) override;
+
 };
 
 #endif // EQUIPMENT_H

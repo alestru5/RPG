@@ -3,7 +3,6 @@
 #include "enumtostring.h"
 Dungeon& Dungeon::initializeLevelsFile(){
     std::ifstream in("/home/alestru/PetProjects/RPG/map.txt");
-    std::vector<std::vector<Cell>> data;
     std::vector<std::string> map;
     std::string temp;
     in >> count_levels;
@@ -12,10 +11,17 @@ Dungeon& Dungeon::initializeLevelsFile(){
     while (in >> temp){
         map.push_back(temp);
     }
+    int l = 0;
+    std::vector<std::vector<Cell>> data;
     for (size_t i = 0; i < map.size(); i++){
         std::vector<Cell> tmp;
-        for (size_t j = 0; j < map[0].size(); j++){
-
+        for (size_t j = 0; j < map[i].size(); j++){
+            if (map[i][j] == '-'){
+                levels[l] = Matrix<Cell>(data);
+                l += 1;
+                data.erase(data.begin(), data.end());
+                break;
+            }
             if (map[i][j] == '#'){
                 tmp.push_back(Cell(type_cell::wall));
 
@@ -37,9 +43,10 @@ Dungeon& Dungeon::initializeLevelsFile(){
                 tmp.push_back(Cell(type_cell::floor));
             }
         }
-        data.push_back(tmp);
+        if (map[i][0] != '-'){
+            data.push_back(tmp);
+        }
     }
-    levels[0] = Matrix<Cell>(data);
     in.close();
 }
 

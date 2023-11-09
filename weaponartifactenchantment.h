@@ -10,6 +10,8 @@ class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment
         WeaponArtifactEnchantment(name_weapon N, type_artifact A, type_enchantment E):
             WeaponArtifact(N, A), WeaponEnchantment(N, E), Weapon(N){ setType(type_item::weapon_artifact_enchantment); }
 
+        Item* take(Hero *H) override;
+
 };
 
 #endif // WEAPONARTIFACTENCHANTMENT_H

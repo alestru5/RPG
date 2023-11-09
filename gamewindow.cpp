@@ -113,7 +113,6 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
     }else{
         return;
     }
-
     statusLabel->setText(QString::fromStdString(Game::dungeon.getHero().status()));
 
     for (int i = 0; i < Game::mapHeight; i++){

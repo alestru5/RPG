@@ -1,5 +1,6 @@
 #include "hero.h"
 #include "game.h"
+#include "item.h"
 
 Hero::Hero(): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(){}
 Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(){
@@ -25,14 +26,20 @@ int Hero::act(std::string key){
     else if (key == "s") command = "south";
     else if (key == "d") command = "east";
     else if (key == "a") command = "west";
-    else if (key == "e") command = "take";
+    else if (key == "e") command = "action";
     else if (key == "f") command = "open";
     if (command == "south" || command == "east" || command == "west" || command == "north"){
         if(move(command)){
             return 1;
         }
-    } else if (command == "open"){
+    } else if (command == "action"){
         if (open()){
+            return 1;
+        }
+        if (climb()){
+            return 1;
+        }
+        if (take()){
             return 1;
         }
         return 0;
@@ -53,7 +60,7 @@ Hero & Hero::setLevel(int l){
     return *this;
 }
 
-Hero & Hero::setEquipment(std::list<Equipment> &E){
+Hero & Hero::setEquipment(std::list<Equipment*> &E){
     equipment = E;
     return *this;
 }
@@ -78,16 +85,16 @@ bool Hero::move(std::string direction){
     Cell destination;
     int i2 = x, j2 = y;
     if (direction == "south"){
-        destination = Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][x + 1][y];
+        destination = Game::dungeon.getCurLevel()[x + 1][y];
         i2 += 1;
     } else if (direction == "east"){
-        destination = Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][x][y + 1];
+        destination = Game::dungeon.getCurLevel()[x][y + 1];
         j2 += 1;
     } else if (direction == "west"){
-        destination = Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][x][y -1];
+        destination = Game::dungeon.getCurLevel()[x][y -1];
         j2 -= 1;
     } else if (direction == "north"){
-        destination = Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][x-1][y];
+        destination = Game::dungeon.getCurLevel()[x-1][y];
         i2 -= 1;
     } else{
         return false;
@@ -117,26 +124,96 @@ Hero& Hero::operator = (const Hero &H){
 std::string Hero::status() const noexcept{
     std::string res;
     res += "HP: " + std::to_string(max_hp) + "/" + std::to_string(cur_hp);
+    res += "\t\t\t\tDungeon Level: " + std::to_string(-Game::dungeon.getCur_Level());
     res += "\nLevel: " + std::to_string(level);
+    res += "\tWeapon: ";
     if (weapon != nullptr){
-        res += "\tWeapon: " + EnumToString::toString(weapon->getWeapon_Name());
+        if (weapon->getItem_Type() == type_item::weapon_artifact){
+            res += EnumToString::toString(dynamic_cast<WeaponArtifact *>(weapon)->getArtifact_Type()) + " ";
+        }
+        if (weapon->getItem_Type() == type_item::weapon_enchantment){
+            res += EnumToString::toString(dynamic_cast<WeaponEnchantment *>(weapon)->getEnchantment_Type()) + " ";
+        }
+        if (weapon->getItem_Type() == type_item::weapon_artifact_enchantment){
+            res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(weapon)->getArtifact_Type()) + " ";
+            res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(weapon)->getEnchantment_Type()) + " ";
+        }
+        res += EnumToString::toString(weapon->getWeapon_Name());
     } else{
-        res += "\tWeapon: None";
-    }
-    res += "\nEquipment: ";
-    if (equipment.size() == 0){
         res += "None";
     }
+
+    res += "\nHelmet: ";
+    int f = 1;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        res += EnumToString::toString((*iter).getEquipment_Name(), (*iter).getEquipment_Type()) + " ";
+        if ((*iter)->getEquipment_Type() == type_equipment::helmet){
+            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
+                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
+            }
+            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            f = 0;
+            break;
+        }
     }
+    if (f){
+        res += "None\t";
+    }
+
+    res += "Bib: ";
+    f = 1;
+    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
+        if ((*iter)->getEquipment_Type() == type_equipment::bib){
+            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
+                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
+            }
+            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            f = 0;
+            break;
+        }
+    }
+    if (f){
+        res += "None\t";
+    }
+
+    res += "Leggings: ";
+    f = 1;
+    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
+        if ((*iter)->getEquipment_Type() == type_equipment::leggings){
+            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
+                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
+            }
+            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            f = 0;
+            break;
+        }
+    }
+    if (f){
+        res += "None\t";
+    }
+
+    res += "Boots: ";
+    f = 1;
+    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
+        if ((*iter)->getEquipment_Type() == type_equipment::boots){
+            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
+                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
+            }
+            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            f = 0;
+            break;
+        }
+    }
+    if (f){
+        res += "None\t";
+    }
+
     res += "\nBunch: " + std::to_string(c_bunch);
     res += "\tPotion: ";
     if (potion.size() == 0){
         res += "None";
     }
     for (auto iter = potion.begin(); iter != potion.end(); iter++){
-        res += EnumToString::toString((*iter).getPotion_Name());
+        res += EnumToString::toString((*iter)->getPotion_Name()) + " ";
     }
     return res;
 }
@@ -198,4 +275,91 @@ bool Hero::open() noexcept{
         return false;
     }
     return false;
+}
+
+bool Hero::climb() noexcept{
+    if (Game::dungeon.getCurLevel()[x][y+1].isLadder()){
+        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::down_ladder){
+            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
+                Game::dungeon.up_level();
+                return true;
+            }
+            return false;
+        }
+        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::up_ladder){
+            if (Game::dungeon.getCur_Level() != 0){
+                Game::dungeon.down_level();
+                return true;
+            }
+            return false;
+        }
+    }
+
+    if (Game::dungeon.getCurLevel()[x][y-1].isLadder()){
+        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::down_ladder){
+            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
+                Game::dungeon.up_level();
+                return true;
+            }
+            return false;
+        }
+        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::up_ladder){
+            if (Game::dungeon.getCur_Level() != 0){
+                Game::dungeon.down_level();
+                return true;
+            }
+            return false;
+        }
+    }
+
+    if (Game::dungeon.getCurLevel()[x+1][y].isLadder()){
+        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::down_ladder){
+            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
+                Game::dungeon.up_level();
+                return true;
+            }
+            return false;
+        }
+        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::up_ladder){
+            if (Game::dungeon.getCur_Level() != 0){
+                Game::dungeon.down_level();
+                return true;
+            }
+            return false;
+        }
+    }
+
+    if (Game::dungeon.getCurLevel()[x-1][y].isLadder()){
+        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::down_ladder){
+            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
+                Game::dungeon.up_level();
+                return true;
+            }
+            return false;
+        }
+        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::up_ladder){
+            if (Game::dungeon.getCur_Level() != 0){
+                Game::dungeon.down_level();
+                return true;
+            }
+            return false;
+        }
+    }
+    return false;
+}
+
+bool Hero::take(){
+    if (Game::dungeon.getCurLevel()[x][y+1].isItem()){
+        Game::dungeon.getCurLevel()[x][y+1].setItem(Game::dungeon.getCurLevel()[x][y+1].getItem()->take(this));
+    }
+
+    else if (Game::dungeon.getCurLevel()[x][y-1].isItem()){
+       Game::dungeon.getCurLevel()[x][y-1].setItem(Game::dungeon.getCurLevel()[x][y-1].getItem()->take(this));
+    }
+    else if (Game::dungeon.getCurLevel()[x+1][y].isItem()){
+        Game::dungeon.getCurLevel()[x+1][y].setItem(Game::dungeon.getCurLevel()[x+1][y].getItem()->take(this));
+    }
+    else if (Game::dungeon.getCurLevel()[x-1][y].isItem()){
+        Game::dungeon.getCurLevel()[x-1][y].setItem(Game::dungeon.getCurLevel()[x-1][y].getItem()->take(this));
+    }
 }

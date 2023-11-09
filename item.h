@@ -2,7 +2,7 @@
 #define ITEM_H
 
 #include "enums.h"
-
+class Hero;
 class Item{
     private:
         type_item item_type;
@@ -15,6 +15,8 @@ class Item{
         void setType(type_item T) { item_type = T; }
 
         Item& operator =(const Item& I) noexcept;
+
+        virtual Item* take(Hero *H) = 0;
 
 
 };

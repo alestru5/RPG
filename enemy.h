@@ -1,10 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "character.h"
-#include "item.h"
 #include "enums.h"
 #include "setdamage.h"
-
+#include "item.h"
 class Enemy: public Character{
 private:
     name_enemy name;

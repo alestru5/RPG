@@ -40,3 +40,9 @@ Weapon& Weapon::operator=(const Weapon& I) noexcept{
     }
     return *this;
 }
+
+Item* Weapon::take(Hero *H){
+    Item *tmp = H->getWeapon();
+    H->setWeapon(this);
+    return tmp;
+}

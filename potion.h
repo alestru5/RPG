@@ -19,6 +19,8 @@ class Potion: public Item{
         std::pair<changes_characteristic, int> getChanges() { return changes; }
 
         Potion &operator =(const Potion &I) noexcept;
+
+        Item* take(Hero *H) override;
 };
 
 #endif // POTION_H

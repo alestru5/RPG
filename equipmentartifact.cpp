@@ -1,5 +1,5 @@
 #include "equipmentartifact.h"
-
+#include "hero.h"
 EquipmentArtifact::EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A): Equipment(N, T), Artifact(A){
     try{
         bonus_protect = SetProtect::setBonus_Protect(A);
@@ -18,4 +18,23 @@ EquipmentArtifact& EquipmentArtifact::operator=(const EquipmentArtifact& I) noex
         Equipment::operator=(I);
     }
     return *this;
+}
+
+Item* EquipmentArtifact::take(Hero *H){
+    Item * tmp = nullptr;
+    std::list<Equipment *> L;
+    std::list<Equipment *> T = H->getEquipment();
+    for (auto iter = T.begin(); iter != T.end(); iter++){
+        if ((*iter)->getEquipment_Type() == equipment_type){
+            L.push_back(this);
+            tmp = (*iter);
+        } else{
+            L.push_back(*iter);
+        }
+    }
+    if (tmp == nullptr){
+        L.push_back(this);
+    }
+    H->setEquipment(L);
+    return tmp;
 }

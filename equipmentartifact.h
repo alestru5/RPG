@@ -10,6 +10,8 @@ class EquipmentArtifact: public Equipment, public Artifact{
         EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A);
 
         EquipmentArtifact& operator=(const EquipmentArtifact& I) noexcept;
+
+        Item* take(Hero *H) override;
 };
 
 #endif // EQUIPMENTARTIFACT_H

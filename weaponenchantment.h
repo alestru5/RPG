@@ -12,6 +12,8 @@ class WeaponEnchantment: public virtual Weapon, public Enchantment{
         ~WeaponEnchantment() {int a = 5;}
 
         WeaponEnchantment& operator=(const WeaponEnchantment& I) noexcept;
+
+        Item* take(Hero *H) override;
 };
 
 #endif // WEAPONENCHANTMENT_H
