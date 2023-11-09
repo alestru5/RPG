@@ -29,6 +29,8 @@ class GameWindow : public QMainWindow{
         QPixmap nothingPix;
         QPixmap chestPix;
         QPixmap ladderPix;
+        QPixmap openDoorPix;
+        QPixmap closeDoorPix;
         std::map<std::string, QPixmap> itemsPix;
         QLabel* statusLabel;
 

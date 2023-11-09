@@ -58,8 +58,9 @@ class Hero : public Character {
 
         bool take();
         bool move(std::string direction);
-        bool open() noexcept;
+        bool open_chest() noexcept;
         bool climb() noexcept;
+        bool change_door() noexcept;
 
 };
 #endif // HERO_H

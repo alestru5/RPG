@@ -19,7 +19,8 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     nothingPix.load("/home/alestru/PetProjects/RPG/img/nothing.png");
     chestPix.load("/home/alestru/PetProjects/RPG/img/chest.png");
     ladderPix.load("/home/alestru/PetProjects/RPG/img/ladder.png");
-
+    openDoorPix.load("/home/alestru/PetProjects/RPG/img/open_door.png");
+    closeDoorPix.load("/home/alestru/PetProjects/RPG/img/close_door.png");
 
     QPixmap avatar;
     avatar.load("/home/alestru/PetProjects/RPG/img/player_avatar.png");
@@ -94,9 +95,15 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
                     }
                 }
             }
-            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::down_ladder ||
-                       Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::up_ladder){
+            else if (Game::dungeon.getCurLevel()[i][j].getType() == type_cell::down_ladder ||
+                       Game::dungeon.getCurLevel()[i][j].getType() == type_cell::up_ladder){
                 tile[i][j]->setPixmap(ladderPix.scaledToHeight(tileHeight));
+            }
+            else if (Game::dungeon.getCurLevel()[i][j].getType() == type_cell::open_door){
+                tile[i][j]->setPixmap(openDoorPix.scaledToHeight(tileHeight));
+            }
+            else if (Game::dungeon.getCurLevel()[i][j].getType() == type_cell::close_door){
+                tile[i][j]->setPixmap(closeDoorPix.scaledToHeight(tileHeight));
             }
             else{
                 tile[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));
@@ -109,18 +116,23 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
 void GameWindow::keyPressEvent(QKeyEvent* e){
     std::string key = e->text().toLocal8Bit().constData();
     if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f"){
-        if (key == "a"){
-            playerPix[0].load("/home/alestru/PetProjects/RPG/img/player_left.png");
-        }
-        if (key == "d"){
-            playerPix[0].load("/home/alestru/PetProjects/RPG/img/player_right.png");
-        }
         Game::dungeon.getHero().act(key);
     }else{
         return;
     }
     statusLabel->setText(QString::fromStdString(Game::dungeon.getHero().status()));
 
+    if (Game::dungeon.getCurLevel()[Game::dungeon.getHero().getX()][Game::dungeon.getHero().getY()].getType() == type_cell::open_door){
+        playerPix[0].load("/home/alestru/PetProjects/RPG/img/H_open_door.png");
+    } else if (Game::dungeon.getCurLevel()[Game::dungeon.getHero().getX()][Game::dungeon.getHero().getY()].isLadder()){
+        playerPix[0].load("/home/alestru/PetProjects/RPG/img/H_ladder.png");
+    } else{
+        if (key == "a"){
+            playerPix[0].load("/home/alestru/PetProjects/RPG/img/player_left.png");
+        } else{
+            playerPix[0].load("/home/alestru/PetProjects/RPG/img/player_right.png");
+        }
+    }
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
             if (i == Game::dungeon.getHero().getX() && j == Game::dungeon.getHero().getY()){
@@ -169,9 +181,15 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
                     }
                 }
             }
-            else if (Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::down_ladder ||
-                     Game::dungeon.getLevels()[Game::dungeon.getCur_Level()][i][j].getType() == type_cell::up_ladder){
+            else if (Game::dungeon.getCurLevel()[i][j].getType() == type_cell::down_ladder ||
+                     Game::dungeon.getCurLevel()[i][j].getType() == type_cell::up_ladder){
                 tile[i][j]->setPixmap(ladderPix.scaledToHeight(tileHeight));
+            }
+            else if (Game::dungeon.getCurLevel()[i][j].getType() == type_cell::open_door){
+                tile[i][j]->setPixmap(openDoorPix.scaledToHeight(tileHeight));
+            }
+            else if (Game::dungeon.getCurLevel()[i][j].getType() == type_cell::close_door){
+                tile[i][j]->setPixmap(closeDoorPix.scaledToHeight(tileHeight));
             }
             else{
                 tile[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));

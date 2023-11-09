@@ -52,6 +52,8 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
             }
             else if (map[i][j] == 'U'){
                 tmp.push_back(Cell(type_cell::up_ladder));
+            } else if (map[i][j] == 'E'){
+                tmp.push_back(Cell(type_cell::close_door));
             }
             else{
                 tmp.push_back(Cell(type_cell::floor));

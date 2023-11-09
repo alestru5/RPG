@@ -177,16 +177,39 @@ int Hero::act(std::string key){
         if (climb()){
             return 1;
         }
-        if (open()){
+        if (open_chest()){
             return 2;
         }
         if (take()){
             return 3;
         }
+        if (change_door()){
+            return 4;
+        }
         return 0;
     }
     return 0;
 
+}
+
+bool Hero::take(){
+    if (Game::dungeon.getCurLevel()[x][y+1].isItem()){
+        Game::dungeon.getCurLevel()[x][y+1].setItem(Game::dungeon.getCurLevel()[x][y+1].getItem()->take(this));
+        return true;
+    }
+    else if (Game::dungeon.getCurLevel()[x][y-1].isItem()){
+        Game::dungeon.getCurLevel()[x][y-1].setItem(Game::dungeon.getCurLevel()[x][y-1].getItem()->take(this));
+        return true;
+    }
+    else if (Game::dungeon.getCurLevel()[x+1][y].isItem()){
+        Game::dungeon.getCurLevel()[x+1][y].setItem(Game::dungeon.getCurLevel()[x+1][y].getItem()->take(this));
+        return true;
+    }
+    else if (Game::dungeon.getCurLevel()[x-1][y].isItem()){
+        Game::dungeon.getCurLevel()[x-1][y].setItem(Game::dungeon.getCurLevel()[x-1][y].getItem()->take(this));
+        return true;
+    }
+    return false;
 }
 
 bool Hero::move(std::string direction){
@@ -199,14 +222,14 @@ bool Hero::move(std::string direction){
         destination = Game::dungeon.getCurLevel()[x][y + 1];
         j2 += 1;
     } else if (direction == "west"){
-        destination = Game::dungeon.getCurLevel()[x][y -1];
+        destination = Game::dungeon.getCurLevel()[x][y - 1];
         j2 -= 1;
     } else if (direction == "north"){
-        destination = Game::dungeon.getCurLevel()[x-1][y];
+        destination = Game::dungeon.getCurLevel()[x - 1][y];
         i2 -= 1;
     }
 
-    if (destination.getType() == type_cell::floor && destination.getChest() == nullptr && destination.getItem() == nullptr){
+    if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;
         return true;
@@ -214,7 +237,7 @@ bool Hero::move(std::string direction){
     return false;
 }
 
-bool Hero::open() noexcept{
+bool Hero::open_chest() noexcept{
     if (c_bunch <= 0){
         return false;
     }
@@ -277,17 +300,17 @@ bool Hero::open() noexcept{
 }
 
 bool Hero::climb() noexcept{
-    if (Game::dungeon.getCurLevel()[x][y+1].isLadder()){
-        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::down_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x][y+1].getType() == type_cell::up_ladder){
+    if (Game::dungeon.getCurLevel()[x][y].isLadder()){
+        if (Game::dungeon.getCurLevel()[x][y].getType() == type_cell::down_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x][y].getType() == type_cell::up_ladder){
             if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
                 Game::dungeon.up_level();
                 return true;
             }
             return false;
         }
-        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::up_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x][y+1].getType() == type_cell::down_ladder){
+        if (Game::dungeon.getCurLevel()[x][y].getType() == type_cell::up_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x][y].getType() == type_cell::down_ladder){
             if (Game::dungeon.getCur_Level() != 0){
                 Game::dungeon.down_level();
                 return true;
@@ -296,77 +319,29 @@ bool Hero::climb() noexcept{
         }
     }
 
-    if (Game::dungeon.getCurLevel()[x][y-1].isLadder()){
-        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::down_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x][y-1].getType() == type_cell::up_ladder){
-            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
-                Game::dungeon.up_level();
-                return true;
-            }
-            return false;
-        }
-        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::up_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x][y-1].getType() == type_cell::down_ladder){
-            if (Game::dungeon.getCur_Level() != 0){
-                Game::dungeon.down_level();
-                return true;
-            }
-            return false;
-        }
-    }
 
-    if (Game::dungeon.getCurLevel()[x+1][y].isLadder()){
-        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::down_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x+1][y].getType() == type_cell::up_ladder){
-            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
-                Game::dungeon.up_level();
-                return true;
-            }
-            return false;
-        }
-        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::up_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x+1][y].getType() == type_cell::down_ladder){
-            if (Game::dungeon.getCur_Level() != 0){
-                Game::dungeon.down_level();
-                return true;
-            }
-            return false;
-        }
-    }
-
-    if (Game::dungeon.getCurLevel()[x-1][y].isLadder()){
-        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::down_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x-1][y].getType() == type_cell::up_ladder){
-            if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
-                Game::dungeon.up_level();
-                return true;
-            }
-            return false;
-        }
-        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::up_ladder
-            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x-1][y].getType() == type_cell::down_ladder){
-            if (Game::dungeon.getCur_Level() != 0){
-                Game::dungeon.down_level();
-                return true;
-            }
-            return false;
-        }
-    }
     return false;
 }
 
-bool Hero::take(){
-    if (Game::dungeon.getCurLevel()[x][y+1].isItem()){
-        Game::dungeon.getCurLevel()[x][y+1].setItem(Game::dungeon.getCurLevel()[x][y+1].getItem()->take(this));
+bool Hero::change_door() noexcept {
+    if (Game::dungeon.getCurLevel()[x][y+1].isDoor()){
+        Cell tmp = Game::dungeon.getCurLevel()[x][y+1];
+        tmp.changeDoor();
+        Game::dungeon.getCurLevel().setValue(x, y+1, tmp);
+       return true;
+    } else if (Game::dungeon.getCurLevel()[x][y-1].isDoor()){
+       Cell tmp = Game::dungeon.getCurLevel()[x][y-1];
+       tmp.changeDoor();
+       Game::dungeon.getCurLevel().setValue(x, y-1, tmp);
+       return true;
+    } else if (Game::dungeon.getCurLevel()[x+1][y].isDoor()){
+       Cell tmp = Game::dungeon.getCurLevel()[x+1][y];
+       tmp.changeDoor();
+       Game::dungeon.getCurLevel().setValue(x+1, y, tmp);
+       return true;
+    } else if (Game::dungeon.getCurLevel()[x-1][y].isDoor()){
+       Game::dungeon.getCurLevel()[x-1][y].changeDoor();
+       return true;
     }
-
-    else if (Game::dungeon.getCurLevel()[x][y-1].isItem()){
-       Game::dungeon.getCurLevel()[x][y-1].setItem(Game::dungeon.getCurLevel()[x][y-1].getItem()->take(this));
-    }
-    else if (Game::dungeon.getCurLevel()[x+1][y].isItem()){
-        Game::dungeon.getCurLevel()[x+1][y].setItem(Game::dungeon.getCurLevel()[x+1][y].getItem()->take(this));
-    }
-    else if (Game::dungeon.getCurLevel()[x-1][y].isItem()){
-        Game::dungeon.getCurLevel()[x-1][y].setItem(Game::dungeon.getCurLevel()[x-1][y].getItem()->take(this));
-    }
+    return false;
 }

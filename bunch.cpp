@@ -20,12 +20,6 @@ Bunch& Bunch::operator= (const Bunch &I) noexcept{
 }
 
 Item* Bunch::take(Hero *H){
-    if (bunch_type == type_bunch::small){
-        H->setC_Bunch(H->getC_Bunch() + 5);
-    } else if (bunch_type == type_bunch::medium){
-        H->setC_Bunch(H->getC_Bunch() + 10);
-    } else {
-        H->setC_Bunch(H->getC_Bunch() + 15);
-    }
+    H->setC_Bunch(H->getC_Bunch() + count);
     return nullptr;
 }

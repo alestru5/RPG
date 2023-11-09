@@ -28,6 +28,9 @@ class Cell{
         bool isLadder() const noexcept { return type == type_cell::down_ladder || type == type_cell::up_ladder; }
         bool isItem() const noexcept { return item != nullptr; }
         bool isChest() const noexcept { return chest != nullptr; }
+        bool isDoor() const noexcept { return type == type_cell::open_door || type == type_cell::close_door; }
+        bool isOpenDoor() const noexcept { return type == type_cell::open_door; }
+        void changeDoor();
 
         Cell& operator=(const Cell &c);
 
