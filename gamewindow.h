@@ -25,14 +25,17 @@ class GameWindow : public QMainWindow{
         void setSize();
     private:
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
-        QPixmap wallPix;
+
         std::vector<QPixmap> playerPix;
         std::vector<std::vector<QLabel*>> tile;
+
+        QPixmap wallPix;
         QPixmap nothingPix;
         QPixmap chestPix;
         QPixmap ladderPix;
         std::map<std::string, QPixmap> itemsPix;
         QLabel* statusLabel;
+
         const int tileHeight = 40;
         const int infoHeight = 70;
 };
