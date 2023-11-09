@@ -3,6 +3,7 @@
 #include "item.h"
 
 Hero::Hero(): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(){}
+
 Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(){
     x = i;
     y = j;
@@ -19,38 +20,6 @@ Hero::Hero(const Hero &H){
     m_potion = H.m_potion;
     c_bunch = H.c_bunch;
 }
-
-int Hero::act(std::string key){
-    std::string command = "invalid";
-    if (key == "w") command = "north";
-    else if (key == "s") command = "south";
-    else if (key == "d") command = "east";
-    else if (key == "a") command = "west";
-    else if (key == "e") command = "action";
-    else if (key == "f") command = "open";
-    if (command == "south" || command == "east" || command == "west" || command == "north"){
-        if(move(command)){
-            return 1;
-        }
-    } else if (command == "action"){
-        if (open()){
-            return 1;
-        }
-        if (climb()){
-            return 1;
-        }
-        if (take()){
-            return 1;
-        }
-        return 0;
-    }
-    return 0;
-
-}
-
-
-
-
 
 Hero & Hero::setLevel(int l){
     if (l < 0){
@@ -81,32 +50,6 @@ Hero & Hero::setC_Bunch(int b){
     return *this;
 }
 
-bool Hero::move(std::string direction){
-    Cell destination;
-    int i2 = x, j2 = y;
-    if (direction == "south"){
-        destination = Game::dungeon.getCurLevel()[x + 1][y];
-        i2 += 1;
-    } else if (direction == "east"){
-        destination = Game::dungeon.getCurLevel()[x][y + 1];
-        j2 += 1;
-    } else if (direction == "west"){
-        destination = Game::dungeon.getCurLevel()[x][y -1];
-        j2 -= 1;
-    } else if (direction == "north"){
-        destination = Game::dungeon.getCurLevel()[x-1][y];
-        i2 -= 1;
-    } else{
-        return false;
-    }
-
-    if (destination.getType() == type_cell::floor && destination.getChest() == nullptr && destination.getItem() == nullptr){
-        x = i2;
-        y = j2;
-        return true;
-    }
-    return false;
-}
 
 Hero& Hero::operator = (const Hero &H){
     experience = H.experience;
@@ -218,7 +161,63 @@ std::string Hero::status() const noexcept{
     return res;
 }
 
+int Hero::act(std::string key){
+    std::string command = "invalid";
+    if (key == "w") command = "north";
+    else if (key == "s") command = "south";
+    else if (key == "d") command = "east";
+    else if (key == "a") command = "west";
+    else if (key == "e") command = "action";
+    else if (key == "f") command = "open";
+    if (command == "south" || command == "east" || command == "west" || command == "north"){
+        if(move(command)){
+            return 1;
+        }
+    } else if (command == "action"){
+        if (climb()){
+            return 1;
+        }
+        if (open()){
+            return 2;
+        }
+        if (take()){
+            return 3;
+        }
+        return 0;
+    }
+    return 0;
+
+}
+
+bool Hero::move(std::string direction){
+    Cell destination;
+    int i2 = x, j2 = y;
+    if (direction == "south"){
+        destination = Game::dungeon.getCurLevel()[x + 1][y];
+        i2 += 1;
+    } else if (direction == "east"){
+        destination = Game::dungeon.getCurLevel()[x][y + 1];
+        j2 += 1;
+    } else if (direction == "west"){
+        destination = Game::dungeon.getCurLevel()[x][y -1];
+        j2 -= 1;
+    } else if (direction == "north"){
+        destination = Game::dungeon.getCurLevel()[x-1][y];
+        i2 -= 1;
+    }
+
+    if (destination.getType() == type_cell::floor && destination.getChest() == nullptr && destination.getItem() == nullptr){
+        x = i2;
+        y = j2;
+        return true;
+    }
+    return false;
+}
+
 bool Hero::open() noexcept{
+    if (c_bunch <= 0){
+        return false;
+    }
     if (Game::dungeon.getCurLevel()[x][y+1].isChest()){
         std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x][y+1].getChest()->tryToOpen(this);
         if (check.first){
@@ -279,14 +278,16 @@ bool Hero::open() noexcept{
 
 bool Hero::climb() noexcept{
     if (Game::dungeon.getCurLevel()[x][y+1].isLadder()){
-        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::down_ladder){
+        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::down_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x][y+1].getType() == type_cell::up_ladder){
             if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
                 Game::dungeon.up_level();
                 return true;
             }
             return false;
         }
-        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::up_ladder){
+        if (Game::dungeon.getCurLevel()[x][y+1].getType() == type_cell::up_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x][y+1].getType() == type_cell::down_ladder){
             if (Game::dungeon.getCur_Level() != 0){
                 Game::dungeon.down_level();
                 return true;
@@ -296,14 +297,16 @@ bool Hero::climb() noexcept{
     }
 
     if (Game::dungeon.getCurLevel()[x][y-1].isLadder()){
-        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::down_ladder){
+        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::down_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x][y-1].getType() == type_cell::up_ladder){
             if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
                 Game::dungeon.up_level();
                 return true;
             }
             return false;
         }
-        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::up_ladder){
+        if (Game::dungeon.getCurLevel()[x][y-1].getType() == type_cell::up_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x][y-1].getType() == type_cell::down_ladder){
             if (Game::dungeon.getCur_Level() != 0){
                 Game::dungeon.down_level();
                 return true;
@@ -313,14 +316,16 @@ bool Hero::climb() noexcept{
     }
 
     if (Game::dungeon.getCurLevel()[x+1][y].isLadder()){
-        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::down_ladder){
+        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::down_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x+1][y].getType() == type_cell::up_ladder){
             if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
                 Game::dungeon.up_level();
                 return true;
             }
             return false;
         }
-        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::up_ladder){
+        if (Game::dungeon.getCurLevel()[x+1][y].getType() == type_cell::up_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x+1][y].getType() == type_cell::down_ladder){
             if (Game::dungeon.getCur_Level() != 0){
                 Game::dungeon.down_level();
                 return true;
@@ -330,14 +335,16 @@ bool Hero::climb() noexcept{
     }
 
     if (Game::dungeon.getCurLevel()[x-1][y].isLadder()){
-        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::down_ladder){
+        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::down_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() + 1][x-1][y].getType() == type_cell::up_ladder){
             if (Game::dungeon.getCur_Level() != Game::dungeon.getCount_Levels() - 1){
                 Game::dungeon.up_level();
                 return true;
             }
             return false;
         }
-        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::up_ladder){
+        if (Game::dungeon.getCurLevel()[x-1][y].getType() == type_cell::up_ladder
+            && Game::dungeon.getLevels()[Game::dungeon.getCur_Level() - 1][x-1][y].getType() == type_cell::down_ladder){
             if (Game::dungeon.getCur_Level() != 0){
                 Game::dungeon.down_level();
                 return true;

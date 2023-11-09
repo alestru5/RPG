@@ -2,7 +2,9 @@
 #define ITEM_H
 
 #include "enums.h"
+
 class Hero;
+
 class Item{
     private:
         type_item item_type;

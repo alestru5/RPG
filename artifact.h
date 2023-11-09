@@ -1,7 +1,9 @@
 #ifndef ARTIFACT_H
 #define ARTIFACT_H
+
 #include <iostream>
 #include <list>
+
 #include "enums.h"
 #include "setchanges.h"
 
@@ -18,6 +20,7 @@ class Artifact{
         std::list<std::pair<short_characteristic, int>> getChanges() const noexcept {return changes; }
 
         void SetArtifact_Type(type_artifact T);
+
         Artifact& operator=(const Artifact& I) noexcept;
 };
 

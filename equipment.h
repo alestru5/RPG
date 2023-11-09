@@ -1,9 +1,9 @@
 #ifndef EQUIPMENT_H
 #define EQUIPMENT_H
+
 #include "item.h"
 #include "artifact.h"
 #include "setprotect.h"
-
 
 class Equipment: public Item{
     protected:

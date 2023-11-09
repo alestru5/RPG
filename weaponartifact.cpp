@@ -1,5 +1,6 @@
 #include "weaponartifact.h"
 #include "hero.h"
+
 WeaponArtifact::WeaponArtifact(name_weapon N, type_artifact T): Weapon(N), Artifact(T){
     bonus_damage = SetDamage::setBonus_Damage(T);
     setType(type_item::weapon_artifact);

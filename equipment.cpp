@@ -1,6 +1,7 @@
 #include "equipment.h"
 #include "game.h"
 #include "hero.h"
+
 Equipment::Equipment(name_equipment N, type_equipment T) noexcept: Item(type_item::equipment){
     try{
         equipment_name = N;
@@ -22,12 +23,8 @@ Equipment& Equipment::setNameType(name_equipment N, type_equipment T) noexcept{
     } catch(...){
         throw;
     }
+    return *this;
 }
-/*int Equipment::final_protect() const noexcept{
-    int protect = min_protect + rand() % (max_protect - min_protect);
-    damage += Game::dungeon.getHero().getTable().getValue(short_characteristic::agility) / 2;
-    return protect;
-}*/
 
 Equipment& Equipment::operator=(const Equipment& I) noexcept{
     if (this != &I){

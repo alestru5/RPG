@@ -1,5 +1,6 @@
 #include "weaponenchantment.h"
 #include "hero.h"
+
 WeaponEnchantment& WeaponEnchantment::operator=(const WeaponEnchantment& I) noexcept{
     if (this != &I){
         Enchantment::operator=(I);

@@ -1,5 +1,6 @@
 #include "equipmentartifact.h"
 #include "hero.h"
+
 EquipmentArtifact::EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A): Equipment(N, T), Artifact(A){
     try{
         bonus_protect = SetProtect::setBonus_Protect(A);
@@ -8,16 +9,6 @@ EquipmentArtifact::EquipmentArtifact(name_equipment N, type_equipment T, type_ar
         throw;
     }
 
-}
-
-EquipmentArtifact& EquipmentArtifact::operator=(const EquipmentArtifact& I) noexcept{
-    if (this != &I){
-        bonus_protect = I.bonus_protect;
-
-        Artifact::operator=(I);
-        Equipment::operator=(I);
-    }
-    return *this;
 }
 
 Item* EquipmentArtifact::take(Hero *H){
@@ -37,4 +28,14 @@ Item* EquipmentArtifact::take(Hero *H){
     }
     H->setEquipment(L);
     return tmp;
+}
+
+EquipmentArtifact& EquipmentArtifact::operator=(const EquipmentArtifact& I) noexcept{
+    if (this != &I){
+        bonus_protect = I.bonus_protect;
+
+        Artifact::operator=(I);
+        Equipment::operator=(I);
+    }
+    return *this;
 }

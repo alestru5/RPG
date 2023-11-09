@@ -1,10 +1,10 @@
 #ifndef WEAPON_H
 #define WEAPON_H
+
 #include <iostream>
 
 #include "item.h"
 #include "setdamage.h"
-
 #include "enums.h"
 
 
@@ -25,9 +25,6 @@ class Weapon: public Item{
         Weapon& operator=(const Weapon& I) noexcept;
 
         Item* take(Hero *H) override;
-
-
-
 };
 
 #endif // WEAPON_H

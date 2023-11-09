@@ -23,13 +23,6 @@ Weapon& Weapon::setName(name_weapon n) noexcept{
     }
 }
 
-
-/*int Weapon::final_damage() const noexcept{
-    int damage = min_damage + rand() % (max_damage - min_damage);
-    damage += Game::dungeon.getHero().getTable().getValue(short_characteristic::agility) / 2;
-    return damage;
-}*/
-
 Weapon& Weapon::operator=(const Weapon& I) noexcept{
     if (this != &I){
         weapon_name = I.weapon_name;
