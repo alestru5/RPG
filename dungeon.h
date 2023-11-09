@@ -3,6 +3,7 @@
 
 #include <vector>
 #include<fstream>
+
 #include "enemy.h"
 #include "matrix.h"
 #include "cell.h"
@@ -16,6 +17,7 @@ class Dungeon{
         Hero hero;
         Enemy *enemies;
         Matrix<Cell>* levels;
+
     public:
         Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr), enemies(nullptr) {}
         ~Dungeon();

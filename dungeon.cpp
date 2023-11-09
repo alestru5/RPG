@@ -2,6 +2,7 @@
 #include "hero.h"
 #include "game.h"
 #include "enumtostring.h"
+
 Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
     std::vector<std::string> map;
     std::string temp;
