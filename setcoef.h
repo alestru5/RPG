@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <list>
+
 #include "enums.h"
 
 class SetCoef{

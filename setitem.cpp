@@ -1,4 +1,5 @@
 #include "setitem.h"
+
 Item *SetItem::createItem(){
     int a = rand() % 4;
     if (a == 0){

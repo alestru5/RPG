@@ -3,6 +3,7 @@
 
 #include <list>
 #include <iostream>
+
 #include "enums.h"
 
 class SetCount{

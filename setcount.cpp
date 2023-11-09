@@ -7,7 +7,6 @@ int SetCount::createCount(type_bunch T){
         return 2;
     } else if (T == type_bunch::small){
         return 1;
-    } else {
-        throw std::invalid_argument("Its not bunch");
     }
+    return 0;
 }

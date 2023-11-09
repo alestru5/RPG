@@ -1,7 +1,10 @@
 #ifndef SETDAMAGE_H
 #define SETDAMAGE_H
+
 #include <iostream>
+
 #include "enums.h"
+
 class SetDamage{
     public:
         static std::pair<int, int> createDamage(name_weapon n);
