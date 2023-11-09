@@ -12,8 +12,6 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     chestPix.load("/home/alestru/PetProjects/RPG/img/chest.png");
     ladderPix.load("/home/alestru/PetProjects/RPG/img/ladder.png");
 
-    Game::mapWidth = 32;
-    Game::mapHeight = 16;
 
     QPixmap avatar;
     avatar.load("/home/alestru/PetProjects/RPG/img/player_avatar.png");

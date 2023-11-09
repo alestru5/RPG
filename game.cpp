@@ -1,5 +1,5 @@
 #include "game.h"
 Dungeon Game::dungeon;
-int Game::mapWidth;
-int Game::mapHeight;
+int Game::mapWidth = 32;
+int Game::mapHeight = 16;
 

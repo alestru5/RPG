@@ -1,8 +1,8 @@
 #include "dungeon.h"
 #include "hero.h"
+#include "game.h"
 #include "enumtostring.h"
-Dungeon& Dungeon::initializeLevelsFile(){
-    std::ifstream in("/home/alestru/PetProjects/RPG/map.txt");
+Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
     std::vector<std::string> map;
     std::string temp;
     in >> count_levels;
@@ -17,6 +17,12 @@ Dungeon& Dungeon::initializeLevelsFile(){
         std::vector<Cell> tmp;
         for (size_t j = 0; j < map[i].size(); j++){
             if (map[i][j] == '-'){
+                if (data.size() != Game::mapHeight){
+                    throw std::runtime_error("Error of size map");
+                }
+                if(l == 0 && hero.getX() == -1){
+                    throw std::runtime_error("No hero");
+                }
                 levels[l] = Matrix<Cell>(data);
                 l += 1;
                 data.erase(data.begin(), data.end());
@@ -25,18 +31,25 @@ Dungeon& Dungeon::initializeLevelsFile(){
             if (map[i][j] == '#'){
                 tmp.push_back(Cell(type_cell::wall));
 
-            } else if (map[i][j] == 'H'){
+            }
+            else if (l == 0 && map[i][j] == 'H'){
                 tmp.push_back(Cell(type_cell::floor));
                 hero.setX(i);
                 hero.setY(j);
-            } else if (map[i][j] == 'C'){
+            }
+            else if(l != 0 && map[i][j] == 'H'){
+                throw std::runtime_error("Hero can be only on first level");
+            }
+            else if (map[i][j] == 'C'){
                 Item *t = nullptr;
                 Item *I = SetItem::createItem();
                 Chest *c = new Chest(1, I);
                 tmp.push_back(Cell(type_cell::floor, t, c));
-            } else if (map[i][j] == 'D'){
+            }
+            else if (map[i][j] == 'D'){
                 tmp.push_back(Cell(type_cell::down_ladder));
-            } else if (map[i][j] == 'U'){
+            }
+            else if (map[i][j] == 'U'){
                 tmp.push_back(Cell(type_cell::up_ladder));
             }
             else{
@@ -44,10 +57,16 @@ Dungeon& Dungeon::initializeLevelsFile(){
             }
         }
         if (map[i][0] != '-'){
+            if (tmp.size() != Game::mapWidth){
+                throw std::runtime_error("Error of size map");
+            }
             data.push_back(tmp);
         }
     }
-    in.close();
+    if (l != count_levels){
+        throw std::runtime_error("Error of count levels");
+    }
+    return *this;
 }
 
 

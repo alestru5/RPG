@@ -17,10 +17,10 @@ class Dungeon{
         Enemy *enemies;
         Matrix<Cell>* levels;
     public:
-        Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr) {}
+        Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr), enemies(nullptr) {}
         ~Dungeon();
 
-        Dungeon& initializeLevelsFile();
+        Dungeon& initializeLevelsFile(std::ifstream &in);
 
         int getCount_Levels() const noexcept {return count_levels; }
         int getCur_Level() const noexcept { return cur_level; }

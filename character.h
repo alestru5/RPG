@@ -16,7 +16,7 @@ class Character{
         int x;
         int y;
     public:
-        Character(): experience(0), max_hp(100), cur_hp(100), x(14), y(1) {}
+        Character(): experience(0), max_hp(100), cur_hp(100), x(-1), y(-1) {}
         Character(int e, int m, int c, int x, int y);
 
         void setX(int i);
