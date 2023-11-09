@@ -220,7 +220,7 @@ std::string Hero::status() const noexcept{
 
 bool Hero::open() noexcept{
     if (Game::dungeon.getCurLevel()[x][y+1].isChest()){
-        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x][y+1].getChest()->tryToOpen();
+        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x][y+1].getChest()->tryToOpen(this);
         if (check.first){
             Game::dungeon.getCurLevel()[x][y+1].setItem(Game::dungeon.getCurLevel()[x][y+1].getChest()->getItem());
             Game::dungeon.getCurLevel()[x][y+1].setChest(nullptr);
@@ -234,7 +234,7 @@ bool Hero::open() noexcept{
     }
 
     if (Game::dungeon.getCurLevel()[x][y-1].isChest()){
-        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x][y-1].getChest()->tryToOpen();
+        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x][y-1].getChest()->tryToOpen(this);
         if (check.first){
             Game::dungeon.getCurLevel()[x][y-1].setItem(Game::dungeon.getCurLevel()[x][y-1].getChest()->getItem());
             Game::dungeon.getCurLevel()[x][y-1].setChest(nullptr);
@@ -248,7 +248,7 @@ bool Hero::open() noexcept{
     }
 
     if (Game::dungeon.getCurLevel()[x+1][y].isChest()){
-        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x+1][y].getChest()->tryToOpen();
+        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x+1][y].getChest()->tryToOpen(this);
         if (check.first){
             Game::dungeon.getCurLevel()[x+1][y].setItem(Game::dungeon.getCurLevel()[x+1][y].getChest()->getItem());
             Game::dungeon.getCurLevel()[x+1][y].setChest(nullptr);
@@ -262,7 +262,7 @@ bool Hero::open() noexcept{
     }
 
     if (Game::dungeon.getCurLevel()[x-1][y].isChest()){
-        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x-1][y].getChest()->tryToOpen();
+        std::pair<bool, bool> check = Game::dungeon.getCurLevel()[x-1][y].getChest()->tryToOpen(this);
         if (check.first){
             Game::dungeon.getCurLevel()[x-1][y].setItem(Game::dungeon.getCurLevel()[x-1][y].getChest()->getItem());
             Game::dungeon.getCurLevel()[x-1][y].setChest(nullptr);

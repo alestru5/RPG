@@ -4,8 +4,7 @@
 #include "dungeon.h"
 #include "hero.h"
 
-class Hero;
-class Character;
+
 
 class Game{
     public:

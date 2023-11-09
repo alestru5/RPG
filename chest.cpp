@@ -1,5 +1,6 @@
 #include "chest.h"
 #include "game.h"
+
 Chest::Chest(int l, Item *I){
     if (l <= 0 || l > 5){
         throw std::invalid_argument("level is not in 1-5");
@@ -13,10 +14,11 @@ Chest& Chest::setLevel(int l){
         throw std::invalid_argument("level is not in 1-5");
     }
     level = l;
+    return *this;
 }
 
-std::pair<bool, bool> Chest::tryToOpen() const noexcept{
-    int intelligence = Game::dungeon.getHero().getTable().getValue(short_characteristic::i);
+std::pair<bool, bool> Chest::tryToOpen(Hero *H) const noexcept{
+    int intelligence = H->getTable().getValue(short_characteristic::i);
     int chance = intelligence;
     if (rand() % 100 <= chance / level){
         return std::make_pair(true, true);
@@ -30,6 +32,5 @@ std::pair<bool, bool> Chest::tryToOpen() const noexcept{
 Chest& Chest::operator =(const Chest &C){
     level = C.level;
     item = C.item;
-    bool a = (item == nullptr);
     return *this;
 }

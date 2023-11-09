@@ -2,6 +2,14 @@
 #include "cell.h"
 #include "character.h"
 #include "game.h"
+
+void GameWindow::setSize(){
+    this->setFixedSize(1280,720);
+    int x = ((screenGeometry.width() - this->width()) / 2);
+    int y = ((screenGeometry.height() - this->height()) / 2);
+    this->move(x, y);
+}
+
 GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     setWindowTitle("Vagabund");
     playerPix.resize(1);
@@ -172,10 +180,5 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
     }
 }
 
-void GameWindow::setSize(){
-    this->setFixedSize(1280,720);
-    int x = ((screenGeometry.width() - this->width()) / 2);
-    int y = ((screenGeometry.height() - this->height()) / 2);
-    this->move(x, y);
-}
+
 

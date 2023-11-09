@@ -2,14 +2,16 @@
 #define CHEST_H
 
 #include <iostream>
+
 #include "item.h"
+
 class Chest{
     private:
         int level;
         Item *item;
     public:
         Chest(): level(1), item(nullptr) {}
-        Chest(int l, Item *I);
+        Chest(int l, Item *I = nullptr);
         ~Chest() { delete item; }
 
         int getLevel() const noexcept { return level; }
@@ -18,7 +20,7 @@ class Chest{
         Chest& setLevel(int l);
         Chest& setItem(Item *I) { item = I; return *this; }
 
-        std::pair<bool, bool> tryToOpen() const noexcept;
+        std::pair<bool, bool> tryToOpen(Hero *H) const noexcept;
 
         Chest& operator =(const Chest &C);
 };

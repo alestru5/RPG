@@ -19,10 +19,6 @@
 class GameWindow : public QMainWindow{
     Q_OBJECT
 
-    public:
-        explicit GameWindow(QMainWindow *parent = nullptr);
-        void keyPressEvent(QKeyEvent* e);
-        void setSize();
     private:
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
 
@@ -38,6 +34,11 @@ class GameWindow : public QMainWindow{
 
         const int tileHeight = 40;
         const int infoHeight = 70;
+
+    public:
+        void setSize();
+        explicit GameWindow(QMainWindow *parent = nullptr);
+        void keyPressEvent(QKeyEvent* e);
 };
 
 #endif // GAMEWINDOW_H
