@@ -9,6 +9,7 @@
 int main(int argc, char *argv[]){
     srand(time(NULL));
     QApplication a(argc, argv);
+
     std::ifstream in;
     in.open("/home/alestru/PetProjects/RPG/map.txt");
     Game::dungeon.initializeLevelsFile(in);

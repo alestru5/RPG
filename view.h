@@ -18,7 +18,6 @@ class View : public QGraphicsView{
     public:
         View();
         void sceneSet(QGraphicsScene *);
-        /*QPushButton *submit;
-        QLabel *uLabel;*/
+
 };
 #endif

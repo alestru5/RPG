@@ -22,12 +22,8 @@ class Title : public QGraphicsScene{
         int selection = 0;
         const int width = 1280;
         const int height = 720;
-        /*AnimatedGraphicsItem *background;*/
         View *viewer;
-        /*QGraphicsPixmapItem *foreground;
-        QGraphicsPixmapItem *logo;*/
-        QGraphicsTextItem *quit;
-        /*QPropertyAnimation *animation;*/
+
         QPushButton *quitButton;
         QPushButton *startButton;
 
