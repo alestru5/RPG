@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
+#include <QMessageBox>
 #include <QtCore>
 #include <QLabel>
 #include <vector>
@@ -13,6 +14,7 @@
 #include <QPixmap>
 #include <QGraphicsView>
 #include <iostream>
+
 #include "hero.h"
 #include "cell.h"
 

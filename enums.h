@@ -109,5 +109,12 @@ enum class name_enemy{
     blue_wolf
 };
 
+enum class type_destination{
+    north,
+    south,
+    west,
+    east,
+    none
+};
 
 #endif // ENUMS_H

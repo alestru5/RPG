@@ -17,9 +17,11 @@ class Game{
         static bool isGame;
 
         static void initGame();
-        static void tick();
+        static bool tick();
 
         static void moveMobs();
+        static type_destination vision(Enemy *E);
+        static void moveMobDestination(Enemy *E, type_destination d);
         static void randomMoveMob(Enemy *E);
 };
 

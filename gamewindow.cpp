@@ -96,13 +96,25 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
 
 void GameWindow::timerEvent(QTimerEvent *e){
     Q_UNUSED(e);
-    Game::tick();
-    drawGame();
+    if (Game::tick()){
+        drawGame();
+    }
+    else{
+        QMessageBox msgb;
+        msgb.setText("Game Over");
+        msgb.exec();
+    }
+
 }
 
 void GameWindow::drawGame(){
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
+            if (std::pow(Game::dungeon.getHero().getX() - i, 2) + std::pow(Game::dungeon.getHero().getY() - j, 2) > 36){
+                tile[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));
+                hpTile[i][j]->setText("");
+                continue;
+            }
             if (i == Game::dungeon.getHero().getX() && j == Game::dungeon.getHero().getY()){
                 tile[i][j]->setPixmap(playerPix[0].scaledToHeight(tileHeight));
                 hpTile[i][j]->setText("");
@@ -180,6 +192,11 @@ void GameWindow::drawGame(){
         }
     }
     for (size_t i = 0; i < Game::dungeon.getEnemies().size(); i++){
+        if (std::pow(Game::dungeon.getHero().getX() - Game::dungeon.getEnemies()[i].second->getX(), 2) + std::pow(Game::dungeon.getHero().getY() - Game::dungeon.getEnemies()[i].second->getY(), 2) > 36){
+            tile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setPixmap(nothingPix.scaledToHeight(tileHeight));
+            hpTile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setText("");
+            continue;
+        }
         if (Game::dungeon.getEnemies()[i].first == Game::dungeon.getCur_Level() && Game::dungeon.getEnemies()[i].second->getName() == name_enemy::black_druid){
             tile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setPixmap(mobPix["druid"].scaledToHeight(tileHeight));
             hpTile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setText(QString::number(Game::dungeon.getEnemies()[i].second->getCur_Hp()));
