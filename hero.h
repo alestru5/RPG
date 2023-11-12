@@ -52,6 +52,12 @@ class Hero : public Character {
         //Hero &drinkPotion(Potion *P);
         //Hero &upLevel();
 
+        int fullProtect() const noexcept;
+        int minProtect() const noexcept;
+        int maxProtect() const noexcept;
+        void getDamage(int damage);
+        bool isDead() const noexcept { return cur_hp <= 0; }
+
         std::string status() const noexcept;
 
         int act(std::string key);

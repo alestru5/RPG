@@ -30,6 +30,7 @@ class GameWindow : public QMainWindow{
 
         QPixmap wallPix;
         QPixmap nothingPix;
+        QPixmap shadowPix;
         QPixmap chestPix;
         QPixmap ladderPix;
         QPixmap openDoorPix;
@@ -37,6 +38,7 @@ class GameWindow : public QMainWindow{
         std::map<std::string, QPixmap> itemsPix;
         std::map<std::string, QPixmap> mobPix;
         QLabel* statusLabel;
+        QLabel* statusBack;
 
         const int tileHeight = 40;
         const int infoHeight = 70;

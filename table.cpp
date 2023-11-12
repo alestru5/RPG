@@ -5,7 +5,7 @@ Table::Table(){
     table[std::make_pair(full_characteristic::current_hp, short_characteristic::cur_hp)] = 100;
     table[std::make_pair(full_characteristic::strength, short_characteristic::s)] = 50;
     table[std::make_pair(full_characteristic::agility, short_characteristic::a)] = 50;
-    table[std::make_pair(full_characteristic::endurance, short_characteristic::e)] = 50;
+    table[std::make_pair(full_characteristic::endurance, short_characteristic::e)] = 100;
     table[std::make_pair(full_characteristic::intelligence, short_characteristic::i)] = 50;
 }
 Table::Table(int n, std::map<std::pair<full_characteristic, short_characteristic>, int>t){

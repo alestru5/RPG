@@ -11,6 +11,10 @@ EquipmentArtifact::EquipmentArtifact(name_equipment N, type_equipment T, type_ar
 
 }
 
+int EquipmentArtifact::getProtect() const noexcept{
+    return rand() % (max_protect - min_protect) + min_protect + bonus_protect;
+}
+
 Item* EquipmentArtifact::take(Hero *H){
     Item * tmp = nullptr;
     std::list<Equipment *> L;

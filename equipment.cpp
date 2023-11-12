@@ -38,6 +38,10 @@ Equipment& Equipment::operator=(const Equipment& I) noexcept{
     return *this;
 }
 
+int Equipment::getProtect() const noexcept{
+    return rand() % (max_protect - min_protect) + min_protect;
+}
+
 Item* Equipment::take(Hero *H){
     Item * tmp = nullptr;
     std::list<Equipment *> L;

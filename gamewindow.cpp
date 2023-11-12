@@ -17,16 +17,13 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     wallPix.load("/home/alestru/PetProjects/RPG/img/wall.png");
     playerPix[0].load("/home/alestru/PetProjects/RPG/img/player1.png");
     nothingPix.load("/home/alestru/PetProjects/RPG/img/nothing.png");
+    shadowPix.load("/home/alestru/PetProjects/RPG/img/black.png");
     chestPix.load("/home/alestru/PetProjects/RPG/img/chest.png");
     ladderPix.load("/home/alestru/PetProjects/RPG/img/ladder.png");
     openDoorPix.load("/home/alestru/PetProjects/RPG/img/open_door.png");
     closeDoorPix.load("/home/alestru/PetProjects/RPG/img/close_door.png");
 
-    QPixmap avatar;
-    avatar.load("/home/alestru/PetProjects/RPG/img/player_avatar.png");
-    QLabel *avatarLabel = new QLabel(this);
-    avatarLabel->setGeometry(10, 10, 50, 50);
-    avatarLabel->setPixmap(avatar.scaledToHeight(50));
+
 
     itemsPix["knife"].load("/home/alestru/PetProjects/RPG/img/knife.png");
     itemsPix["sword"].load("/home/alestru/PetProjects/RPG/img/sword.png");
@@ -43,9 +40,21 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     mobPix["tiger"].load("/home/alestru/PetProjects/RPG/img/tiger_npc.png");
     mobPix["wolf"].load("/home/alestru/PetProjects/RPG/img/wolf_npc.png");
 
+
+
+    statusBack = new QLabel(this);
+    statusBack->setGeometry(0, 0, 1920, infoHeight);
+    statusBack->setStyleSheet("background-color: #000000;");
+
     statusLabel = new QLabel(this);
     statusLabel->setGeometry(70, 10, 1920 - 50 - 20, 50);
-    statusLabel->setStyleSheet("color: white; font-family: Arial;font-style: normal;font-size: 8pt;font-weight: bold;");
+    statusLabel->setStyleSheet("color: white; font-family: Arial;font-style: normal;font-size: 8pt;font-weight: bold; background-color: #000000;");
+
+    QPixmap avatar;
+    avatar.load("/home/alestru/PetProjects/RPG/img/player_avatar.png");
+    QLabel *avatarLabel = new QLabel(this);
+    avatarLabel->setGeometry(10, 10, 50, 50);
+    avatarLabel->setPixmap(avatar.scaledToHeight(50));
 
     Game::initGame();
 
@@ -62,13 +71,13 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
             hpTile[i][j] = new QLabel(this);
             hpTile[i][j]->setGeometry(j * tileHeight, infoHeight + i * tileHeight, tileHeight, tileHeight);
             hpTile[i][j]->setAlignment(Qt::AlignCenter);
-            hpTile[i][j]->setStyleSheet("color: white; font-size: 12pt; font-weight: bold;");
+            hpTile[i][j]->setStyleSheet("color: white; font-size: 12pt; font-weight: bold; ");
         }
     }
     drawGame();
 
-    this->setStyleSheet("QMainWindow {background-color: black;}");
-    timer = startTimer(2000);
+    this->setStyleSheet("QMainWindow {background-color: #3D3D3D;}");
+    timer = startTimer(1000);
 }
 
 void GameWindow::keyPressEvent(QKeyEvent* e){
@@ -100,18 +109,18 @@ void GameWindow::timerEvent(QTimerEvent *e){
         drawGame();
     }
     else{
-        QMessageBox msgb;
-        msgb.setText("Game Over");
-        msgb.exec();
+
     }
 
 }
 
 void GameWindow::drawGame(){
+    statusLabel->setText(QString::fromStdString(Game::dungeon.getHero().status()));
+
     for (int i = 0; i < Game::mapHeight; i++){
         for (int j = 0; j < Game::mapWidth; j++){
             if (std::pow(Game::dungeon.getHero().getX() - i, 2) + std::pow(Game::dungeon.getHero().getY() - j, 2) > 36){
-                tile[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));
+                tile[i][j]->setPixmap(shadowPix.scaledToHeight(tileHeight));
                 hpTile[i][j]->setText("");
                 continue;
             }
@@ -193,7 +202,7 @@ void GameWindow::drawGame(){
     }
     for (size_t i = 0; i < Game::dungeon.getEnemies().size(); i++){
         if (std::pow(Game::dungeon.getHero().getX() - Game::dungeon.getEnemies()[i].second->getX(), 2) + std::pow(Game::dungeon.getHero().getY() - Game::dungeon.getEnemies()[i].second->getY(), 2) > 36){
-            tile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setPixmap(nothingPix.scaledToHeight(tileHeight));
+            tile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setPixmap(shadowPix.scaledToHeight(tileHeight));
             hpTile[Game::dungeon.getEnemies()[i].second->getX()][Game::dungeon.getEnemies()[i].second->getY()]->setText("");
             continue;
         }

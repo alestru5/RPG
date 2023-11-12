@@ -64,10 +64,43 @@ Hero& Hero::operator = (const Hero &H){
     return *this;
 }
 
+int Hero::fullProtect() const noexcept{
+    int protect = 0;
+    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
+        protect += (*iter)->getProtect();
+    }
+    return protect;
+}
+
+int Hero::minProtect() const noexcept{
+    int protect = 0;
+    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
+        protect += (*iter)->getMin_Protect();
+    }
+    return protect;
+}
+
+int Hero::maxProtect() const noexcept{
+    int protect = 0;
+    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
+        protect += (*iter)->getMax_Protect();
+    }
+    return protect;
+}
+
+void Hero::getDamage(int damage){
+    int protect = table.getValue(full_characteristic::strength) / 10 + fullProtect();
+    if (rand() % 100 >= (table.getValue(full_characteristic::endurance) - 50) / 100){
+        cur_hp -= std::max((damage - protect), 1);
+    }
+}
+
 std::string Hero::status() const noexcept{
     std::string res;
-    res += "HP: " + std::to_string(max_hp) + "/" + std::to_string(cur_hp);
+    res += "HP: " + std::to_string(cur_hp) + "/" + std::to_string(max_hp);
     res += "\t\t\t\tDungeon Level: " + std::to_string(-Game::dungeon.getCur_Level());
+    res += "\t\t\t\tProtect: " + std::to_string(minProtect()) + "-" + std::to_string(maxProtect()) + "(+" + std::to_string(table.getValue(full_characteristic::strength) / 10) + ")";
+    res += "\t\t\t\tFull damage: 0";
     res += "\nLevel: " + std::to_string(level);
     res += "\tWeapon: ";
     if (weapon != nullptr){

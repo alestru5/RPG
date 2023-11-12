@@ -20,9 +20,7 @@ class Game{
         static bool tick();
 
         static void moveMobs();
-        static type_destination vision(Enemy *E);
-        static void moveMobDestination(Enemy *E, type_destination d);
-        static void randomMoveMob(Enemy *E);
+
 };
 
 #endif // GAME_H

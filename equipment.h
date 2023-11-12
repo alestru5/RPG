@@ -23,6 +23,8 @@ class Equipment: public Item{
         Equipment& setNameType(name_equipment N, type_equipment T) noexcept;
         Equipment& operator=(const Equipment& I) noexcept;
 
+        virtual int getProtect() const noexcept;
+
         Item* take(Hero *H) override;
 
 };

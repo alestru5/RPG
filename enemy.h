@@ -23,6 +23,13 @@ public:
     Enemy& setItem(Item *I) noexcept { item = I; return *this; }
     Enemy& setExperience(int exp);
 
+    bool isNear();
+    type_destination vision();
+    void moveMobDestination(type_destination d);
+    void randomMoveMob();
+
+    void enemyAtack();
+
 
 };
 
