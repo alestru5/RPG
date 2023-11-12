@@ -1,11 +1,20 @@
 #include "enemy.h"
 #include "setitem.h"
+
 Enemy::Enemy(): Character(), name(name_enemy::white_golem){
     min_damage = SetDamage::createDamage(name_enemy::white_golem).first;
     max_damage = SetDamage::createDamage(name_enemy::white_golem).second;
     item = SetItem::createItem();
 }
 Enemy::Enemy(int i, int j): Enemy(){
+    x = i;
+    y = j;
+}
+
+Enemy::Enemy(int i, int j, name_enemy n): Character(), name(n){
+    min_damage = SetDamage::createDamage(n).first;
+    max_damage = SetDamage::createDamage(n).second;
+    item = SetItem::createItem();
     x = i;
     y = j;
 }

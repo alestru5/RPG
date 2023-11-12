@@ -24,6 +24,7 @@ class GameWindow : public QMainWindow{
 
         std::vector<QPixmap> playerPix;
         std::vector<std::vector<QLabel*>> tile;
+        std::vector<std::vector<QLabel*>> hpTile;
 
         QPixmap wallPix;
         QPixmap nothingPix;
@@ -32,15 +33,23 @@ class GameWindow : public QMainWindow{
         QPixmap openDoorPix;
         QPixmap closeDoorPix;
         std::map<std::string, QPixmap> itemsPix;
+        std::map<std::string, QPixmap> mobPix;
         QLabel* statusLabel;
 
         const int tileHeight = 40;
         const int infoHeight = 70;
 
+        int timer;
+
     public:
         void setSize();
+
         explicit GameWindow(QMainWindow *parent = nullptr);
+
         void keyPressEvent(QKeyEvent* e);
+        void timerEvent(QTimerEvent *e);
+
+        void drawGame();
 };
 
 #endif // GAMEWINDOW_H

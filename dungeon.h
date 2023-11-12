@@ -3,6 +3,7 @@
 
 #include <vector>
 #include<fstream>
+#include <iostream>
 
 #include "enemy.h"
 #include "matrix.h"
@@ -15,20 +16,22 @@ class Dungeon{
         int count_levels;
         int cur_level;
         Hero hero;
-        Enemy *enemies;
+        std::vector<std::pair<int, Enemy *>> enemies;
         Matrix<Cell>* levels;
 
     public:
-        Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr), enemies(nullptr) {}
+        Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr) {}
         ~Dungeon();
 
         Dungeon& initializeLevelsFile(std::ifstream &in);
+        Dungeon& initializeEnemiesFile(std::ifstream &in);
 
         int getCount_Levels() const noexcept {return count_levels; }
         int getCur_Level() const noexcept { return cur_level; }
         Matrix<Cell>* getLevels() const noexcept {return levels;}
         Hero &getHero() noexcept { return hero; }
         Matrix<Cell>& getCurLevel() noexcept { return levels[cur_level]; }
+        std::vector<std::pair<int, Enemy *>> getEnemies() const noexcept { return enemies; }
 
         Dungeon &up_level() {cur_level+= 1; return *this; }
         Dungeon &down_level() {cur_level-= 1; return *this; }

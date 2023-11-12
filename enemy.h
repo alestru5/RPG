@@ -14,6 +14,7 @@ private:
 public:
     Enemy();
     Enemy(int i, int j);
+    Enemy(int i, int j, name_enemy n);
 
     name_enemy getName() const noexcept { return name; }
     Item* getItem() const noexcept { return item; }

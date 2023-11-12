@@ -7,6 +7,8 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
     std::vector<std::string> map;
     std::string temp;
     in >> count_levels;
+    in >> Game::mapWidth;
+    in >> Game::mapHeight;
     cur_level = 0;
     levels = new Matrix<Cell>[count_levels];
     while (in >> temp){
@@ -52,8 +54,13 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
             }
             else if (map[i][j] == 'U'){
                 tmp.push_back(Cell(type_cell::up_ladder));
-            } else if (map[i][j] == 'E'){
+            }
+            else if (map[i][j] == 'E'){
                 tmp.push_back(Cell(type_cell::close_door));
+            }
+            else if (map[i][j] == 'M'){
+                tmp.push_back(Cell(type_cell::floor));
+                enemies.push_back(std::make_pair(l, new Enemy(i - l * (Game::mapHeight + 1), j)));
             }
             else{
                 tmp.push_back(Cell(type_cell::floor));
@@ -72,6 +79,26 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
     return *this;
 }
 
+Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in){
+    std::string tmp;
+    while (in >> tmp){
+        int x;
+        int y;
+        int lvl;
+        in >> x;
+        in >> y;
+        in >> lvl;
+        if (tmp == "wolf"){
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::blue_wolf)));
+        } else if (tmp == "tiger"){
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::red_tiger)));
+        } else if (tmp == "druid"){
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::black_druid)));
+        } else if (tmp == "golem"){
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::white_golem)));
+        }
+    }
+}
 
 Dungeon& Dungeon::move_door(int i, int j){
     if (i < 0 || j < 0 || i >= levels[count_levels-1].getM() || j >= levels[count_levels-1].getN()){
@@ -92,5 +119,4 @@ Dungeon::~Dungeon(){
     for (int i = 0; i < count_levels; i++){
         levels[i].~Matrix();
     }
-    delete [] enemies;
 }
