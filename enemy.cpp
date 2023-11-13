@@ -19,9 +19,9 @@ Enemy::Enemy(int i, int j, name_enemy n): Character(), name(n){
     y = j;
 }
 
-bool Enemy::isNear(){
-    int hx = Game::dungeon.getHero().getX();
-    int hy = Game::dungeon.getHero().getY();
+bool Enemy::isNear(Dungeon &dungeon){
+    int hx = dungeon.getHero().getX();
+    int hy = dungeon.getHero().getY();
     if (x == hx && abs(hy - y) == 1 ||
         y == hy && abs(hx - x) == 1){
         return true;
@@ -29,10 +29,10 @@ bool Enemy::isNear(){
     return false;
 }
 
-type_destination Enemy::vision(){
-    int hx = Game::dungeon.getHero().getX();
-    int hy = Game::dungeon.getHero().getY();
-    if (abs(hx - x) >= 5 || abs(hy - y) >= 5 || isNear()){
+type_destination Enemy::vision(Dungeon &dungeon){
+    int hx = dungeon.getHero().getX();
+    int hy = dungeon.getHero().getY();
+    if (abs(hx - x) >= 5 || abs(hy - y) >= 5 || isNear(dungeon)){
         return type_destination::none;
     }
     for (int i = std::min(x, hx); i < std::max(x, hx) + 1; i++){
@@ -45,29 +45,29 @@ type_destination Enemy::vision(){
 
         int u_j = std::floor(j + 1.);
         for (int k = std::min(y, hy); k < u_j; k++){
-            if (Game::dungeon.getCurLevel()[i][k].isWall() || Game::dungeon.getCurLevel()[i][k].getType() == type_cell::close_door ||
-                Game::dungeon.getCurLevel()[i][k].getItem() != nullptr || Game::dungeon.getCurLevel()[i][k].isChest()){
+            if (dungeon.getCurLevel()[i][k].isWall() || dungeon.getCurLevel()[i][k].getType() == type_cell::close_door ||
+                dungeon.getCurLevel()[i][k].getItem() != nullptr || dungeon.getCurLevel()[i][k].isChest()){
                 return type_destination::none;
             }
         }
     }
 
-    Cell destination = Game::dungeon.getCurLevel()[x-1][y];
+    Cell destination = dungeon.getCurLevel()[x-1][y];
     if (x > hx && (destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
         destination.getItem() == nullptr){
         return type_destination::north;
     }
-    destination = Game::dungeon.getCurLevel()[x+1][y];
+    destination = dungeon.getCurLevel()[x+1][y];
     if (x < hx && (destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
         destination.getItem() == nullptr){
         return type_destination::south;
     }
-    destination = Game::dungeon.getCurLevel()[x][y+1];
+    destination = dungeon.getCurLevel()[x][y+1];
     if (y < hy && (destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
         destination.getItem() == nullptr){
         return type_destination::east;
     }
-    destination = Game::dungeon.getCurLevel()[x][y-1];
+    destination = dungeon.getCurLevel()[x][y-1];
     if (y > hy && (destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
         destination.getItem() == nullptr){
         return type_destination::west;
@@ -87,38 +87,38 @@ void Enemy::moveMobDestination(type_destination d){
     }
 }
 
-void Enemy::randomMoveMob(){
+void Enemy::randomMoveMob(Dungeon &dungeon){
     int a = rand() % 4;
-    Cell destination = Game::dungeon.getCurLevel()[x - 1][y];
+    Cell destination = dungeon.getCurLevel()[x - 1][y];
     if (a == 1 && ((destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
                    destination.getItem() == nullptr)){
         x -= 1;
         return;
     }
     a = rand() % 3;
-    destination = Game::dungeon.getCurLevel()[x+1][y];
+    destination = dungeon.getCurLevel()[x+1][y];
     if (a == 1 && ((destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
                    destination.getItem() == nullptr)){
         x += 1;
         return;
     }
     a = rand() % 2;
-    destination = Game::dungeon.getCurLevel()[x][y+1];
+    destination = dungeon.getCurLevel()[x][y+1];
     if (a == 1 && ((destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
                    destination.getItem() == nullptr)){
         y += 1;
         return;
     }
-    destination = Game::dungeon.getCurLevel()[x][y-1];
+    destination = dungeon.getCurLevel()[x][y-1];
     if ((destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
         destination.getItem() == nullptr){
         y -= 1;
     }
 }
 
-void Enemy::enemyAtack(){
+void Enemy::enemyAtack(Dungeon &dungeon){
     int damage = rand() % (max_damage - min_damage) + min_damage;
-    Game::dungeon.getHero().getDamage(damage);
+    dungeon.getHero().getDamage(damage);
 }
 
 /*int Enemy::take_damage(Character *C) const noexcept{

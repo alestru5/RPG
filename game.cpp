@@ -1,30 +1,26 @@
 #include "game.h"
-Dungeon Game::dungeon;
-int Game::mapWidth = 32;
-int Game::mapHeight = 16;
-bool Game::isGame = false;
 
 void Game::initGame(){
     std::ifstream lvl;
     lvl.open("/home/alestru/PetProjects/RPG/map.txt");
-    dungeon.initializeLevelsFile(lvl);
+    dungeon.initializeLevelsFile(lvl, *this);
     lvl.close();
 
     std::ifstream mobs;
     mobs.open("/home/alestru/PetProjects/RPG/enemies.txt");
-    dungeon.initializeEnemiesFile(mobs);
+    dungeon.initializeEnemiesFile(mobs, *this);
     mobs.close();
 
     isGame = true;
 
 }
 
-bool Game::tick(){
+bool Game::tick(Dungeon &dungeon){
     if (dungeon.getHero().isDead()){
         isGame = false;
     }
     if (isGame){
-        moveMobs();
+        moveMobs(dungeon);
         return true;
     } else{
         return false;
@@ -32,17 +28,17 @@ bool Game::tick(){
 
 }
 
-void Game::moveMobs(){
+void Game::moveMobs(Dungeon &dungeon){
     for (size_t i = 0; i < dungeon.getEnemies().size(); i++){
         if (dungeon.getEnemies()[i].first == dungeon.getCur_Level()){
-            type_destination destination = dungeon.getEnemies()[i].second->vision();
+            type_destination destination = dungeon.getEnemies()[i].second->vision(dungeon);
             if (destination != type_destination::none){
                 dungeon.getEnemies()[i].second->moveMobDestination(destination);
             }
-            else if (!dungeon.getEnemies()[i].second->isNear()){
-                dungeon.getEnemies()[i].second->randomMoveMob();
-            } else if (dungeon.getEnemies()[i].second->isNear()){
-                dungeon.getEnemies()[i].second->enemyAtack();
+            else if (!dungeon.getEnemies()[i].second->isNear(dungeon)){
+                dungeon.getEnemies()[i].second->randomMoveMob(dungeon);
+            } else if (dungeon.getEnemies()[i].second->isNear(dungeon)){
+                dungeon.getEnemies()[i].second->enemyAtack(dungeon);
             }
         }
     }

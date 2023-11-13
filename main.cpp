@@ -2,9 +2,11 @@
 #include <QApplication>
 #include <QLabel>
 #include <chrono>
+#include<fstream>
+#include <QTimer>
+
 #include "mainwindow.h"
 #include "game.h"
-#include<fstream>
 
 int main(int argc, char *argv[]){
     srand(time(NULL));

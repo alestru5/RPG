@@ -1,5 +1,6 @@
 #include "mainwindow.h"
-#include <QMessageBox>
+#include "title.h"
+#include "view.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
     createScene();

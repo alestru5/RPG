@@ -58,15 +58,15 @@ class Hero : public Character {
         void getDamage(int damage);
         bool isDead() const noexcept { return cur_hp <= 0; }
 
-        std::string status() const noexcept;
+        std::string status(Dungeon &dungeon) const noexcept;
 
-        int act(std::string key);
+        int act(std::string key, Dungeon &dungeon);
 
-        bool take();
-        bool move(std::string direction);
-        bool open_chest() noexcept;
-        bool climb() noexcept;
-        bool change_door() noexcept;
+        bool take(Dungeon &dungeon);
+        bool move(std::string direction, Dungeon &dungeon);
+        bool open_chest(Dungeon &dungeon) noexcept;
+        bool climb(Dungeon &dungeon) noexcept;
+        bool change_door(Dungeon &dungeon) noexcept;
 
 };
 #endif // HERO_H

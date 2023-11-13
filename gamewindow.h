@@ -14,14 +14,15 @@
 #include <QPixmap>
 #include <QGraphicsView>
 #include <iostream>
+#include "game.h"
 
-#include "hero.h"
-#include "cell.h"
 
 class GameWindow : public QMainWindow{
     Q_OBJECT
 
     private:
+        Game game;
+
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
 
         std::vector<QPixmap> playerPix;

@@ -6,21 +6,32 @@
 
 #include "dungeon.h"
 #include "hero.h"
-#include "gamewindow.h"
 
 
 class Game{
+    private:
+        Dungeon dungeon;
+        int mapWidth;
+        int mapHeight;
+        bool isGame;
+
+
+
     public:
-        static Dungeon dungeon;
-        static int mapWidth;
-        static int mapHeight;
-        static bool isGame;
+        Game(): mapWidth(32), mapHeight(16), isGame(false), dungeon() { }
 
-        static void initGame();
-        static bool tick();
+        Dungeon &getDungeon() noexcept { return dungeon; }
+        int getMapWidth() const noexcept { return mapWidth; }
+        int getMapHeight() const noexcept { return mapHeight; }
+        bool getIsGame() const noexcept { return isGame; }
 
-        static void moveMobs();
+        Game &setMapWidth(int mW) { mapWidth = mW; }
+        Game &setMapHeight(int mH) { mapHeight = mH; }
 
+        void initGame();
+        bool tick(Dungeon &dungeon);
+
+        void moveMobs(Dungeon &dungeon);
 };
 
 #endif // GAME_H

@@ -1,5 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+#include <cmath>
+
 #include "character.h"
 #include "enums.h"
 #include "setdamage.h"
@@ -23,12 +25,12 @@ public:
     Enemy& setItem(Item *I) noexcept { item = I; return *this; }
     Enemy& setExperience(int exp);
 
-    bool isNear();
-    type_destination vision();
+    bool isNear(Dungeon &dungeon);
+    type_destination vision(Dungeon &dungeon);
     void moveMobDestination(type_destination d);
-    void randomMoveMob();
+    void randomMoveMob(Dungeon &dungeon);
 
-    void enemyAtack();
+    void enemyAtack(Dungeon &dungeon);
 
 
 };

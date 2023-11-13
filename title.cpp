@@ -1,4 +1,5 @@
 #include "title.h"
+#include "view.h"
 #include <QMessageBox>
 
 Title::Title(View *view, QWidget *parent) : QGraphicsScene(parent){

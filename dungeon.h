@@ -11,6 +11,8 @@
 #include "hero.h"
 #include "setitem.h"
 
+class Game;
+
 class Dungeon{
     private:
         int count_levels;
@@ -23,8 +25,8 @@ class Dungeon{
         Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr) {}
         ~Dungeon();
 
-        Dungeon& initializeLevelsFile(std::ifstream &in);
-        Dungeon& initializeEnemiesFile(std::ifstream &in);
+        Dungeon& initializeLevelsFile(std::ifstream &in, Game &game);
+        Dungeon& initializeEnemiesFile(std::ifstream &in, Game &game);
 
         int getCount_Levels() const noexcept {return count_levels; }
         int getCur_Level() const noexcept { return cur_level; }

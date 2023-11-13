@@ -3,12 +3,15 @@
 #include "game.h"
 #include "enumtostring.h"
 
-Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
+Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
     std::vector<std::string> map;
     std::string temp;
     in >> count_levels;
-    in >> Game::mapWidth;
-    in >> Game::mapHeight;
+    int a;
+    in >> a;
+    game.setMapWidth(a);
+    in >> a;
+    game.setMapHeight(a);
     cur_level = 0;
     levels = new Matrix<Cell>[count_levels];
     while (in >> temp){
@@ -20,7 +23,7 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
         std::vector<Cell> tmp;
         for (size_t j = 0; j < map[i].size(); j++){
             if (map[i][j] == '-'){
-                if (data.size() != Game::mapHeight){
+                if (data.size() != game.getMapHeight()){
                     throw std::runtime_error("Error of size map");
                 }
                 if(l == 0 && hero.getX() == -1){
@@ -60,14 +63,14 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
             }
             else if (map[i][j] == 'M'){
                 tmp.push_back(Cell(type_cell::floor));
-                enemies.push_back(std::make_pair(l, new Enemy(i - l * (Game::mapHeight + 1), j)));
+                enemies.push_back(std::make_pair(l, new Enemy(i - l * (game.getMapHeight() + 1), j)));
             }
             else{
                 tmp.push_back(Cell(type_cell::floor));
             }
         }
         if (map[i][0] != '-'){
-            if (tmp.size() != Game::mapWidth){
+            if (tmp.size() != game.getMapWidth()){
                 throw std::runtime_error("Error of size map");
             }
             data.push_back(tmp);
@@ -79,7 +82,7 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in){
     return *this;
 }
 
-Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in){
+Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in, Game &game){
     std::string tmp;
     while (in >> tmp){
         int x;

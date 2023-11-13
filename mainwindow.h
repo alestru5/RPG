@@ -1,16 +1,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
 #include <QMainWindow>
 #include <QDebug>
-#include "gamewindow.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QGraphicsView>
-#include "view.h"
-#include "title.h"
+#include <QMessageBox>
+
+
+
 
 
 class Title;
+class View;
+
 class MainWindow : public QMainWindow{
     Q_OBJECT
 

@@ -4,6 +4,7 @@
 #include <QPushButton>
 
 #include "mainwindow.h"
+#include "gamewindow.h"
 
 class View;
 
