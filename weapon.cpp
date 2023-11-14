@@ -34,6 +34,10 @@ Weapon& Weapon::operator=(const Weapon& I) noexcept{
     return *this;
 }
 
+int Weapon::getDamage(Enemy *enemy) const noexcept{
+    return rand() % (max_damage - min_damage) + min_damage;
+}
+
 Item* Weapon::take(Hero *H){
     Item *tmp = H->getWeapon();
     H->setWeapon(this);

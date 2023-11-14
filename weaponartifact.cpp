@@ -15,6 +15,10 @@ WeaponArtifact& WeaponArtifact::operator=(const WeaponArtifact& I) noexcept{
     return *this;
 }
 
+int WeaponArtifact::getDamage(Enemy *enemy) const noexcept{
+    return rand() % (getMax_Damage() - getMin_Damage()) + bonus_damage;
+}
+
 Item* WeaponArtifact::take(Hero *H){
     Item *tmp = H->getWeapon();
     H->setWeapon(this);

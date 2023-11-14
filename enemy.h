@@ -6,6 +6,7 @@
 #include "enums.h"
 #include "setdamage.h"
 #include "item.h"
+
 class Enemy: public Character{
 private:
     name_enemy name;
@@ -27,11 +28,12 @@ public:
 
     bool isNear(Dungeon &dungeon);
     type_destination vision(Dungeon &dungeon);
-    void moveMobDestination(type_destination d);
+    void move(type_destination d, Dungeon &dungeon) override;
     void randomMoveMob(Dungeon &dungeon);
+    void dropItem(Dungeon &dungeon);
 
-    void enemyAtack(Dungeon &dungeon);
-
+    void getDamage(int damage) override;
+    void attack(Character *C) override;
 
 };
 

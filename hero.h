@@ -10,6 +10,7 @@
 #include "table.h"
 #include "enums.h"
 #include "enumtostring.h"
+#include "enemy.h"
 
 class Hero : public Character {
     private:
@@ -55,15 +56,18 @@ class Hero : public Character {
         int fullProtect() const noexcept;
         int minProtect() const noexcept;
         int maxProtect() const noexcept;
-        void getDamage(int damage);
-        bool isDead() const noexcept { return cur_hp <= 0; }
+        void getDamage(int damage) override;
+
+        int findEnemy(Dungeon &dungeon) const noexcept;
+        int fullDamage(Enemy *enemy) const noexcept;
 
         std::string status(Dungeon &dungeon) const noexcept;
 
         int act(std::string key, Dungeon &dungeon);
 
+        void attack(Character *C) override;
         bool take(Dungeon &dungeon);
-        bool move(std::string direction, Dungeon &dungeon);
+        void move(type_destination direction, Dungeon &dungeon) override;
         bool open_chest(Dungeon &dungeon) noexcept;
         bool climb(Dungeon &dungeon) noexcept;
         bool change_door(Dungeon &dungeon) noexcept;

@@ -95,6 +95,27 @@ void Hero::getDamage(int damage){
     }
 }
 
+int Hero::findEnemy(Dungeon &dungeon) const noexcept{
+    std::vector<std::pair<int, Enemy *>> tmp= dungeon.getEnemies();
+    for (size_t i = 0; i < tmp.size(); i++){
+        if (tmp[i].first == dungeon.getCur_Level()){
+            if (tmp[i].second->getX() == x && abs(tmp[i].second->getY() - y) == 1 ||
+                tmp[i].second->getY() == y && abs(tmp[i].second->getX() - x) == 1){
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+int Hero::fullDamage(Enemy *enemy) const noexcept{
+    if (weapon){
+        return weapon->getDamage(enemy) + table.getValue(full_characteristic::agility) / 10;
+    }else{
+        return table.getValue(full_characteristic::agility) / 10;
+    }
+}
+
 std::string Hero::status(Dungeon &dungeon) const noexcept{
     std::string res;
     res += "HP: " + std::to_string(cur_hp) + "/" + std::to_string(max_hp);
@@ -202,10 +223,19 @@ int Hero::act(std::string key, Dungeon &dungeon){
     else if (key == "a") command = "west";
     else if (key == "e") command = "action";
     else if (key == "f") command = "open";
+    else if (key == "left") command = "attack";
     if (command == "south" || command == "east" || command == "west" || command == "north"){
-        if(move(command, dungeon)){
-            return 1;
+        type_destination destination;
+        if (command == "south"){
+            destination = type_destination::south;
+        } else if (command == "east"){
+            destination = type_destination::east;
+        } else if (command == "west"){
+            destination = type_destination::west;
+        } else if (command == "north"){
+            destination = type_destination::north;
         }
+        move(destination, dungeon);
     } else if (command == "action"){
         if (climb(dungeon)){
             return 1;
@@ -220,8 +250,26 @@ int Hero::act(std::string key, Dungeon &dungeon){
             return 4;
         }
         return 0;
+    } else if (command == "attack"){
+        int ind_enemy = findEnemy(dungeon);
+        if (ind_enemy != -1){
+            attack(dungeon.getEnemies()[ind_enemy].second);
+            if (dungeon.getEnemies()[ind_enemy].second->isDead()){
+                dungeon.getEnemies()[ind_enemy].second->dropItem(dungeon);
+                dungeon.enemyDead(ind_enemy);
+            }
+        }
+
     }
     return 0;
+
+}
+
+void Hero::attack(Character *C){
+    if (!C->isDead()){
+        int damage = fullDamage(static_cast<Enemy *>(C));
+        static_cast<Enemy *>(C)->getDamage(damage);
+    }
 
 }
 
@@ -245,19 +293,19 @@ bool Hero::take(Dungeon &dungeon){
     return false;
 }
 
-bool Hero::move(std::string direction, Dungeon &dungeon){
+void Hero::move(type_destination direction, Dungeon &dungeon){
     Cell destination;
     int i2 = x, j2 = y;
-    if (direction == "south"){
+    if (direction == type_destination::south){
         destination = dungeon.getCurLevel()[x + 1][y];
         i2 += 1;
-    } else if (direction == "east"){
+    } else if (direction == type_destination::east){
         destination = dungeon.getCurLevel()[x][y + 1];
         j2 += 1;
-    } else if (direction == "west"){
+    } else if (direction == type_destination::west){
         destination = dungeon.getCurLevel()[x][y - 1];
         j2 -= 1;
-    } else if (direction == "north"){
+    } else if (direction == type_destination::north){
         destination = dungeon.getCurLevel()[x - 1][y];
         i2 -= 1;
     }
@@ -265,9 +313,7 @@ bool Hero::move(std::string direction, Dungeon &dungeon){
     if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;
-        return true;
     }
-    return false;
 }
 
 bool Hero::open_chest(Dungeon &dungeon) noexcept{

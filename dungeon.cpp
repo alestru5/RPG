@@ -103,6 +103,10 @@ Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in, Game &game){
     }
 }
 
+void Dungeon::enemyDead(int ind_enemy){
+    enemies.erase(enemies.begin() + ind_enemy);
+}
+
 Dungeon& Dungeon::move_door(int i, int j){
     if (i < 0 || j < 0 || i >= levels[count_levels-1].getM() || j >= levels[count_levels-1].getN()){
         throw std::invalid_argument("index error");

@@ -51,6 +51,7 @@ class GameWindow : public QMainWindow{
 
         explicit GameWindow(QMainWindow *parent = nullptr);
 
+        void mousePressEvent(QMouseEvent *e);
         void keyPressEvent(QKeyEvent* e);
         void timerEvent(QTimerEvent *e);
 

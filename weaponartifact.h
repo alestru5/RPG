@@ -12,6 +12,8 @@ class WeaponArtifact: public virtual Weapon, public Artifact{
 
         WeaponArtifact& operator=(const WeaponArtifact& I) noexcept;
 
+        int getDamage(Enemy *enemy) const noexcept override;
+
         Item* take(Hero *H) override;
 
 };

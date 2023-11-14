@@ -38,6 +38,7 @@ class Dungeon{
         Dungeon &up_level() {cur_level+= 1; return *this; }
         Dungeon &down_level() {cur_level-= 1; return *this; }
 
+        void enemyDead(int ind_enemy);
 
         Dungeon& move_door(int i, int j);
 

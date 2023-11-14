@@ -75,7 +75,10 @@ type_destination Enemy::vision(Dungeon &dungeon){
     return type_destination::none;
 }
 
-void Enemy::moveMobDestination(type_destination d){
+void Enemy::move(type_destination d, Dungeon &dungeon){
+    if (isDead()){
+        return;
+    }
     if (d == type_destination::north){
         x -= 1;
     } else if (d == type_destination::south){
@@ -88,6 +91,9 @@ void Enemy::moveMobDestination(type_destination d){
 }
 
 void Enemy::randomMoveMob(Dungeon &dungeon){
+    if (isDead()){
+        return;
+    }
     int a = rand() % 4;
     Cell destination = dungeon.getCurLevel()[x - 1][y];
     if (a == 1 && ((destination.getType() == type_cell::floor || destination.isLadder() ||destination.isOpenDoor()) && destination.getChest() == nullptr &&
@@ -116,21 +122,18 @@ void Enemy::randomMoveMob(Dungeon &dungeon){
     }
 }
 
-void Enemy::enemyAtack(Dungeon &dungeon){
-    int damage = rand() % (max_damage - min_damage) + min_damage;
-    dungeon.getHero().getDamage(damage);
+void Enemy::dropItem(Dungeon &dungeon){
+
+    dungeon.getCurLevel()[x][y].setItem(item);
 }
 
-/*int Enemy::take_damage(Character *C) const noexcept{
-    int damage = min_damage + rand() % (max_damage - min_damage);
-    return damage;
-}
-
-bool Enemy::get_damage(int damage){
+void Enemy::getDamage(int damage){
     cur_hp -= damage;
-    if (cur_hp <= 0){
-        return false;
-    }
-    return true;
-}*/
+}
+
+void Enemy::attack(Character *C){
+    int damage = rand() % (max_damage - min_damage) + min_damage;
+    static_cast<Hero*>(C)->getDamage(damage);
+}
+
 

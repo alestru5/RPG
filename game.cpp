@@ -33,12 +33,12 @@ void Game::moveMobs(Dungeon &dungeon){
         if (dungeon.getEnemies()[i].first == dungeon.getCur_Level()){
             type_destination destination = dungeon.getEnemies()[i].second->vision(dungeon);
             if (destination != type_destination::none){
-                dungeon.getEnemies()[i].second->moveMobDestination(destination);
+                dungeon.getEnemies()[i].second->move(destination, dungeon);
             }
             else if (!dungeon.getEnemies()[i].second->isNear(dungeon)){
                 dungeon.getEnemies()[i].second->randomMoveMob(dungeon);
             } else if (dungeon.getEnemies()[i].second->isNear(dungeon)){
-                dungeon.getEnemies()[i].second->enemyAtack(dungeon);
+                dungeon.getEnemies()[i].second->attack(&static_cast<Character&>(dungeon.getHero()));
             }
         }
     }

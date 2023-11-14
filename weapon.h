@@ -6,7 +6,7 @@
 #include "item.h"
 #include "setdamage.h"
 #include "enums.h"
-
+#include "enemy.h"
 
 class Weapon: public Item{
     private:
@@ -23,6 +23,8 @@ class Weapon: public Item{
 
         Weapon& setName(name_weapon t) noexcept;
         Weapon& operator=(const Weapon& I) noexcept;
+
+        virtual int getDamage(Enemy *enemy) const noexcept;
 
         Item* take(Hero *H) override;
 };

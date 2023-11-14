@@ -3,8 +3,7 @@
 
 #include <list>
 #include "enums.h"
-
-
+#include "enemy.h"
 
 class Enchantment{
     private:
@@ -17,6 +16,8 @@ class Enchantment{
         std::list<std::pair<trait, double>> getCoef() const noexcept { return coef; }
 
         void setEnchantment_Type(type_enchantment T) noexcept;
+
+        double getMultiply(Enemy *enemy) const noexcept;
 
         Enchantment& operator=(const Enchantment& I) noexcept;
 
