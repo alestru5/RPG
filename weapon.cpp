@@ -40,6 +40,14 @@ int Weapon::getDamage(Enemy *enemy) const noexcept{
 
 Item* Weapon::take(Hero *H){
     Item *tmp = H->getWeapon();
+    if (tmp != nullptr){
+        if (tmp->getItem_Type() == type_item::weapon_artifact){
+            dynamic_cast<WeaponArtifact *>(tmp)->unUseChanges(H);
+        }
+        if (tmp->getItem_Type() == type_item::weapon_artifact_enchantment){
+            dynamic_cast<WeaponArtifactEnchantment *>(tmp)->unUseChanges(H);
+        }
+    }
     H->setWeapon(this);
     return tmp;
 }

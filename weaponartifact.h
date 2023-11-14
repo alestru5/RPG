@@ -10,6 +10,8 @@ class WeaponArtifact: public virtual Weapon, public Artifact{
         WeaponArtifact(name_weapon N): Weapon(N), Artifact(), bonus_damage(0) { setType(type_item::weapon_artifact); }
         WeaponArtifact(name_weapon N, type_artifact T);
 
+        ~WeaponArtifact() {}
+
         WeaponArtifact& operator=(const WeaponArtifact& I) noexcept;
 
         int getDamage(Enemy *enemy) const noexcept override;

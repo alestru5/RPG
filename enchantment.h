@@ -12,6 +12,9 @@ class Enchantment{
     public:
         Enchantment();
         Enchantment(type_enchantment T);
+
+        ~Enchantment() {}
+
         type_enchantment getEnchantment_Type() const noexcept { return enchantment_type; }
         std::list<std::pair<trait, double>> getCoef() const noexcept { return coef; }
 

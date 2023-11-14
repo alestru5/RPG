@@ -15,8 +15,12 @@ class Potion: public Item{
         Potion() noexcept: changes(), Item(type_item::potion){}
         Potion(name_potion N) noexcept;
 
+        ~Potion() {}
+
         name_potion getPotion_Name() const noexcept { return potion_name; }
         std::pair<changes_characteristic, int> getChanges() { return changes; }
+
+        void drink(Hero &hero);
 
         Potion &operator =(const Potion &I) noexcept;
 

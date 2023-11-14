@@ -29,7 +29,7 @@ class Hero : public Character {
         Hero(int i, int j);
         Hero(const Hero &H);
 
-        ~Hero() {}
+        ~Hero() { delete weapon; }
 
         int getLevel() const noexcept { return level; }
         Weapon* getWeapon() const noexcept { return weapon; }
@@ -37,7 +37,7 @@ class Hero : public Character {
         int getM_Potion() const noexcept { return m_potion; }
         std::list<Potion*> getPotion() const noexcept { return potion; }
         int getC_Bunch() const noexcept { return c_bunch; }
-        Table getTable() const noexcept { return table; }
+        Table& getTable() noexcept { return table; }
 
 
         Hero &setLevel(int l);
@@ -52,7 +52,7 @@ class Hero : public Character {
 
         //Hero &drinkPotion(Potion *P);
         //Hero &upLevel();
-
+        void changeOrderPotion() noexcept;
         int fullProtect() const noexcept;
         int minProtect() const noexcept;
         int maxProtect() const noexcept;
@@ -65,6 +65,7 @@ class Hero : public Character {
 
         int act(std::string key, Dungeon &dungeon);
 
+        void drinkPotion();
         void attack(Character *C) override;
         bool take(Dungeon &dungeon);
         void move(type_destination direction, Dungeon &dungeon) override;

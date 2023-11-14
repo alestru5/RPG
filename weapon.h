@@ -17,6 +17,8 @@ class Weapon: public Item{
         Weapon() noexcept: min_damage(0), max_damage(0), weapon_name(name_weapon::knife), Item(type_item::weapon) {}
         explicit Weapon(name_weapon n) noexcept;
 
+        virtual ~Weapon() {}
+
         name_weapon getWeapon_Name() const noexcept { return weapon_name; }
         int getMin_Damage() const noexcept {return min_damage; }
         int getMax_Damage() const noexcept {return max_damage; }

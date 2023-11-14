@@ -1,6 +1,6 @@
 #include "weaponenchantment.h"
 #include "hero.h"
-
+#include "weaponartifactenchantment.h"
 WeaponEnchantment& WeaponEnchantment::operator=(const WeaponEnchantment& I) noexcept{
     if (this != &I){
         Enchantment::operator=(I);
@@ -15,5 +15,13 @@ int WeaponEnchantment::getDamage(Enemy *enemy) const noexcept{
 Item* WeaponEnchantment::take(Hero *H){
     Item *tmp = H->getWeapon();
     H->setWeapon(this);
+    if (tmp != nullptr){
+        if (tmp->getItem_Type() == type_item::weapon_artifact){
+            dynamic_cast<WeaponArtifact *>(tmp)->unUseChanges(H);
+        }
+        if (tmp->getItem_Type() == type_item::weapon_artifact_enchantment){
+            dynamic_cast<WeaponArtifactEnchantment *>(tmp)->unUseChanges(H);
+        }
+    }
     return tmp;
 }

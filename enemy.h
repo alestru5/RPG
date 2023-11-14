@@ -19,6 +19,8 @@ public:
     Enemy(int i, int j);
     Enemy(int i, int j, name_enemy n);
 
+    ~Enemy() { delete item; }
+
     name_enemy getName() const noexcept { return name; }
     Item* getItem() const noexcept { return item; }
 

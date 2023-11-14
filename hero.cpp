@@ -64,6 +64,15 @@ Hero& Hero::operator = (const Hero &H){
     return *this;
 }
 
+void Hero::changeOrderPotion() noexcept{
+    auto it = potion.end();
+    auto it2 = potion.end();
+    --it;
+    --it2;
+    potion.erase(it);
+    potion.push_front(*it2);
+}
+
 int Hero::fullProtect() const noexcept{
     int protect = 0;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
@@ -139,7 +148,11 @@ std::string Hero::status(Dungeon &dungeon) const noexcept{
     } else{
         res += "None";
     }
-
+    res += "\tStrength:" + std::to_string(table.getValue(short_characteristic::s));
+    res += "\tAgility:" + std::to_string(table.getValue(short_characteristic::a));
+    res += "\tIntelligence:" + std::to_string(table.getValue(short_characteristic::i));
+    res += "\tExperience:" + std::to_string(experience);
+    res += "\tEndurance:" + std::to_string(table.getValue(short_characteristic::e));
     res += "\nHelmet: ";
     int f = 1;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
@@ -209,8 +222,13 @@ std::string Hero::status(Dungeon &dungeon) const noexcept{
     if (potion.size() == 0){
         res += "None";
     }
+    int c = 0;
     for (auto iter = potion.begin(); iter != potion.end(); iter++){
         res += EnumToString::toString((*iter)->getPotion_Name()) + " ";
+        if (c + 2 == potion.size()) {
+            res += "\t";
+        }
+        c += 1;
     }
     return res;
 }
@@ -222,8 +240,9 @@ int Hero::act(std::string key, Dungeon &dungeon){
     else if (key == "d") command = "east";
     else if (key == "a") command = "west";
     else if (key == "e") command = "action";
-    else if (key == "f") command = "open";
+    else if (key == "f") command = "change";
     else if (key == "left") command = "attack";
+    else if (key == "t") command = "drink";
     if (command == "south" || command == "east" || command == "west" || command == "north"){
         type_destination destination;
         if (command == "south"){
@@ -259,9 +278,20 @@ int Hero::act(std::string key, Dungeon &dungeon){
                 dungeon.enemyDead(ind_enemy);
             }
         }
-
+    } else if (command == "change"){
+        changeOrderPotion();
+    } else if (command == "drink"){
+        drinkPotion();
     }
     return 0;
+
+}
+
+void Hero::drinkPotion(){
+    auto it = potion.end();
+    --it;
+    (*it)->drink(*this);
+    potion.pop_back();
 
 }
 

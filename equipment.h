@@ -15,6 +15,8 @@ class Equipment: public Item{
         Equipment() noexcept: min_protect(0), max_protect(0), Item(type_item::equipment) {}
         explicit Equipment(name_equipment N, type_equipment T) noexcept;
 
+        virtual ~Equipment() {}
+
         name_equipment getEquipment_Name() const noexcept { return equipment_name; }
         type_equipment getEquipment_Type() const noexcept { return equipment_type; }
         int getMin_Protect() const noexcept {return min_protect; }

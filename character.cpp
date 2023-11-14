@@ -47,8 +47,5 @@ void Character::setCur_Hp(int hp){
     if (hp <= 0){
         std::invalid_argument("not positive hp");
     }
-    if (hp > max_hp){
-        std::invalid_argument("hp is bigger then max_hp");
-    }
-    cur_hp = hp;
+    cur_hp = std::min(hp, max_hp);
 }

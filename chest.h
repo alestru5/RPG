@@ -12,7 +12,7 @@ class Chest{
     public:
         Chest(): level(1), item(nullptr) {}
         Chest(int l, Item *I = nullptr);
-        ~Chest() { delete item; }
+
 
         int getLevel() const noexcept { return level; }
         Item *getItem() const noexcept { return item; }

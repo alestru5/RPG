@@ -27,10 +27,14 @@ Item* EquipmentArtifact::take(Hero *H){
             L.push_back(*iter);
         }
     }
+
     if (tmp == nullptr){
         L.push_back(this);
+    } else if (tmp->getItem_Type() == type_item::equipment_artifact){
+        static_cast<EquipmentArtifact *>(tmp)->unUseChanges(H);
     }
     H->setEquipment(L);
+    useChanges(H);
     return tmp;
 }
 

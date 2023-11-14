@@ -87,7 +87,7 @@ void GameWindow::mousePressEvent(QMouseEvent *e){
 }
 void GameWindow::keyPressEvent(QKeyEvent* e){
     std::string key = e->text().toLocal8Bit().constData();
-    if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f"){
+    if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f" || key == "t"){
         game.getDungeon().getHero().act(key, game.getDungeon());
     }else{
         return;

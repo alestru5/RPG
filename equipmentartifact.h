@@ -11,6 +11,8 @@ class EquipmentArtifact: public Equipment, public Artifact{
         EquipmentArtifact(): Equipment(), Artifact(), bonus_protect(0) { setType(type_item::equipment_artifact); }
         EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A);
 
+        ~EquipmentArtifact() {}
+
         int getProtect() const noexcept override;
 
         Item* take(Hero *H) override;

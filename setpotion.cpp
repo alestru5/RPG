@@ -15,4 +15,5 @@ std::pair<changes_characteristic, int> SetPotion::createChanges(name_potion N){
     } else{
         throw std::invalid_argument("Its not potion");
     }
+    return changes;
 }

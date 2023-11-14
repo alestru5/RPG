@@ -1,4 +1,5 @@
 #include "artifact.h"
+#include "hero.h"
 
 Artifact::Artifact(){
     try{
@@ -24,6 +25,18 @@ void Artifact::SetArtifact_Type(type_artifact T){
         changes = SetChanges::createChanges(T);
     } catch(...){
         throw;
+    }
+}
+
+void Artifact::useChanges(Hero *H){
+    for (auto &i: changes){
+        H->getTable().setValue(i.first, H->getTable().getValue(i.first) + i.second);
+    }
+}
+
+void Artifact::unUseChanges(Hero *H){
+    for (auto &i: changes){
+        H->getTable().setValue(i.first, H->getTable().getValue(i.first) - i.second);
     }
 }
 

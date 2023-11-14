@@ -7,6 +7,8 @@
 #include "enums.h"
 #include "setchanges.h"
 
+class Hero;
+
 class Artifact{
     protected:
         type_artifact artifact_type;
@@ -20,6 +22,9 @@ class Artifact{
         std::list<std::pair<short_characteristic, int>> getChanges() const noexcept {return changes; }
 
         void SetArtifact_Type(type_artifact T);
+
+        void useChanges(Hero *H);
+        void unUseChanges(Hero *H);
 
         Artifact& operator=(const Artifact& I) noexcept;
 };

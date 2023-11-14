@@ -15,8 +15,6 @@ enum class type_artifact{
 };
 
 enum class full_characteristic{
-    maximum_hp,
-    current_hp,
     strength,
     agility,
     intelligence,
@@ -24,8 +22,6 @@ enum class full_characteristic{
 };
 
 enum class short_characteristic{
-    max_hp,
-    cur_hp,
     s,
     a,
     i,
