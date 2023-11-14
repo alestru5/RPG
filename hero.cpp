@@ -2,15 +2,16 @@
 #include "game.h"
 #include "item.h"
 
-Hero::Hero(): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(){}
+Hero::Hero(): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(30), potion(), equipment(), cur_endurance(100){}
 
-Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(){
+Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(), cur_endurance(100){
     x = i;
     y = j;
 }
 
 Hero::Hero(const Hero &H){
     experience = H.experience;
+    cur_endurance = H.cur_endurance;
     max_hp = H.max_hp;
     cur_hp = H.cur_hp;
     x = H.x;
@@ -53,6 +54,7 @@ Hero & Hero::setC_Bunch(int b){
 
 Hero& Hero::operator = (const Hero &H){
     experience = H.experience;
+    cur_endurance = H.cur_endurance;
     max_hp = H.max_hp;
     cur_hp = H.cur_hp;
     x = H.x;
@@ -97,6 +99,20 @@ int Hero::maxProtect() const noexcept{
     return protect;
 }
 
+int Hero::minDamage() const noexcept{
+    if (weapon){
+        return weapon->getMin_Damage();
+    }
+    return 0;
+}
+
+int Hero::maxDamage() const noexcept{
+    if (weapon){
+        return weapon->getMax_Damage();
+    }
+    return 0;
+}
+
 void Hero::getDamage(int damage){
     int protect = table.getValue(full_characteristic::strength) / 10 + fullProtect();
     if (rand() % 100 >= (table.getValue(full_characteristic::endurance) - 50) / 100){
@@ -125,12 +141,23 @@ int Hero::fullDamage(Enemy *enemy) const noexcept{
     }
 }
 
+void Hero::updateEndurance() noexcept{
+    cur_endurance = std::min(cur_endurance + 20, table.getValue(short_characteristic::e));
+
+}
+
+void Hero::updateHp() noexcept{
+    double coef = static_cast<double>(cur_hp) / static_cast<double>(max_hp);
+    max_hp = table.getValue(short_characteristic::s) * 2;
+    cur_hp = static_cast<int>(coef * max_hp);
+}
+
 std::string Hero::status(Dungeon &dungeon) const noexcept{
     std::string res;
     res += "HP: " + std::to_string(cur_hp) + "/" + std::to_string(max_hp);
     res += "\t\t\t\tDungeon Level: " + std::to_string(-dungeon.getCur_Level());
     res += "\t\t\t\tProtect: " + std::to_string(minProtect()) + "-" + std::to_string(maxProtect()) + "(+" + std::to_string(table.getValue(full_characteristic::strength) / 10) + ")";
-    res += "\t\t\t\tFull damage: 0";
+    res += "\t\t\t\tFull damage: " + std::to_string(minDamage()) + "-" + std::to_string(maxDamage()) + "(+" + std::to_string(table.getValue(full_characteristic::agility    ) / 10) + ")";
     res += "\nLevel: " + std::to_string(level);
     res += "\tWeapon: ";
     if (weapon != nullptr){
@@ -148,11 +175,11 @@ std::string Hero::status(Dungeon &dungeon) const noexcept{
     } else{
         res += "None";
     }
-    res += "\tStrength:" + std::to_string(table.getValue(short_characteristic::s));
-    res += "\tAgility:" + std::to_string(table.getValue(short_characteristic::a));
-    res += "\tIntelligence:" + std::to_string(table.getValue(short_characteristic::i));
-    res += "\tExperience:" + std::to_string(experience);
-    res += "\tEndurance:" + std::to_string(table.getValue(short_characteristic::e));
+    res += "\tStrength: " + std::to_string(table.getValue(short_characteristic::s));
+    res += "\tAgility: " + std::to_string(table.getValue(short_characteristic::a));
+    res += "\tIntelligence: " + std::to_string(table.getValue(short_characteristic::i));
+    res += "\tExperience: " + std::to_string(experience);
+    res += "\tEndurance: " + std::to_string(cur_endurance) + "/" + std::to_string(table.getValue(short_characteristic::e));
     res += "\nHelmet: ";
     int f = 1;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
@@ -263,6 +290,7 @@ int Hero::act(std::string key, Dungeon &dungeon){
             return 2;
         }
         if (take(dungeon)){
+            updateHp();
             return 3;
         }
         if (change_door(dungeon)){
@@ -274,6 +302,7 @@ int Hero::act(std::string key, Dungeon &dungeon){
         if (ind_enemy != -1){
             attack(dungeon.getEnemies()[ind_enemy].second);
             if (dungeon.getEnemies()[ind_enemy].second->isDead()){
+                experience += dungeon.getEnemies()[ind_enemy].second->getExperience();
                 dungeon.getEnemies()[ind_enemy].second->dropItem(dungeon);
                 dungeon.enemyDead(ind_enemy);
             }
@@ -283,6 +312,7 @@ int Hero::act(std::string key, Dungeon &dungeon){
     } else if (command == "drink"){
         drinkPotion();
     }
+    updateHp();
     return 0;
 
 }
@@ -324,6 +354,9 @@ bool Hero::take(Dungeon &dungeon){
 }
 
 void Hero::move(type_destination direction, Dungeon &dungeon){
+    if (cur_endurance <= 0){
+        return;
+    }
     Cell destination;
     int i2 = x, j2 = y;
     if (direction == type_destination::south){
@@ -343,6 +376,7 @@ void Hero::move(type_destination direction, Dungeon &dungeon){
     if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;
+        cur_endurance -= 5;
     }
 }
 

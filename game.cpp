@@ -21,6 +21,7 @@ bool Game::tick(Dungeon &dungeon){
     }
     if (isGame){
         moveMobs(dungeon);
+        dungeon.getHero().updateEndurance();
         return true;
     } else{
         return false;

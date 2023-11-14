@@ -20,6 +20,8 @@ void Potion::drink(Hero &hero){
         hero.getTable().setValue(short_characteristic::i, hero.getTable().getValue(short_characteristic::i) + changes.second);
     } else if (changes.first == changes_characteristic::strength){
         hero.getTable().setValue(short_characteristic::s, hero.getTable().getValue(short_characteristic::s) + changes.second);
+    } else if (changes.first == changes_characteristic::endurance){
+        hero.getTable().setValue(short_characteristic::e, hero.getTable().getValue(short_characteristic::e) + changes.second);
     }
 }
 

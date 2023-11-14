@@ -21,6 +21,7 @@ class Hero : public Character {
         int m_potion;
         std::list<Potion*> potion;
         int c_bunch;
+        int cur_endurance;
 
         Table table;
 
@@ -50,16 +51,19 @@ class Hero : public Character {
 
         Hero& operator=(const Hero& H);
 
-        //Hero &drinkPotion(Potion *P);
         //Hero &upLevel();
         void changeOrderPotion() noexcept;
         int fullProtect() const noexcept;
         int minProtect() const noexcept;
         int maxProtect() const noexcept;
+        int minDamage() const noexcept;
+        int maxDamage() const noexcept;
         void getDamage(int damage) override;
 
         int findEnemy(Dungeon &dungeon) const noexcept;
         int fullDamage(Enemy *enemy) const noexcept;
+        void updateEndurance() noexcept;
+        void updateHp() noexcept;
 
         std::string status(Dungeon &dungeon) const noexcept;
 

@@ -2,16 +2,19 @@
 #include "setitem.h"
 #include "game.h"
 Enemy::Enemy(): Character(), name(name_enemy::white_golem){
+    experience = 100;
     min_damage = SetDamage::createDamage(name_enemy::white_golem).first;
     max_damage = SetDamage::createDamage(name_enemy::white_golem).second;
     item = SetItem::createItem();
 }
 Enemy::Enemy(int i, int j): Enemy(){
+    experience = 100;
     x = i;
     y = j;
 }
 
 Enemy::Enemy(int i, int j, name_enemy n): Character(), name(n){
+    experience = 100;
     min_damage = SetDamage::createDamage(n).first;
     max_damage = SetDamage::createDamage(n).second;
     item = SetItem::createItem();
@@ -75,19 +78,30 @@ type_destination Enemy::vision(Dungeon &dungeon){
     return type_destination::none;
 }
 
-void Enemy::move(type_destination d, Dungeon &dungeon){
+void Enemy::move(type_destination direction, Dungeon &dungeon){
     if (isDead()){
         return;
     }
-    if (d == type_destination::north){
-        x -= 1;
-    } else if (d == type_destination::south){
-        x += 1;
-    } else if (d == type_destination::east){
-        y += 1;
-    } else if (d == type_destination::west){
-        y -= 1;
+    Cell destination;
+    int i2 = x, j2 = y;
+    if (direction == type_destination::south){
+        destination = dungeon.getCurLevel()[x + 1][y];
+        i2 += 1;
+    } else if (direction == type_destination::east){
+        destination = dungeon.getCurLevel()[x][y + 1];
+        j2 += 1;
+    } else if (direction == type_destination::west){
+        destination = dungeon.getCurLevel()[x][y - 1];
+        j2 -= 1;
+    } else if (direction == type_destination::north){
+        destination = dungeon.getCurLevel()[x - 1][y];
+        i2 -= 1;
     }
+    if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
+        x = i2;
+        y = j2;
+    }
+
 }
 
 void Enemy::randomMoveMob(Dungeon &dungeon){

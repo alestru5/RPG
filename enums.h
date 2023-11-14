@@ -44,7 +44,8 @@ enum class name_potion{
     hp,
     strength,
     agility,
-    intelligence
+    intelligence,
+    endurance
 };
 
 enum class changes_characteristic{
@@ -53,6 +54,7 @@ enum class changes_characteristic{
     strength,
     agility,
     intelligence,
+    endurance
 };
 
 enum class type_enchantment{

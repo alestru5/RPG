@@ -86,7 +86,7 @@ Item *SetItem::createItem(){
         }
     } else if (a == 2){
         name_potion n;
-        int b = rand() % 5;
+        int b = rand() % 6;
         if (b == 0){
             n = name_potion::hp;
         } else if (b == 1){
@@ -95,8 +95,10 @@ Item *SetItem::createItem(){
             n = name_potion::agility;
         } else if (b == 3){
             n = name_potion::intelligence;
-        } else{
+        } else if (b == 4){
             n = name_potion::strength;
+        } else{
+            n = name_potion::endurance;
         }
         return new Potion(n);
     } else{

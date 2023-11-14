@@ -30,7 +30,7 @@ public:
 
     bool isNear(Dungeon &dungeon);
     type_destination vision(Dungeon &dungeon);
-    void move(type_destination d, Dungeon &dungeon) override;
+    void move(type_destination direction, Dungeon &dungeon) override;
     void randomMoveMob(Dungeon &dungeon);
     void dropItem(Dungeon &dungeon);
 

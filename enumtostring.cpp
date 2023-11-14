@@ -66,7 +66,9 @@ std::string EnumToString::toString(name_potion n){
         return "Hp";
     } else if (n == name_potion::intelligence){
         return "Intelligence";
-    } else{
+    } else if (n == name_potion::strength){
         return "Strength";
+    } else if (n == name_potion::endurance){
+        return "Endurance";
     }
 }
