@@ -61,6 +61,8 @@ class GameWindow : public QMainWindow{
         void timerEvent(QTimerEvent *e);
 
         void drawGame();
+        void act(std::string key);
+        std::string status();
 };
 
 #endif // GAMEWINDOW_H

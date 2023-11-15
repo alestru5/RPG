@@ -2,9 +2,9 @@
 #include "game.h"
 #include "item.h"
 
-Hero::Hero(): Character(), weapon(nullptr), table(), level(0), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory * 10, nullptr){}
+Hero::Hero(): Character(), weapon(nullptr), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory * 10, nullptr){}
 
-Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory * 10, nullptr){
+Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory * 10, nullptr){
     x = i;
     y = j;
 }
@@ -16,7 +16,6 @@ Hero::Hero(const Hero &H){
     cur_hp = H.cur_hp;
     x = H.x;
     y = H.y;
-    level = H.level;
     weapon = H.weapon;
     curr_chosen_item = H.curr_chosen_item;
     inventory = H.inventory;
@@ -27,7 +26,6 @@ Hero & Hero::setLevel(int l){
     if (l < 0){
         throw std::invalid_argument("negative level");
     }
-    level = l;
     return *this;
 }
 
@@ -71,7 +69,6 @@ Hero& Hero::operator = (const Hero &H){
     cur_hp = H.cur_hp;
     x = H.x;
     y = H.y;
-    level = H.level;
     weapon = H.weapon;
     c_bunch = H.c_bunch;
     inventory = H.inventory;
@@ -155,167 +152,11 @@ void Hero::updateHp() noexcept{
     cur_hp = static_cast<int>(coef * max_hp);
 }
 
-std::string Hero::status(Dungeon &dungeon) const noexcept{
-    std::string res;
-    res += "HP: " + std::to_string(cur_hp) + "/" + std::to_string(max_hp);
-    res += "\t\t\t\tDungeon Level: " + std::to_string(-dungeon.getCur_Level());
-    res += "\t\t\t\tProtect: " + std::to_string(minProtect()) + "-" + std::to_string(maxProtect()) + "(+" + std::to_string(table.getValue(full_characteristic::strength) / 10) + ")";
-    res += "\t\t\t\tFull damage: " + std::to_string(minDamage()) + "-" + std::to_string(maxDamage()) + "(+" + std::to_string(table.getValue(full_characteristic::agility    ) / 10) + ")";
-    res += "\nLevel: " + std::to_string(level);
-    res += "\tWeapon: ";
-    if (weapon != nullptr){
-        if (weapon->getItem_Type() == type_item::weapon_artifact){
-            res += EnumToString::toString(dynamic_cast<WeaponArtifact *>(weapon)->getArtifact_Type()) + " ";
-        }
-        if (weapon->getItem_Type() == type_item::weapon_enchantment){
-            res += EnumToString::toString(dynamic_cast<WeaponEnchantment *>(weapon)->getEnchantment_Type()) + " ";
-        }
-        if (weapon->getItem_Type() == type_item::weapon_artifact_enchantment){
-            res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(weapon)->getArtifact_Type()) + " ";
-            res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(weapon)->getEnchantment_Type()) + " ";
-        }
-        res += EnumToString::toString(weapon->getWeapon_Name());
-    } else{
-        res += "None";
+void Hero::addExperience(int a){
+    if (a < 0){
+        throw std::invalid_argument("negative experince");
     }
-    res += "\tStrength: " + std::to_string(table.getValue(short_characteristic::s));
-    res += "\tAgility: " + std::to_string(table.getValue(short_characteristic::a));
-    res += "\tIntelligence: " + std::to_string(table.getValue(short_characteristic::i));
-    res += "\tExperience: " + std::to_string(experience);
-    res += "\tEndurance: " + std::to_string(cur_endurance) + "/" + std::to_string(table.getValue(short_characteristic::e));
-    res += "\nHelmet: ";
-    int f = 1;
-    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::helmet){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "Bib: ";
-    f = 1;
-    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::bib){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "Leggings: ";
-    f = 1;
-    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::leggings){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "Boots: ";
-    f = 1;
-    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::boots){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "\nBunch: " + std::to_string(c_bunch);
-    return res;
-}
-
-int Hero::act(std::string key, Dungeon &dungeon){
-    std::string command = "invalid";
-    if (key == "w") command = "north";
-    else if (key == "s") command = "south";
-    else if (key == "d") command = "east";
-    else if (key == "a") command = "west";
-    else if (key == "e") command = "action";
-    else if (key == "f") command = "change";
-    else if (key == "left") command = "attack";
-    else if (key == "t") command = "drink";
-    else if (key == "u") command = "strength";
-    else if (key == "i") command = "intelligence";
-    else if (key == "o") command = "agility";
-    else if (key == "p") command = "endurance";
-    if (command == "south" || command == "east" || command == "west" || command == "north"){
-        type_destination destination;
-        if (command == "south"){
-            destination = type_destination::south;
-        } else if (command == "east"){
-            destination = type_destination::east;
-        } else if (command == "west"){
-            destination = type_destination::west;
-        } else if (command == "north"){
-            destination = type_destination::north;
-        }
-        move(destination, dungeon);
-    } else if (command == "action"){
-        if (climb(dungeon)){
-            return 1;
-        }
-        if (open_chest(dungeon)){
-            return 2;
-        }
-        if (take(dungeon)){
-            updateHp();
-            return 3;
-        }
-        if (change_door(dungeon)){
-            return 4;
-        }
-        return 0;
-    } else if (command == "attack"){
-        int ind_enemy = findEnemy(dungeon);
-        if (ind_enemy != -1){
-            attack(dungeon.getEnemies()[ind_enemy].second);
-            if (dungeon.getEnemies()[ind_enemy].second->isDead()){
-                experience += dungeon.getEnemies()[ind_enemy].second->getExperience();
-                dungeon.getEnemies()[ind_enemy].second->dropItem(dungeon);
-                dungeon.enemyDead(ind_enemy);
-            }
-        }
-    } else if (command == "change"){
-        nextChosenItem();
-
-    } else if (command == "strength" || command == "intelligence" || command == "agility" || command == "endurance"){
-        short_characteristic up;
-        if (command == "strength") up = short_characteristic::s;
-        if (command == "intelligence") up = short_characteristic::i;
-        if (command == "agility") up = short_characteristic::a;
-        if (command == "endurance") up = short_characteristic::e;
-        levelUp(up);
-    }
-    updateHp();
-    return 0;
-
+    experience += a;
 }
 
 void Hero::levelUp(short_characteristic n){

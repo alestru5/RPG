@@ -14,8 +14,6 @@
 
 class Hero : public Character {
     private:
-        int level;
-
         Weapon *weapon;
         std::list<Equipment*> equipment;
 
@@ -35,7 +33,6 @@ class Hero : public Character {
 
         ~Hero() { delete weapon; }
 
-        int getLevel() const noexcept { return level; }
         Weapon* getWeapon() const noexcept { return weapon; }
         std::list<Equipment*> getEquipment() const noexcept { return equipment; }
         int getCurr_Chosen_Item() const noexcept { return curr_chosen_item; }
@@ -70,10 +67,7 @@ class Hero : public Character {
         void updateEndurance() noexcept;
         void updateHp() noexcept;
 
-        std::string status(Dungeon &dungeon) const noexcept;
-
-        int act(std::string key, Dungeon &dungeon);
-
+        void addExperience(int a);
         void levelUp(short_characteristic n);
         void drinkPotion();
         void attack(Character *C) override;
