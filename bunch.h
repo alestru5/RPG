@@ -21,7 +21,7 @@ class Bunch: public Item{
 
         Bunch &operator= (const Bunch &I) noexcept;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 
 };
 

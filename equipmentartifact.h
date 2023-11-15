@@ -15,7 +15,7 @@ class EquipmentArtifact: public Equipment, public Artifact{
 
         int getProtect() const noexcept override;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 
         EquipmentArtifact& operator=(const EquipmentArtifact& I) noexcept;
 };

@@ -20,11 +20,9 @@ class Potion: public Item{
         name_potion getPotion_Name() const noexcept { return potion_name; }
         std::pair<changes_characteristic, int> getChanges() { return changes; }
 
-        void drink(Hero &hero);
-
         Potion &operator =(const Potion &I) noexcept;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 };
 
 #endif // POTION_H

@@ -27,7 +27,7 @@ class Equipment: public Item{
 
         virtual int getProtect() const noexcept;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &Dungeon) override;
 
 };
 

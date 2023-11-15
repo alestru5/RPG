@@ -117,7 +117,8 @@ void GameWindow::mousePressEvent(QMouseEvent *e){
 }
 void GameWindow::keyPressEvent(QKeyEvent* e){
     std::string key = e->text().toLocal8Bit().constData();
-    if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f" || key == "t" || key == "u" || key == "i" ||  key == "o" || key == "p"){
+    if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f" || key == "t" || key == "u" || key == "i" ||  key == "o" || key == "p"
+        || key == " "){
         act(key);
     }else{
         return;
@@ -232,7 +233,46 @@ void GameWindow::drawGame(){
         for (int j = 0; j < 5; j++){
             inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed white;");
             if (game.getDungeon().getHero().getCurr_Chosen_Item() == 5 * (i + 1) - j - 1){
-                inventorySlot[i][j]->setStyleSheet("border: 3px dashed red;");
+                inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed red;");
+            }
+            if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1] == nullptr) {
+                inventorySlot[i][j]->setPixmap(nothingPix.scaledToHeight(tileHeight));
+                continue;
+            }
+            if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::bunch){
+                inventorySlot[i][j]->setPixmap(itemsPix["bunch"].scaledToHeight(tileHeight));
+            }
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::equipment ||
+                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::equipment_artifact){
+                if (static_cast<Equipment*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getEquipment_Type() == type_equipment::helmet){
+                    inventorySlot[i][j]->setPixmap(itemsPix["helmet"].scaledToHeight(tileHeight));
+                }
+                else if (static_cast<Equipment*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getEquipment_Type() == type_equipment::bib){
+                    inventorySlot[i][j]->setPixmap(itemsPix["bib"].scaledToHeight(tileHeight));
+                }
+                else if (static_cast<Equipment*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getEquipment_Type() == type_equipment::leggings){
+                    inventorySlot[i][j]->setPixmap(itemsPix["leggings"].scaledToHeight(tileHeight));
+                }
+                else if (static_cast<Equipment*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getEquipment_Type() == type_equipment::boots){
+                    inventorySlot[i][j]->setPixmap(itemsPix["boots"].scaledToHeight(tileHeight));
+                }
+            }
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::potion){
+                inventorySlot[i][j]->setPixmap(itemsPix["potion"].scaledToHeight(tileHeight));
+            }
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon ||
+                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_artifact ||
+                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_artifact_enchantment ||
+                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_enchantment){
+                if (static_cast<Weapon*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getWeapon_Name() == name_weapon::knife){
+                    inventorySlot[i][j]->setPixmap(itemsPix["knife"].scaledToHeight(tileHeight));
+                }
+                else if (static_cast<Weapon*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getWeapon_Name() == name_weapon::nunchucks){
+                    inventorySlot[i][j]->setPixmap(itemsPix["nunchucks"].scaledToHeight(tileHeight));
+                }
+                else if (static_cast<Weapon*>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getWeapon_Name() == name_weapon::sword){
+                    inventorySlot[i][j]->setPixmap(itemsPix["sword"].scaledToHeight(tileHeight));
+                }
             }
         }
     }
@@ -362,6 +402,7 @@ void GameWindow::act(std::string key){
     else if (key == "i") command = "intelligence";
     else if (key == "o") command = "agility";
     else if (key == "p") command = "endurance";
+    else if (key == " ") command = "use";
     if (command == "south" || command == "east" || command == "west" || command == "north"){
         type_destination destination;
         if (command == "south"){
@@ -409,6 +450,8 @@ void GameWindow::act(std::string key){
         if (command == "agility") up = short_characteristic::a;
         if (command == "endurance") up = short_characteristic::e;
         game.getDungeon().getHero().levelUp(up);
+    } else if (command == "use"){
+        game.getDungeon().getHero().usingChosenItem(game.getDungeon());
     }
     game.getDungeon().getHero().updateHp();
 }

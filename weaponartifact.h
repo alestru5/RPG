@@ -16,7 +16,7 @@ class WeaponArtifact: public virtual Weapon, public Artifact{
 
         int getDamage(Enemy *enemy) const noexcept override;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 
 };
 

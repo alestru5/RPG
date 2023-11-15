@@ -2,9 +2,9 @@
 #include "game.h"
 #include "item.h"
 
-Hero::Hero(): Character(), weapon(nullptr), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory * 10, nullptr){}
+Hero::Hero(): Character(), weapon(nullptr), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory, nullptr){}
 
-Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory * 10, nullptr){
+Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory, nullptr){
     x = i;
     y = j;
 }
@@ -167,6 +167,13 @@ void Hero::levelUp(short_characteristic n){
     experience -= 200;
 }
 
+void Hero::usingChosenItem(Dungeon &dungeon){
+    if (inventory[curr_chosen_item] == nullptr){
+        return;
+    }
+    inventory[curr_chosen_item]->use(dungeon);
+}
+
 void Hero::attack(Character *C){
     if (!C->isDead()){
         int damage = fullDamage(static_cast<Enemy *>(C));
@@ -176,23 +183,40 @@ void Hero::attack(Character *C){
 }
 
 bool Hero::take(Dungeon &dungeon){
+    Item *tmp = nullptr;
+    int ind = curr_chosen_item;
+    for (int i = 0; i < m_inventory; i++){
+        if (inventory[i] == nullptr){
+            ind = i;
+            break;
+        }
+    }
     if (dungeon.getCurLevel()[x][y+1].isItem()){
-        dungeon.getCurLevel()[x][y+1].setItem(dungeon.getCurLevel()[x][y+1].getItem()->take(this));
+        tmp = dungeon.getCurLevel()[x][y+1].getItem();
+        dungeon.getCurLevel()[x][y+1].setItem(inventory[ind]);
+        inventory[ind] = tmp;
         return true;
     }
     else if (dungeon.getCurLevel()[x][y-1].isItem()){
-        dungeon.getCurLevel()[x][y-1].setItem(dungeon.getCurLevel()[x][y-1].getItem()->take(this));
+        tmp = dungeon.getCurLevel()[x][y-1].getItem();
+        dungeon.getCurLevel()[x][y-1].setItem(inventory[ind]);
+        inventory[ind] = tmp;
         return true;
     }
     else if (dungeon.getCurLevel()[x+1][y].isItem()){
-        dungeon.getCurLevel()[x+1][y].setItem(dungeon.getCurLevel()[x+1][y].getItem()->take(this));
+        tmp = dungeon.getCurLevel()[x+1][y].getItem();
+        dungeon.getCurLevel()[x+1][y].setItem(inventory[ind]);
+        inventory[ind] = tmp;
         return true;
     }
     else if (dungeon.getCurLevel()[x-1][y].isItem()){
-        dungeon.getCurLevel()[x-1][y].setItem(dungeon.getCurLevel()[x-1][y].getItem()->take(this));
+        tmp = dungeon.getCurLevel()[x-1][y].getItem();
+        dungeon.getCurLevel()[x-1][y].setItem(inventory[ind]);
+        inventory[ind] = tmp;
         return true;
     }
     return false;
+
 }
 
 void Hero::move(type_destination direction, Dungeon &dungeon){

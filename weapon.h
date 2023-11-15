@@ -28,7 +28,7 @@ class Weapon: public Item{
 
         virtual int getDamage(Enemy *enemy) const noexcept;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 };
 
 #endif // WEAPON_H

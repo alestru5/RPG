@@ -42,10 +42,10 @@ int Equipment::getProtect() const noexcept{
     return rand() % (max_protect - min_protect) + min_protect;
 }
 
-Item* Equipment::take(Hero *H){
+void Equipment::use(Dungeon &dungeon){
     Item * tmp = nullptr;
     std::list<Equipment *> L;
-    std::list<Equipment *> T = H->getEquipment();
+    std::list<Equipment *> T = dungeon.getHero().getEquipment();
     for (auto iter = T.begin(); iter != T.end(); iter++){
         if ((*iter)->getEquipment_Type() == equipment_type){
             L.push_back(this);
@@ -57,9 +57,10 @@ Item* Equipment::take(Hero *H){
     if (tmp == nullptr){
         L.push_back(this);
     } else if (tmp->getItem_Type() == type_item::equipment_artifact){
-        static_cast<EquipmentArtifact*>(tmp)->unUseChanges(H);
+        static_cast<EquipmentArtifact*>(tmp)->unUseChanges(dungeon.getHero());
     }
-    H->setEquipment(L);
-
-    return tmp;
+    dungeon.getHero().setEquipment(L);
+    std::vector<Item *> I = dungeon.getHero().getInventory();
+    I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
+    dungeon.getHero().setInventory(I);
 }

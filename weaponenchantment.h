@@ -15,7 +15,7 @@ class WeaponEnchantment: public virtual Weapon, public Enchantment{
 
         int getDamage(Enemy *enemy) const noexcept override;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 };
 
 #endif // WEAPONENCHANTMENT_H

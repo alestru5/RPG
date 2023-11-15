@@ -28,15 +28,15 @@ void Artifact::SetArtifact_Type(type_artifact T){
     }
 }
 
-void Artifact::useChanges(Hero *H){
+void Artifact::useChanges(Hero &H){
     for (auto &i: changes){
-        H->getTable().setValue(i.first, H->getTable().getValue(i.first) + i.second);
+        H.getTable().setValue(i.first, H.getTable().getValue(i.first) + i.second);
     }
 }
 
-void Artifact::unUseChanges(Hero *H){
+void Artifact::unUseChanges(Hero &H){
     for (auto &i: changes){
-        H->getTable().setValue(i.first, H->getTable().getValue(i.first) - i.second);
+        H.getTable().setValue(i.first, H.getTable().getValue(i.first) - i.second);
     }
 }
 

@@ -1,5 +1,6 @@
 #include "bunch.h"
 #include "hero.h"
+#include "dungeon.h"
 
 Bunch::Bunch(type_bunch T): Item(type_item::bunch){
     try{
@@ -19,7 +20,9 @@ Bunch& Bunch::operator= (const Bunch &I) noexcept{
     }
 }
 
-Item* Bunch::take(Hero *H){
-    H->setC_Bunch(H->getC_Bunch() + count);
-    return nullptr;
+void Bunch::use(Dungeon &dungeon){
+    dungeon.getHero().setC_Bunch(dungeon.getHero().getC_Bunch() + count);
+    std::vector<Item *> I = dungeon.getHero().getInventory();
+    I[dungeon.getHero().getCurr_Chosen_Item()] = nullptr;
+    dungeon.getHero().setInventory(I);
 }

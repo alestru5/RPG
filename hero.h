@@ -36,6 +36,7 @@ class Hero : public Character {
         Weapon* getWeapon() const noexcept { return weapon; }
         std::list<Equipment*> getEquipment() const noexcept { return equipment; }
         int getCurr_Chosen_Item() const noexcept { return curr_chosen_item; }
+        Item *getCurrChosenItem() noexcept { return inventory[curr_chosen_item]; }
         int getM_Inventory() const noexcept { return m_inventory; }
         std::vector<Item*> getInventory() const noexcept { return inventory; }
         int getC_Bunch() const noexcept { return c_bunch; }
@@ -69,7 +70,7 @@ class Hero : public Character {
 
         void addExperience(int a);
         void levelUp(short_characteristic n);
-        void drinkPotion();
+        void usingChosenItem(Dungeon &dungeon);
         void attack(Character *C) override;
         bool take(Dungeon &dungeon);
         void move(type_destination direction, Dungeon &dungeon) override;

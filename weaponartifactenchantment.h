@@ -14,7 +14,7 @@ class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment
 
         int getDamage(Enemy *enemy) const noexcept override;
 
-        Item* take(Hero *H) override;
+        void use(Dungeon &dungeon) override;
 
 };
 

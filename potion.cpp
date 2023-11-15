@@ -1,5 +1,7 @@
 #include "potion.h"
 #include "hero.h"
+#include "dungeon.h"
+
 Potion::Potion(name_potion N) noexcept: Item(type_item::potion){
     try{
         potion_name = N;
@@ -9,20 +11,23 @@ Potion::Potion(name_potion N) noexcept: Item(type_item::potion){
     }
 }
 
-void Potion::drink(Hero &hero){
+void Potion::use(Dungeon &dungeon){
     if (changes.first == changes_characteristic::agility){
-        hero.getTable().setValue(short_characteristic::a, hero.getTable().getValue(short_characteristic::a) + changes.second);
+        dungeon.getHero().getTable().setValue(short_characteristic::a, dungeon.getHero().getTable().getValue(short_characteristic::a) + changes.second);
     } else if (changes.first == changes_characteristic::experience){
-        hero.setExperience(hero.getExperience() + changes.second);
+        dungeon.getHero().setExperience(dungeon.getHero().getExperience() + changes.second);
     } else if (changes.first == changes_characteristic::hp){
-        hero.setCur_Hp(hero.getCur_Hp() + changes.second);
+        dungeon.getHero().setCur_Hp(dungeon.getHero().getCur_Hp() + changes.second);
     } else if (changes.first == changes_characteristic::intelligence){
-        hero.getTable().setValue(short_characteristic::i, hero.getTable().getValue(short_characteristic::i) + changes.second);
+        dungeon.getHero().getTable().setValue(short_characteristic::i, dungeon.getHero().getTable().getValue(short_characteristic::i) + changes.second);
     } else if (changes.first == changes_characteristic::strength){
-        hero.getTable().setValue(short_characteristic::s, hero.getTable().getValue(short_characteristic::s) + changes.second);
+        dungeon.getHero().getTable().setValue(short_characteristic::s, dungeon.getHero().getTable().getValue(short_characteristic::s) + changes.second);
     } else if (changes.first == changes_characteristic::endurance){
-        hero.getTable().setValue(short_characteristic::e, hero.getTable().getValue(short_characteristic::e) + changes.second);
+        dungeon.getHero().getTable().setValue(short_characteristic::e, dungeon.getHero().getTable().getValue(short_characteristic::e) + changes.second);
     }
+    std::vector<Item *> I = dungeon.getHero().getInventory();
+    I[dungeon.getHero().getCurr_Chosen_Item()] = nullptr;
+    dungeon.getHero().setInventory(I);
 }
 
 Potion& Potion::operator =(const Potion &I) noexcept{
@@ -34,7 +39,3 @@ Potion& Potion::operator =(const Potion &I) noexcept{
     return *this;
 }
 
-Item* Potion::take(Hero *H){
-
-    return this;
-}

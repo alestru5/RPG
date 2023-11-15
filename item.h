@@ -4,6 +4,7 @@
 #include "enums.h"
 
 class Hero;
+class Dungeon;
 
 class Item{
     private:
@@ -18,7 +19,7 @@ class Item{
 
         Item& operator =(const Item& I) noexcept;
 
-        virtual Item* take(Hero *H) = 0;
+        virtual void use(Dungeon &Dungeon) = 0;
 
 
 };
