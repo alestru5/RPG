@@ -2,9 +2,9 @@
 #include "game.h"
 #include "item.h"
 
-Hero::Hero(): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(30), potion(), equipment(), cur_endurance(100){}
+Hero::Hero(): Character(), weapon(nullptr), table(), level(0), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory * 10, nullptr){}
 
-Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), m_potion(5), c_bunch(100), potion(), equipment(), cur_endurance(100){
+Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), level(0), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory * 10, nullptr){
     x = i;
     y = j;
 }
@@ -18,7 +18,8 @@ Hero::Hero(const Hero &H){
     y = H.y;
     level = H.level;
     weapon = H.weapon;
-    m_potion = H.m_potion;
+    curr_chosen_item = H.curr_chosen_item;
+    inventory = H.inventory;
     c_bunch = H.c_bunch;
 }
 
@@ -35,11 +36,14 @@ Hero & Hero::setEquipment(std::list<Equipment*> &E){
     return *this;
 }
 
-Hero & Hero::setM_Potion(int m){
-    if (m < 0){
-        throw std::invalid_argument("error count");
+Hero &Hero::setCurr_Chosen_Item(int a){
+    if (a <= 0){
+        throw std::invalid_argument("not positive position");
     }
-    m_potion = m;
+    if (a > m_inventory){
+        throw std::invalid_argument("position out of range");
+    }
+    curr_chosen_item = a;
     return *this;
 }
 
@@ -48,6 +52,14 @@ Hero & Hero::setC_Bunch(int b){
         throw std::invalid_argument("negative bunch");
     }
     c_bunch = b;
+    return *this;
+}
+
+Hero &Hero::setCur_Endurance(int a){
+    if (a <= 0){
+        throw std::invalid_argument("not positive endurace");
+    }
+    cur_endurance = a;
     return *this;
 }
 
@@ -61,18 +73,9 @@ Hero& Hero::operator = (const Hero &H){
     y = H.y;
     level = H.level;
     weapon = H.weapon;
-    m_potion = H.m_potion;
     c_bunch = H.c_bunch;
+    inventory = H.inventory;
     return *this;
-}
-
-void Hero::changeOrderPotion() noexcept{
-    auto it = potion.end();
-    auto it2 = potion.end();
-    --it;
-    --it2;
-    potion.erase(it);
-    potion.push_front(*it2);
 }
 
 int Hero::fullProtect() const noexcept{
@@ -245,18 +248,6 @@ std::string Hero::status(Dungeon &dungeon) const noexcept{
     }
 
     res += "\nBunch: " + std::to_string(c_bunch);
-    res += "\tPotion: ";
-    if (potion.size() == 0){
-        res += "None";
-    }
-    int c = 0;
-    for (auto iter = potion.begin(); iter != potion.end(); iter++){
-        res += EnumToString::toString((*iter)->getPotion_Name()) + " ";
-        if (c + 2 == potion.size()) {
-            res += "\t";
-        }
-        c += 1;
-    }
     return res;
 }
 
@@ -312,9 +303,8 @@ int Hero::act(std::string key, Dungeon &dungeon){
             }
         }
     } else if (command == "change"){
-        changeOrderPotion();
-    } else if (command == "drink"){
-        drinkPotion();
+        nextChosenItem();
+
     } else if (command == "strength" || command == "intelligence" || command == "agility" || command == "endurance"){
         short_characteristic up;
         if (command == "strength") up = short_characteristic::s;
@@ -334,15 +324,6 @@ void Hero::levelUp(short_characteristic n){
     }
     table.setValue(n, table.getValue(n) + 5);
     experience -= 200;
-}
-
-void Hero::drinkPotion(){
-    if (potion.size()){
-        auto it = potion.end();
-        --it;
-        (*it)->drink(*this);
-        potion.pop_back();
-    }
 }
 
 void Hero::attack(Character *C){

@@ -18,8 +18,11 @@ class Hero : public Character {
 
         Weapon *weapon;
         std::list<Equipment*> equipment;
-        int m_potion;
-        std::list<Potion*> potion;
+
+        int curr_chosen_item;
+        static const int m_inventory = 10;
+        std::vector<Item*> inventory;
+
         int c_bunch;
         int cur_endurance;
 
@@ -35,23 +38,26 @@ class Hero : public Character {
         int getLevel() const noexcept { return level; }
         Weapon* getWeapon() const noexcept { return weapon; }
         std::list<Equipment*> getEquipment() const noexcept { return equipment; }
-        int getM_Potion() const noexcept { return m_potion; }
-        std::list<Potion*> getPotion() const noexcept { return potion; }
+        int getCurr_Chosen_Item() const noexcept { return curr_chosen_item; }
+        int getM_Inventory() const noexcept { return m_inventory; }
+        std::vector<Item*> getInventory() const noexcept { return inventory; }
         int getC_Bunch() const noexcept { return c_bunch; }
+        int getCur_Endurance() const noexcept { return cur_endurance; }
         Table& getTable() noexcept { return table; }
 
 
         Hero &setLevel(int l);
         Hero &setWeapon(Weapon *W) { weapon = W; return *this; }
         Hero &setEquipment(std::list<Equipment*> &E);
-        Hero &setM_Potion(int m);
-        Hero &setPotion(std::list<Potion*> &P) { potion = P; return *this; }
+        Hero &setCurr_Chosen_Item(int a);
+        Hero &setInventory(std::vector<Item*> &I) { inventory = I; return *this; }
         Hero &setC_Bunch(int b);
+        Hero &setCur_Endurance(int a);
         Hero &setTable(Table &T) { table = T; return *this; }
 
         Hero& operator=(const Hero& H);
 
-        void changeOrderPotion() noexcept;
+        void nextChosenItem() noexcept { curr_chosen_item = (curr_chosen_item + 1) % m_inventory;}
         int fullProtect() const noexcept;
         int minProtect() const noexcept;
         int maxProtect() const noexcept;

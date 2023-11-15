@@ -38,21 +38,25 @@ type_destination Enemy::vision(Dungeon &dungeon){
     if (abs(hx - x) >= 5 || abs(hy - y) >= 5 || isNear(dungeon)){
         return type_destination::none;
     }
+    int prev_j = std::min(y, hy);
     for (int i = std::min(x, hx); i < std::max(x, hx) + 1; i++){
         double j;
+        int u_j;
         if (hx + 1 - x != 0){
             j = static_cast <double> ((i - x) * (hy + 1 - y) / (hx + 1 - x)) + static_cast<double> (y);
         } else{
             j = hy + 1;
-        }
 
-        int u_j = std::floor(j + 1.);
-        for (int k = std::min(y, hy); k < u_j; k++){
+        }
+        u_j = std::floor(j);
+
+        for (int k = prev_j; k < u_j; k++){
             if (dungeon.getCurLevel()[i][k].isWall() || dungeon.getCurLevel()[i][k].getType() == type_cell::close_door ||
                 dungeon.getCurLevel()[i][k].getItem() != nullptr || dungeon.getCurLevel()[i][k].isChest()){
                 return type_destination::none;
             }
         }
+        prev_j = u_j;
     }
 
     Cell destination = dungeon.getCurLevel()[x-1][y];

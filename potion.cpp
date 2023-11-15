@@ -35,11 +35,6 @@ Potion& Potion::operator =(const Potion &I) noexcept{
 }
 
 Item* Potion::take(Hero *H){
-    if (H->getPotion().size() < H->getM_Potion()){
-        std::list<Potion *> tmp = H->getPotion();
-        tmp.push_back(this);
-        H->setPotion(tmp);
-        return nullptr;
-    }
+
     return this;
 }
