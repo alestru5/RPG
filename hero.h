@@ -51,7 +51,6 @@ class Hero : public Character {
 
         Hero& operator=(const Hero& H);
 
-        //Hero &upLevel();
         void changeOrderPotion() noexcept;
         int fullProtect() const noexcept;
         int minProtect() const noexcept;
@@ -69,6 +68,7 @@ class Hero : public Character {
 
         int act(std::string key, Dungeon &dungeon);
 
+        void levelUp(short_characteristic n);
         void drinkPotion();
         void attack(Character *C) override;
         bool take(Dungeon &dungeon);

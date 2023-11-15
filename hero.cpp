@@ -270,6 +270,10 @@ int Hero::act(std::string key, Dungeon &dungeon){
     else if (key == "f") command = "change";
     else if (key == "left") command = "attack";
     else if (key == "t") command = "drink";
+    else if (key == "u") command = "strength";
+    else if (key == "i") command = "intelligence";
+    else if (key == "o") command = "agility";
+    else if (key == "p") command = "endurance";
     if (command == "south" || command == "east" || command == "west" || command == "north"){
         type_destination destination;
         if (command == "south"){
@@ -311,18 +315,34 @@ int Hero::act(std::string key, Dungeon &dungeon){
         changeOrderPotion();
     } else if (command == "drink"){
         drinkPotion();
+    } else if (command == "strength" || command == "intelligence" || command == "agility" || command == "endurance"){
+        short_characteristic up;
+        if (command == "strength") up = short_characteristic::s;
+        if (command == "intelligence") up = short_characteristic::i;
+        if (command == "agility") up = short_characteristic::a;
+        if (command == "endurance") up = short_characteristic::e;
+        levelUp(up);
     }
     updateHp();
     return 0;
 
 }
 
-void Hero::drinkPotion(){
-    auto it = potion.end();
-    --it;
-    (*it)->drink(*this);
-    potion.pop_back();
+void Hero::levelUp(short_characteristic n){
+    if (experience < 200){
+        return;
+    }
+    table.setValue(n, table.getValue(n) + 5);
+    experience -= 200;
+}
 
+void Hero::drinkPotion(){
+    if (potion.size()){
+        auto it = potion.end();
+        --it;
+        (*it)->drink(*this);
+        potion.pop_back();
+    }
 }
 
 void Hero::attack(Character *C){

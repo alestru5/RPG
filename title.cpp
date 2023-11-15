@@ -32,6 +32,6 @@ void Title::quitProgram(){
 }
 void Title::startGame(){
     gamewindow.setSize();
-    gamewindow.show();
+    gamewindow.showFullScreen();
 }
 

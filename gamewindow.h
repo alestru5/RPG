@@ -38,11 +38,16 @@ class GameWindow : public QMainWindow{
         QPixmap closeDoorPix;
         std::map<std::string, QPixmap> itemsPix;
         std::map<std::string, QPixmap> mobPix;
-        QLabel* statusLabel;
-        QLabel* statusBack;
 
-        const int tileHeight = 40;
-        const int infoHeight = 70;
+        QLabel* statusLabel;
+        QLabel* info;
+
+        QLabel *weaponSlot;
+        std::vector<std::vector<QLabel*>> equipmentSlot;
+        std::vector<std::vector<QLabel*>> inventorySlot;
+
+        const int tileHeight = 60;
+        const int infoHeight = 120;
 
         int timer;
 
