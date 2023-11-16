@@ -28,11 +28,11 @@ public:
     Enemy& setItem(Item *I) noexcept { item = I; return *this; }
     Enemy& setExperience(int exp);
 
-    bool isNear(Dungeon &dungeon);
-    type_destination vision(Dungeon &dungeon);
-    void move(type_destination direction, Dungeon &dungeon) override;
-    void randomMoveMob(Dungeon &dungeon);
-    void dropItem(Dungeon &dungeon);
+    bool isNear(Dungeon &dungeon) const noexcept;
+    type_destination vision(Dungeon &dungeon) const noexcept;
+    void move(type_destination direction, Dungeon &dungeon) noexcept override;
+    void randomMoveMob(Dungeon &dungeon) noexcept;
+    void dropItem(Dungeon &dungeon) noexcept;
 
     void getDamage(int damage) override;
     void attack(Character *C) override;

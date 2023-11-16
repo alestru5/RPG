@@ -219,7 +219,7 @@ bool Hero::take(Dungeon &dungeon){
 
 }
 
-void Hero::move(type_destination direction, Dungeon &dungeon){
+void Hero::move(type_destination direction, Dungeon &dungeon) noexcept{
     if (cur_endurance <= 0){
         return;
     }

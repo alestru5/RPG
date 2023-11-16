@@ -36,7 +36,7 @@ class Character{
 
         virtual void getDamage(int damage) = 0;
         virtual void attack(Character *C) = 0;
-        virtual void move(type_destination d, Dungeon &dungeon) = 0;
+        virtual void move(type_destination d, Dungeon &dungeon) noexcept = 0;
 
 };
 

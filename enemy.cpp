@@ -22,7 +22,7 @@ Enemy::Enemy(int i, int j, name_enemy n): Character(), name(n){
     y = j;
 }
 
-bool Enemy::isNear(Dungeon &dungeon){
+bool Enemy::isNear(Dungeon &dungeon) const noexcept{
     int hx = dungeon.getHero().getX();
     int hy = dungeon.getHero().getY();
     if (x == hx && abs(hy - y) == 1 ||
@@ -32,7 +32,7 @@ bool Enemy::isNear(Dungeon &dungeon){
     return false;
 }
 
-type_destination Enemy::vision(Dungeon &dungeon){
+type_destination Enemy::vision(Dungeon &dungeon) const noexcept{
     int hx = dungeon.getHero().getX();
     int hy = dungeon.getHero().getY();
     if (abs(hx - x) >= 5 || abs(hy - y) >= 5 || isNear(dungeon)){
@@ -82,7 +82,7 @@ type_destination Enemy::vision(Dungeon &dungeon){
     return type_destination::none;
 }
 
-void Enemy::move(type_destination direction, Dungeon &dungeon){
+void Enemy::move(type_destination direction, Dungeon &dungeon) noexcept{
     if (isDead()){
         return;
     }
@@ -108,7 +108,7 @@ void Enemy::move(type_destination direction, Dungeon &dungeon){
 
 }
 
-void Enemy::randomMoveMob(Dungeon &dungeon){
+void Enemy::randomMoveMob(Dungeon &dungeon) noexcept{
     if (isDead()){
         return;
     }
@@ -140,17 +140,25 @@ void Enemy::randomMoveMob(Dungeon &dungeon){
     }
 }
 
-void Enemy::dropItem(Dungeon &dungeon){
-
-    dungeon.getCurLevel()[x][y].setItem(item);
+void Enemy::dropItem(Dungeon &dungeon) noexcept{
+    if (isDead()){
+        dungeon.getCurLevel()[x][y].setItem(item);
+        item = nullptr;
+    }
 }
 
 void Enemy::getDamage(int damage){
+    if (isDead()){
+        throw std::invalid_argument("mob is dead");
+    }
     cur_hp -= damage;
 }
 
 void Enemy::attack(Character *C){
     int damage = rand() % (max_damage - min_damage) + min_damage;
+    if (C->isDead()){
+        throw std::invalid_argument("hero is dead");
+    }
     static_cast<Hero*>(C)->getDamage(damage);
 }
 

@@ -73,7 +73,7 @@ class Hero : public Character {
         void usingChosenItem(Dungeon &dungeon);
         void attack(Character *C) override;
         bool take(Dungeon &dungeon);
-        void move(type_destination direction, Dungeon &dungeon) override;
+        void move(type_destination direction, Dungeon &dungeon) noexcept override;
         bool open_chest(Dungeon &dungeon) noexcept;
         bool climb(Dungeon &dungeon) noexcept;
         bool change_door(Dungeon &dungeon) noexcept;

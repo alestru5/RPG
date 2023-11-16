@@ -2,59 +2,36 @@
 #include "setcoef.h"
 
 Enchantment::Enchantment(){
-    try{
-        enchantment_type = type_enchantment::BlackKiller;
-        coef = SetCoef::createCoef(type_enchantment::BlackKiller);
-    } catch(...){
-        throw;
-    }
+    enchantment_type = type_enchantment::BlackKiller;
+    coef = SetCoef::createCoef(type_enchantment::BlackKiller);
 }
 
 Enchantment::Enchantment(type_enchantment T){
-    try{
-        enchantment_type = T;
-        coef = SetCoef::createCoef(T);
-    } catch(...){
-        throw;
-    }
+    enchantment_type = T;
+    coef = SetCoef::createCoef(T);
 }
 
 void Enchantment::setEnchantment_Type(type_enchantment T) noexcept{
-    try{
-        enchantment_type = T;
-        coef = SetCoef::createCoef(T);
-    } catch(...){
-        throw;
-    }
+    enchantment_type = T;
+    coef = SetCoef::createCoef(T);
 }
 
 double Enchantment::getMultiply(Enemy *enemy) const noexcept{
     if (!enemy){
         return 1.;
     }
-    if (enemy->getName() == name_enemy::black_druid){
-        for (auto iter = coef.begin(); iter != coef.end(); iter++){
-            if ((*iter).first == trait::black){
-                return (*iter).second;
-            }
+    for (auto iter = coef.begin(); iter != coef.end(); iter++){
+        if ((*iter).first == trait::black && enemy->getName() == name_enemy::black_druid){
+            return (*iter).second;
         }
-    } else if (enemy->getName() == name_enemy::blue_wolf){
-        for (auto iter = coef.begin(); iter != coef.end(); iter++){
-            if ((*iter).first == trait::blue){
-                return (*iter).second;
-            }
+        if ((*iter).first == trait::blue && enemy->getName() == name_enemy::blue_wolf){
+            return (*iter).second;
         }
-    } else if (enemy->getName() == name_enemy::red_tiger){
-        for (auto iter = coef.begin(); iter != coef.end(); iter++){
-            if ((*iter).first == trait::red){
-                return (*iter).second;
-            }
+        if ((*iter).first == trait::red && enemy->getName() == name_enemy::red_tiger){
+            return (*iter).second;
         }
-    } else if (enemy->getName() == name_enemy::white_golem){
-        for (auto iter = coef.begin(); iter != coef.end(); iter++){
-            if ((*iter).first == trait::white){
-                return (*iter).second;
-            }
+        if ((*iter).first == trait::white && enemy->getName() == name_enemy::white_golem){
+            return (*iter).second;
         }
     }
     return 1.;
