@@ -30,7 +30,9 @@ std::pair<bool, bool> Chest::tryToOpen(Hero *H) const noexcept{
 }
 
 Chest& Chest::operator =(const Chest &C){
-    level = C.level;
-    item = C.item;
+    if (this != &C){
+        level = C.level;
+        item = C.item;
+    }
     return *this;
 }
