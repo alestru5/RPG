@@ -8,9 +8,8 @@ std::pair<int, int> SetDamage::createDamage(name_weapon n){
         return std::make_pair(10, 20);
     } else if (n == name_weapon::sword){
         return std::make_pair(20, 50);
-    } else{
-        throw std::invalid_argument("Its not weapon");
     }
+    std::make_pair(11, 13);
 }
 
 int SetDamage::setBonus_Damage(type_artifact T){
@@ -22,9 +21,8 @@ int SetDamage::setBonus_Damage(type_artifact T){
         return 15;
     } else if (T == type_artifact::legendary){
         return 25;
-    }else{
-        throw std::invalid_argument("Its not weapon");
     }
+    return 0;
 }
 
 std::pair<int, int> SetDamage::createDamage(name_enemy n){
@@ -36,7 +34,6 @@ std::pair<int, int> SetDamage::createDamage(name_enemy n){
         return std::make_pair(9, 11);
     } else if (n == name_enemy::white_golem){
         return std::make_pair(11, 13);
-    } else{
-        throw std::invalid_argument("its not enemy");
     }
+    return std::make_pair(0, 0);
 }

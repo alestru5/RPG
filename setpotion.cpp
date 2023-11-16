@@ -14,8 +14,6 @@ std::pair<changes_characteristic, int> SetPotion::createChanges(name_potion N){
         changes = (std::make_pair(changes_characteristic::strength, 5));
     } else if (N == name_potion::endurance){
         changes = (std::make_pair(changes_characteristic::endurance, 5));
-    }else{
-        throw std::invalid_argument("Its not potion");
     }
     return changes;
 }
