@@ -23,8 +23,8 @@ class Artifact{
 
         void SetArtifact_Type(type_artifact T);
 
-        void useChanges(Hero &H);
-        void unUseChanges(Hero &H);
+        void useChanges(Hero &H) const noexcept;
+        void unUseChanges(Hero &H) const noexcept;
 
         Artifact& operator=(const Artifact& I) noexcept;
 };

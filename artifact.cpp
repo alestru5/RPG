@@ -16,13 +16,13 @@ void Artifact::SetArtifact_Type(type_artifact T){
     changes = SetChanges::createChanges(T);
 }
 
-void Artifact::useChanges(Hero &H){
+void Artifact::useChanges(Hero &H) const noexcept{
     for (auto &i: changes){
         H.getTable().setValue(i.first, H.getTable().getValue(i.first) + i.second);
     }
 }
 
-void Artifact::unUseChanges(Hero &H){
+void Artifact::unUseChanges(Hero &H) const noexcept{
     for (auto &i: changes){
         H.getTable().setValue(i.first, H.getTable().getValue(i.first) - i.second);
     }

@@ -15,6 +15,7 @@ class Character{
         int cur_hp;
         int x;
         int y;
+
     public:
         Character(): experience(), max_hp(100), cur_hp(100), x(-1), y(-1) {}
         Character(int e, int m, int c, int x, int y);
@@ -36,7 +37,6 @@ class Character{
         virtual void getDamage(int damage) = 0;
         virtual void attack(Character *C) = 0;
         virtual void move(type_destination d, Dungeon &dungeon) = 0;
-
 
 };
 

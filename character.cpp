@@ -5,7 +5,7 @@
 
 Character::Character(int e, int m, int c, int x, int y){
     if (e < 0 || m < 0 || c < 0 || c > m || x < 0 || y < 0){
-        throw std::invalid_argument("negative argiments");
+        throw std::invalid_argument("negative arguments");
     }
     experience = e;
     max_hp = m;
@@ -44,8 +44,11 @@ void Character::setMax_Hp(int hp){
 }
 
 void Character::setCur_Hp(int hp){
-    if (hp <= 0){
-        std::invalid_argument("not positive hp");
+    if (hp < 0){
+        std::invalid_argument("negative hp");
     }
-    cur_hp = std::min(hp, max_hp);
+    if (hp > max_hp){
+        std::invalid_argument("bigger than max_hp");
+    }
+    cur_hp = hp;
 }
