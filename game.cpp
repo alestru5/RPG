@@ -8,7 +8,7 @@ void Game::initGame(){
 
     std::ifstream mobs;
     mobs.open("/home/alestru/PetProjects/RPG/enemies.txt");
-    dungeon.initializeEnemiesFile(mobs, *this);
+    dungeon.initializeEnemiesFile(mobs);
     mobs.close();
 
     isGame = true;

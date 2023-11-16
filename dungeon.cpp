@@ -82,7 +82,7 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
     return *this;
 }
 
-Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in, Game &game){
+Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in){
     std::string tmp;
     while (in >> tmp){
         int x;
@@ -106,6 +106,9 @@ Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in, Game &game){
 }
 
 void Dungeon::enemyDead(int ind_enemy){
+    if (ind_enemy > enemies.size()){
+        throw std::invalid_argument("index out of range");
+    }
     enemies.erase(enemies.begin() + ind_enemy);
 }
 

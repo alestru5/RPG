@@ -25,8 +25,8 @@ class Game{
         int getMapHeight() const noexcept { return mapHeight; }
         bool getIsGame() const noexcept { return isGame; }
 
-        Game &setMapWidth(int mW) { mapWidth = mW; }
-        Game &setMapHeight(int mH) { mapHeight = mH; }
+        Game &setMapWidth(int mW) { mapWidth = mW; return *this; }
+        Game &setMapHeight(int mH) { mapHeight = mH; return *this; }
 
         void initGame();
         bool tick(Dungeon &dungeon);

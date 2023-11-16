@@ -26,7 +26,7 @@ class Dungeon{
         ~Dungeon();
 
         Dungeon& initializeLevelsFile(std::ifstream &in, Game &game);
-        Dungeon& initializeEnemiesFile(std::ifstream &in, Game &game);
+        Dungeon& initializeEnemiesFile(std::ifstream &in);
 
         int getCount_Levels() const noexcept {return count_levels; }
         int getCur_Level() const noexcept { return cur_level; }
@@ -35,8 +35,8 @@ class Dungeon{
         Matrix<Cell>& getCurLevel() noexcept { return levels[cur_level]; }
         std::vector<std::pair<int, Enemy *>> getEnemies() const noexcept { return enemies; }
 
-        Dungeon &up_level() {cur_level+= 1; return *this; }
-        Dungeon &down_level() {cur_level-= 1; return *this; }
+        Dungeon &up_level() noexcept {cur_level+= 1; return *this; }
+        Dungeon &down_level() noexcept {cur_level-= 1; return *this; }
 
         void enemyDead(int ind_enemy);
 

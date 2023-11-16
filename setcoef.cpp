@@ -22,8 +22,6 @@ std::list<std::pair<trait, double>> SetCoef::createCoef(type_enchantment T){
         coef.push_back(std::make_pair(trait::blue, 1.5));
         coef.push_back(std::make_pair(trait::white, 2));
         coef.push_back(std::make_pair(trait::red, 0.5));
-    } else{
-        throw std::invalid_argument("Its not enchantment");
     }
     return coef;
 }

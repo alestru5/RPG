@@ -2,6 +2,7 @@
 #define ENCHANTMENT_H
 
 #include <list>
+
 #include "enums.h"
 #include "enemy.h"
 
@@ -9,6 +10,7 @@ class Enchantment{
     private:
         type_enchantment enchantment_type;
         std::list<std::pair<trait, double>> coef;
+
     public:
         Enchantment();
         Enchantment(type_enchantment T);
