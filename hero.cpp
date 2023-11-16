@@ -176,12 +176,11 @@ void Hero::usingChosenItem(Dungeon &dungeon) noexcept{
     updateHp();
 }
 
-void Hero::attack(Character *C){
+void Hero::attack(Character *C) {
     if (!C->isDead()){
         int damage = fullDamage(static_cast<Enemy *>(C));
         static_cast<Enemy *>(C)->getDamage(damage);
     }
-
 }
 
 bool Hero::take(Dungeon &dungeon){
@@ -333,8 +332,6 @@ bool Hero::climb(Dungeon &dungeon) noexcept{
             return false;
         }
     }
-
-
     return false;
 }
 

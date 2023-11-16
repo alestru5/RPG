@@ -3,12 +3,8 @@
 #include "dungeon.h"
 
 Potion::Potion(name_potion N) noexcept: Item(type_item::potion){
-    try{
-        potion_name = N;
-        changes = SetPotion::createChanges(N);
-    } catch(...){
-        throw;
-    }
+    potion_name = N;
+    changes = SetPotion::createChanges(N);
 }
 
 void Potion::use(Dungeon &dungeon){
