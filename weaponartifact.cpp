@@ -3,7 +3,7 @@
 #include "weaponartifactenchantment.h"
 #include "dungeon.h"
 
-WeaponArtifact::WeaponArtifact(name_weapon N, type_artifact T): Weapon(N), Artifact(T){
+WeaponArtifact::WeaponArtifact(name_weapon N, type_artifact T) noexcept: Weapon(N), Artifact(T){
     bonus_damage = SetDamage::setBonus_Damage(T);
     setType(type_item::weapon_artifact);
 }

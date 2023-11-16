@@ -3,24 +3,16 @@
 #include "setdamage.h"
 
 Weapon::Weapon(name_weapon n) noexcept: Item(type_item::weapon) {
-    try{
-        min_damage = SetDamage::createDamage(n).first;
-        max_damage = SetDamage::createDamage(n).second;
-        weapon_name = n;
-    } catch(...){
-        throw;
-    }
+    min_damage = SetDamage::createDamage(n).first;
+    max_damage = SetDamage::createDamage(n).second;
+    weapon_name = n;
 }
 
 Weapon& Weapon::setName(name_weapon n) noexcept{
-    try{
-        min_damage = SetDamage::createDamage(n).first;
-        max_damage = SetDamage::createDamage(n).second;
-        weapon_name = n;
-        return *this;
-    } catch(...){
-        throw;
-    }
+    min_damage = SetDamage::createDamage(n).first;
+    max_damage = SetDamage::createDamage(n).second;
+    weapon_name = n;
+    return *this;
 }
 
 Weapon& Weapon::operator=(const Weapon& I) noexcept{

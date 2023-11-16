@@ -5,13 +5,11 @@
 
 class WeaponEnchantment: public virtual Weapon, public Enchantment{
     public:
-        WeaponEnchantment(): Weapon(), Enchantment() { setType(type_item::weapon_enchantment); }
-        WeaponEnchantment(name_weapon N): Weapon(N), Enchantment() { setType(type_item::weapon_enchantment); }
-        WeaponEnchantment(name_weapon N, type_enchantment T): Weapon(N), Enchantment(T) { setType(type_item::weapon_enchantment); }
+        WeaponEnchantment() noexcept: Weapon(), Enchantment() { setType(type_item::weapon_enchantment); }
+        WeaponEnchantment(name_weapon N) noexcept: Weapon(N), Enchantment() { setType(type_item::weapon_enchantment); }
+        WeaponEnchantment(name_weapon N, type_enchantment T) noexcept: Weapon(N), Enchantment(T) { setType(type_item::weapon_enchantment); }
 
         ~WeaponEnchantment() {}
-
-        WeaponEnchantment& operator=(const WeaponEnchantment& I) noexcept;
 
         int getDamage(Enemy *enemy) const noexcept override;
 

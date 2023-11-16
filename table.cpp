@@ -1,11 +1,12 @@
 #include "table.h"
 
-Table::Table(){
+Table::Table() noexcept{
     table[std::make_pair(full_characteristic::strength, short_characteristic::s)] = 50;
     table[std::make_pair(full_characteristic::agility, short_characteristic::a)] = 50;
     table[std::make_pair(full_characteristic::endurance, short_characteristic::e)] = 100;
     table[std::make_pair(full_characteristic::intelligence, short_characteristic::i)] = 50;
 }
+
 Table::Table(int n, std::map<std::pair<full_characteristic, short_characteristic>, int>t){
     if (n > m_size){
         throw std::invalid_argument("n is bigger than m_size");

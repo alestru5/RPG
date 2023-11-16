@@ -1,13 +1,14 @@
 #ifndef WEAPONARTIFACTENCHANTMENT_H
 #define WEAPONARTIFACTENCHANTMENT_H
+
 #include "weaponartifact.h"
 #include "weaponenchantment.h"
 
 class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment{
     public:
-        WeaponArtifactEnchantment():
+        WeaponArtifactEnchantment() noexcept:
             WeaponArtifact(), WeaponEnchantment(), Weapon(){ setType(type_item::weapon_artifact_enchantment); }
-        WeaponArtifactEnchantment(name_weapon N, type_artifact A, type_enchantment E):
+        WeaponArtifactEnchantment(name_weapon N, type_artifact A, type_enchantment E) noexcept:
             WeaponArtifact(N, A), WeaponEnchantment(N, E), Weapon(N){ setType(type_item::weapon_artifact_enchantment); }
 
         ~WeaponArtifactEnchantment() {}

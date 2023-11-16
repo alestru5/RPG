@@ -10,7 +10,7 @@ class Table{
         static const int m_size = 4;
         std::map<std::pair<full_characteristic, short_characteristic>, int> table;
     public:
-        Table();
+        Table() noexcept;
         explicit Table(int n, std::map<std::pair<full_characteristic, short_characteristic>, int> t);
         Table(const Table& T) noexcept;
 
