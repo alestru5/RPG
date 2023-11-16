@@ -99,6 +99,8 @@ Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in, Game &game){
             enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::black_druid)));
         } else if (tmp == "golem"){
             enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::white_golem)));
+        } else {
+            throw std::invalid_argument("its not mob");
         }
     }
 }
@@ -115,11 +117,8 @@ Dungeon& Dungeon::move_door(int i, int j){
         levels[count_levels-1][i][j].getType() != type_cell::open_door){
         throw std::invalid_argument("its not door");
     }
-    if (levels[count_levels-1][i][j].getType() == type_cell::close_door){
-        levels[count_levels-1][i][j].setType(type_cell::open_door);
-    } else{
-        levels[count_levels-1][i][j].setType(type_cell::close_door);
-    }
+    levels[count_levels][i][j].changeDoor();
+    return *this;
 }
 
 Dungeon::~Dungeon(){

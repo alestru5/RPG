@@ -41,7 +41,6 @@ class Dungeon{
         void enemyDead(int ind_enemy);
 
         Dungeon& move_door(int i, int j);
-
 };
 
 #endif // DUNGEON_H
