@@ -423,7 +423,6 @@ void GameWindow::act(std::string key){
             return;
         }
         if (game.getDungeon().getHero().take(game.getDungeon())){
-            game.getDungeon().getHero().updateHp();
             return;
         }
         if (game.getDungeon().getHero().change_door(game.getDungeon())){
@@ -453,7 +452,6 @@ void GameWindow::act(std::string key){
     } else if (command == "use"){
         game.getDungeon().getHero().usingChosenItem(game.getDungeon());
     }
-    game.getDungeon().getHero().updateHp();
 }
 
 std::string GameWindow::status(){

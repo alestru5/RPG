@@ -26,10 +26,11 @@ class Hero : public Character {
 
         Table table;
 
+        void updateHp() noexcept;
     public:
-        Hero();
-        Hero(int i, int j);
-        Hero(const Hero &H);
+        Hero() noexcept;
+        Hero(int i, int j) noexcept;
+        Hero(const Hero &H) noexcept;
 
         ~Hero() { delete weapon; }
 
@@ -45,13 +46,13 @@ class Hero : public Character {
 
 
         Hero &setLevel(int l);
-        Hero &setWeapon(Weapon *W) { weapon = W; return *this; }
-        Hero &setEquipment(std::list<Equipment*> &E);
+        Hero &setWeapon(Weapon *W) noexcept { weapon = W; return *this; }
+        Hero &setEquipment(std::list<Equipment*> &E) noexcept;
         Hero &setCurr_Chosen_Item(int a);
-        Hero &setInventory(std::vector<Item*> &I) { inventory = I; return *this; }
+        Hero &setInventory(std::vector<Item*> &I) noexcept { inventory = I; return *this; }
         Hero &setC_Bunch(int b);
         Hero &setCur_Endurance(int a);
-        Hero &setTable(Table &T) { table = T; return *this; }
+        Hero &setTable(Table &T) noexcept { table = T; return *this; }
 
         Hero& operator=(const Hero& H);
 
@@ -66,11 +67,10 @@ class Hero : public Character {
         int findEnemy(Dungeon &dungeon) const noexcept;
         int fullDamage(Enemy *enemy) const noexcept;
         void updateEndurance() noexcept;
-        void updateHp() noexcept;
 
         void addExperience(int a);
         void levelUp(short_characteristic n);
-        void usingChosenItem(Dungeon &dungeon);
+        void usingChosenItem(Dungeon &dungeon) noexcept;
         void attack(Character *C) override;
         bool take(Dungeon &dungeon);
         void move(type_destination direction, Dungeon &dungeon) noexcept override;

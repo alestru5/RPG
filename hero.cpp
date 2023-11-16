@@ -2,14 +2,14 @@
 #include "game.h"
 #include "item.h"
 
-Hero::Hero(): Character(), weapon(nullptr), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory, nullptr){}
+Hero::Hero() noexcept: Character(), weapon(nullptr), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory, nullptr){}
 
-Hero::Hero(int i, int j): Character(), weapon(nullptr), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory, nullptr){
+Hero::Hero(int i, int j) noexcept: Character(), weapon(nullptr), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory, nullptr){
     x = i;
     y = j;
 }
 
-Hero::Hero(const Hero &H){
+Hero::Hero(const Hero &H) noexcept{
     experience = H.experience;
     cur_endurance = H.cur_endurance;
     max_hp = H.max_hp;
@@ -29,7 +29,7 @@ Hero & Hero::setLevel(int l){
     return *this;
 }
 
-Hero & Hero::setEquipment(std::list<Equipment*> &E){
+Hero & Hero::setEquipment(std::list<Equipment*> &E) noexcept{
     equipment = E;
     return *this;
 }
@@ -165,13 +165,15 @@ void Hero::levelUp(short_characteristic n){
     }
     table.setValue(n, table.getValue(n) + 5);
     experience -= 200;
+    updateHp();
 }
 
-void Hero::usingChosenItem(Dungeon &dungeon){
+void Hero::usingChosenItem(Dungeon &dungeon) noexcept{
     if (inventory[curr_chosen_item] == nullptr){
         return;
     }
     inventory[curr_chosen_item]->use(dungeon);
+    updateHp();
 }
 
 void Hero::attack(Character *C){
@@ -195,24 +197,28 @@ bool Hero::take(Dungeon &dungeon){
         tmp = dungeon.getCurLevel()[x][y+1].getItem();
         dungeon.getCurLevel()[x][y+1].setItem(inventory[ind]);
         inventory[ind] = tmp;
+        updateHp();
         return true;
     }
     else if (dungeon.getCurLevel()[x][y-1].isItem()){
         tmp = dungeon.getCurLevel()[x][y-1].getItem();
         dungeon.getCurLevel()[x][y-1].setItem(inventory[ind]);
         inventory[ind] = tmp;
+        updateHp();
         return true;
     }
     else if (dungeon.getCurLevel()[x+1][y].isItem()){
         tmp = dungeon.getCurLevel()[x+1][y].getItem();
         dungeon.getCurLevel()[x+1][y].setItem(inventory[ind]);
         inventory[ind] = tmp;
+        updateHp();
         return true;
     }
     else if (dungeon.getCurLevel()[x-1][y].isItem()){
         tmp = dungeon.getCurLevel()[x-1][y].getItem();
         dungeon.getCurLevel()[x-1][y].setItem(inventory[ind]);
         inventory[ind] = tmp;
+        updateHp();
         return true;
     }
     return false;
