@@ -8,8 +8,8 @@ class EquipmentArtifact: public Equipment, public Artifact{
         int bonus_protect;
 
     public:
-        EquipmentArtifact(): Equipment(), Artifact(), bonus_protect(0) { setType(type_item::equipment_artifact); }
-        EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A);
+        EquipmentArtifact() noexcept: Equipment(), Artifact(), bonus_protect(0) { setType(type_item::equipment_artifact); }
+        EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A) noexcept;
 
         ~EquipmentArtifact() {}
 

@@ -2,14 +2,9 @@
 #include "hero.h"
 #include "dungeon.h"
 
-EquipmentArtifact::EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A): Equipment(N, T), Artifact(A){
-    try{
-        bonus_protect = SetProtect::setBonus_Protect(A);
-        setType(type_item::equipment_artifact);
-    } catch(...){
-        throw;
-    }
-
+EquipmentArtifact::EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A) noexcept: Equipment(N, T), Artifact(A){
+    bonus_protect = SetProtect::setBonus_Protect(A);
+    setType(type_item::equipment_artifact);
 }
 
 int EquipmentArtifact::getProtect() const noexcept{
