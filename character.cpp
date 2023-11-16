@@ -3,7 +3,7 @@
 #include "cell.h"
 #include "dungeon.h"
 
-Character::Character(int e, int m, int c, int x, int y){
+Character::Character(int e, int m, int c, int x, int y) noexcept{
     if (e < 0 || m < 0 || c < 0 || c > m || x < 0 || y < 0){
         throw std::invalid_argument("negative arguments");
     }

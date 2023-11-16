@@ -1,7 +1,7 @@
 #include "setprotect.h"
 
 std::pair<int, int> SetProtect::createProtect(name_equipment N, type_equipment T){
-    int mn, mx;
+    int mn = 2, mx = 4;
     if (T == type_equipment::helmet){
         mn = 1;
         mx = 3;
@@ -14,8 +14,6 @@ std::pair<int, int> SetProtect::createProtect(name_equipment N, type_equipment T
     } else if (T == type_equipment::boots){
         mn = 2;
         mx = 4;
-    } else{
-        throw std::invalid_argument("Its not equipment");
     }
     if (N == name_equipment::leather){
         mn *= 1;
@@ -29,8 +27,6 @@ std::pair<int, int> SetProtect::createProtect(name_equipment N, type_equipment T
     } else if (N == name_equipment::diamond){
         mn *= 2;
         mx *= 2;
-    } else{
-        throw std::invalid_argument("Its not equipment");
     }
     return std::make_pair(mn, mx);
 }
@@ -44,7 +40,6 @@ int SetProtect::setBonus_Protect(type_artifact T){
         return 10;
     } else if (T == type_artifact::legendary){
         return 15;
-    } else{
-        throw std::invalid_argument("Its not artifact");
     }
+    return 0;
 }

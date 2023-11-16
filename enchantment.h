@@ -12,8 +12,8 @@ class Enchantment{
         std::list<std::pair<trait, double>> coef;
 
     public:
-        Enchantment();
-        Enchantment(type_enchantment T);
+        Enchantment() noexcept;
+        Enchantment(type_enchantment T) noexcept;
 
         ~Enchantment() {}
 

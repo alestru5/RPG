@@ -1,7 +1,7 @@
 #include "chest.h"
 #include "game.h"
 
-Chest::Chest(int l, Item *I){
+Chest::Chest(int l, Item *I) noexcept{
     if (l <= 0 || l > 5){
         throw std::invalid_argument("level is not in 1-5");
     }

@@ -1,19 +1,19 @@
 #include "enemy.h"
 #include "setitem.h"
 #include "game.h"
-Enemy::Enemy(): Character(), name(name_enemy::white_golem){
+Enemy::Enemy() noexcept: Character(), name(name_enemy::white_golem){
     experience = 100;
     min_damage = SetDamage::createDamage(name_enemy::white_golem).first;
     max_damage = SetDamage::createDamage(name_enemy::white_golem).second;
     item = SetItem::createItem();
 }
-Enemy::Enemy(int i, int j): Enemy(){
+Enemy::Enemy(int i, int j) noexcept: Enemy(){
     experience = 100;
     x = i;
     y = j;
 }
 
-Enemy::Enemy(int i, int j, name_enemy n): Character(), name(n){
+Enemy::Enemy(int i, int j, name_enemy n) noexcept: Character(), name(n){
     experience = 100;
     min_damage = SetDamage::createDamage(n).first;
     max_damage = SetDamage::createDamage(n).second;
@@ -25,8 +25,8 @@ Enemy::Enemy(int i, int j, name_enemy n): Character(), name(n){
 bool Enemy::isNear(Dungeon &dungeon) const noexcept{
     int hx = dungeon.getHero().getX();
     int hy = dungeon.getHero().getY();
-    if (x == hx && abs(hy - y) == 1 ||
-        y == hy && abs(hx - x) == 1){
+    if ((x == hx && (abs(hy - y) == 1)) ||
+        (y == hy && abs(hx - x) == 1)){
         return true;
     }
     return false;

@@ -2,7 +2,7 @@
 #include "hero.h"
 #include "dungeon.h"
 
-Bunch::Bunch(type_bunch T): Item(type_item::bunch){
+Bunch::Bunch(type_bunch T) noexcept: Item(type_item::bunch){
     bunch_type = T;
     count = SetCount::createCount(T);
 }

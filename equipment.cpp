@@ -3,26 +3,18 @@
 #include "hero.h"
 
 Equipment::Equipment(name_equipment N, type_equipment T) noexcept: Item(type_item::equipment){
-    try{
-        equipment_name = N;
-        equipment_type = T;
-        min_protect = SetProtect::createProtect(N, T).first;
-        max_protect = SetProtect::createProtect(N, T).second;
-    } catch(...){
-        throw;
-    }
+    equipment_name = N;
+    equipment_type = T;
+    min_protect = SetProtect::createProtect(N, T).first;
+    max_protect = SetProtect::createProtect(N, T).second;
 }
 
 
 Equipment& Equipment::setNameType(name_equipment N, type_equipment T) noexcept{
-    try{
-        equipment_name = N;
-        equipment_type = T;
-        min_protect = SetProtect::createProtect(N, T).first;
-        max_protect = SetProtect::createProtect(N, T).second;
-    } catch(...){
-        throw;
-    }
+    equipment_name = N;
+    equipment_type = T;
+    min_protect = SetProtect::createProtect(N, T).first;
+    max_protect = SetProtect::createProtect(N, T).second;
     return *this;
 }
 
@@ -32,8 +24,6 @@ Equipment& Equipment::operator=(const Equipment& I) noexcept{
         equipment_type = I.equipment_type;
         min_protect = I.min_protect;
         max_protect = I.max_protect;
-
-        Item::operator=(I);
     }
     return *this;
 }

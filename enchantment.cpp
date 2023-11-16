@@ -1,12 +1,12 @@
 #include "enchantment.h"
 #include "setcoef.h"
 
-Enchantment::Enchantment(){
+Enchantment::Enchantment() noexcept{
     enchantment_type = type_enchantment::BlackKiller;
     coef = SetCoef::createCoef(type_enchantment::BlackKiller);
 }
 
-Enchantment::Enchantment(type_enchantment T){
+Enchantment::Enchantment(type_enchantment T) noexcept{
     enchantment_type = T;
     coef = SetCoef::createCoef(T);
 }

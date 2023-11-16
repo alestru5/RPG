@@ -11,8 +11,8 @@ class Chest{
         Item *item;
 
     public:
-        Chest(): level(1), item(nullptr) {}
-        Chest(int l, Item *I = nullptr);
+        Chest() noexcept: level(1), item(nullptr) {}
+        Chest(int l, Item *I = nullptr) noexcept;
 
         int getLevel() const noexcept { return level; }
         Item *getItem() const noexcept { return item; }

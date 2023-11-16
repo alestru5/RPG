@@ -22,7 +22,7 @@ class Dungeon{
         Matrix<Cell>* levels;
 
     public:
-        Dungeon(): count_levels(0), cur_level(0), hero(), levels(nullptr) {}
+        Dungeon() noexcept: count_levels(0), cur_level(0), hero(), levels(nullptr) {}
         ~Dungeon();
 
         Dungeon& initializeLevelsFile(std::ifstream &in, Game &game);

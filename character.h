@@ -17,8 +17,8 @@ class Character{
         int y;
 
     public:
-        Character(): experience(), max_hp(100), cur_hp(100), x(-1), y(-1) {}
-        Character(int e, int m, int c, int x, int y);
+        Character() noexcept: experience(), max_hp(100), cur_hp(100), x(-1), y(-1) {}
+        Character(int e, int m, int c, int x, int y) noexcept;
 
         void setX(int i);
         void setY(int j);

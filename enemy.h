@@ -15,9 +15,9 @@ private:
     Item *item;
 
 public:
-    Enemy();
-    Enemy(int i, int j);
-    Enemy(int i, int j, name_enemy n);
+    Enemy() noexcept;
+    Enemy(int i, int j) noexcept;
+    Enemy(int i, int j, name_enemy n) noexcept;
 
     ~Enemy() { delete item; }
 

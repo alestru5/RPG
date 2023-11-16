@@ -13,8 +13,8 @@ class Bunch: public Item{
         int count;
 
     public:
-        Bunch(): count(0), Item(type_item::bunch){}
-        Bunch(type_bunch T);
+        Bunch() noexcept: count(0), Item(type_item::bunch) {}
+        Bunch(type_bunch T) noexcept;
 
         type_bunch getBunch_Type() const noexcept { return bunch_type; }
         int getCount() const noexcept { return count; }
