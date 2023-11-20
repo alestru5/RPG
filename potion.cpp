@@ -13,7 +13,7 @@ void Potion::use(Dungeon &dungeon){
     } else if (changes.first == changes_characteristic::experience){
         dungeon.getHero().setExperience(dungeon.getHero().getExperience() + changes.second);
     } else if (changes.first == changes_characteristic::hp){
-        dungeon.getHero().setCur_Hp(dungeon.getHero().getCur_Hp() + changes.second);
+        dungeon.getHero().setCur_Hp(std::min(dungeon.getHero().getCur_Hp() + changes.second, dungeon.getHero().getMax_Hp()));
     } else if (changes.first == changes_characteristic::intelligence){
         dungeon.getHero().getTable().setValue(short_characteristic::i, dungeon.getHero().getTable().getValue(short_characteristic::i) + changes.second);
     } else if (changes.first == changes_characteristic::strength){

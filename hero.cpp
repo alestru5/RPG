@@ -22,12 +22,6 @@ Hero::Hero(const Hero &H) noexcept{
     c_bunch = H.c_bunch;
 }
 
-Hero & Hero::setLevel(int l){
-    if (l < 0){
-        throw std::invalid_argument("negative level");
-    }
-    return *this;
-}
 
 Hero & Hero::setEquipment(std::list<Equipment*> &E) noexcept{
     equipment = E;
@@ -179,7 +173,9 @@ void Hero::usingChosenItem(Dungeon &dungeon) noexcept{
 void Hero::attack(Character *C) {
     if (!C->isDead()){
         int damage = fullDamage(static_cast<Enemy *>(C));
-        static_cast<Enemy *>(C)->getDamage(damage);
+        if (rand() % 100 > table.getValue(short_characteristic::a)){
+            static_cast<Enemy *>(C)->getDamage(damage);
+        }
     }
 }
 

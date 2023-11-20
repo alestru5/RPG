@@ -14,7 +14,7 @@ class Cell{
     public:
         Cell() noexcept: type(type_cell::floor), item(nullptr), chest(nullptr){}
         explicit Cell(type_cell t) noexcept: type(t), item(nullptr), chest(nullptr) {}
-        explicit Cell(type_cell T, Item *I, Chest *C) noexcept;
+        explicit Cell(type_cell T, Item *I, Chest *C);
 
         type_cell getType() const noexcept { return type; }
         Item * getItem() const noexcept { return item; }

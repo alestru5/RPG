@@ -71,4 +71,5 @@ std::string EnumToString::toString(name_potion n){
     } else if (n == name_potion::endurance){
         return "Endurance";
     }
+    return "";
 }

@@ -2,9 +2,12 @@
 #include "character.h"
 #include "game.h"
 
-Cell::Cell(type_cell T, Item *I, Chest *C) noexcept{
-    if (T != type_cell::floor){
+Cell::Cell(type_cell T, Item *I, Chest *C){
+    if (T != type_cell::floor && I != nullptr){
         throw std::invalid_argument("Things can put only on floor");
+    }
+    if (I != nullptr && C != nullptr){
+        throw std::invalid_argument("and item and chest cannot be on one cell");
     }
     item = I;
     chest = C;

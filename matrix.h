@@ -95,7 +95,7 @@ public:
         return *this;
     }
 
-    T* operator [](const int i) const noexcept{
+    T* operator [](const int i) const{
         if (i > m || i < 0){
             throw std::invalid_argument("ivalid index");
         }

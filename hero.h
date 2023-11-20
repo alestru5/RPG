@@ -45,7 +45,6 @@ class Hero : public Character {
         Table& getTable() noexcept { return table; }
 
 
-        Hero &setLevel(int l);
         Hero &setWeapon(Weapon *W) noexcept { weapon = W; return *this; }
         Hero &setEquipment(std::list<Equipment*> &E) noexcept;
         Hero &setCurr_Chosen_Item(int a);

@@ -3,7 +3,7 @@
 #include "dungeon.h"
 
 int WeaponArtifactEnchantment::getDamage(Enemy *enemy) const noexcept{
-    return static_cast<int> ((static_cast<double>(rand() % (getMax_Damage() - getMin_Damage()) + getMin_Damage())) * getMultiply(enemy)) + bonus_damage;
+    return static_cast<int> ((static_cast<double>(rand() % (getMax_Damage() - getMin_Damage()) + getMin_Damage())) * getMultiply(enemy));
 }
 
 void WeaponArtifactEnchantment::use(Dungeon &dungeon){

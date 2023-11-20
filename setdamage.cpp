@@ -9,7 +9,7 @@ std::pair<int, int> SetDamage::createDamage(name_weapon n){
     } else if (n == name_weapon::sword){
         return std::make_pair(20, 50);
     }
-    std::make_pair(11, 13);
+    return std::make_pair(11, 13);
 }
 
 int SetDamage::setBonus_Damage(type_artifact T){

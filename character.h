@@ -1,8 +1,9 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <QObject>
+#include <vector>
 #include<string>
+
 #include "enums.h"
 
 
@@ -18,7 +19,6 @@ class Character{
 
     public:
         Character() noexcept: experience(), max_hp(100), cur_hp(100), x(-1), y(-1) {}
-        Character(int e, int m, int c, int x, int y) noexcept;
 
         void setX(int i);
         void setY(int j);

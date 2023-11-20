@@ -15,6 +15,7 @@
 #include <QGraphicsView>
 #include <iostream>
 #include "game.h"
+#include "enums.h"
 
 
 class GameWindow : public QMainWindow{
@@ -29,15 +30,17 @@ class GameWindow : public QMainWindow{
         std::vector<std::vector<QLabel*>> tile;
         std::vector<std::vector<QLabel*>> hpTile;
 
-        QPixmap wallPix;
+        QPixmap avatar;
         QPixmap nothingPix;
         QPixmap shadowPix;
         QPixmap chestPix;
-        QPixmap ladderPix;
-        QPixmap openDoorPix;
-        QPixmap closeDoorPix;
-        std::map<std::string, QPixmap> itemsPix;
-        std::map<std::string, QPixmap> mobPix;
+        QPixmap potionPix;
+        QPixmap bunchPix;
+
+        std::map<name_weapon, QPixmap> weaponPix;
+        std::map<type_equipment, QPixmap> equipmentPix;
+        std::map<type_cell, QPixmap> cellPix;
+        std::map<name_enemy, QPixmap> mobPix;
 
         QLabel* statusLabel;
         QLabel* info;
@@ -55,6 +58,11 @@ class GameWindow : public QMainWindow{
         void setSize();
 
         explicit GameWindow(QMainWindow *parent = nullptr);
+
+        void loadImg();
+        void drawTools();
+        void drawInventory();
+        void drawMob();
 
         void mousePressEvent(QMouseEvent *e);
         void keyPressEvent(QKeyEvent* e);

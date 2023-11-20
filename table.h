@@ -11,7 +11,6 @@ class Table{
         std::map<std::pair<full_characteristic, short_characteristic>, int> table;
     public:
         Table() noexcept;
-        explicit Table(int n, std::map<std::pair<full_characteristic, short_characteristic>, int> t);
         Table(const Table& T) noexcept;
 
         ~Table() {}
@@ -22,8 +21,8 @@ class Table{
         int getValue(full_characteristic name) const noexcept;
         int getValue(short_characteristic name) const noexcept;
 
-        Table& setValue(full_characteristic name, int v) noexcept;
-        Table& setValue(short_characteristic name, int v) noexcept;
+        Table& setValue(full_characteristic name, int v);
+        Table& setValue(short_characteristic name, int v);
 
 };
 

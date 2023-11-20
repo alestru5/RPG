@@ -61,10 +61,6 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
             else if (map[i][j] == 'E'){
                 tmp.push_back(Cell(type_cell::close_door));
             }
-            else if (map[i][j] == 'M'){
-                tmp.push_back(Cell(type_cell::floor));
-                enemies.push_back(std::make_pair(l, new Enemy(i - l * (game.getMapHeight() + 1), j)));
-            }
             else{
                 tmp.push_back(Cell(type_cell::floor));
             }
@@ -103,6 +99,7 @@ Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in){
             throw std::invalid_argument("its not mob");
         }
     }
+    return *this;
 }
 
 void Dungeon::enemyDead(int ind_enemy){
@@ -113,14 +110,14 @@ void Dungeon::enemyDead(int ind_enemy){
 }
 
 Dungeon& Dungeon::move_door(int i, int j){
-    if (i < 0 || j < 0 || i >= levels[count_levels-1].getM() || j >= levels[count_levels-1].getN()){
+    if (i < 0 || j < 0 || i >= levels[cur_level].getM() || j >= levels[cur_level].getN()){
         throw std::invalid_argument("index error");
     }
-    if (levels[count_levels-1][i][j].getType() != type_cell::close_door ||
-        levels[count_levels-1][i][j].getType() != type_cell::open_door){
+    if (levels[cur_level][i][j].getType() != type_cell::close_door &&
+        levels[cur_level][i][j].getType() != type_cell::open_door){
         throw std::invalid_argument("its not door");
     }
-    levels[count_levels][i][j].changeDoor();
+    levels[cur_level][i][j].changeDoor();
     return *this;
 }
 

@@ -1,9 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <QDebug>
-#include <QObject>
-
 #include "dungeon.h"
 #include "hero.h"
 

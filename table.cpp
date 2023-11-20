@@ -7,16 +7,6 @@ Table::Table() noexcept{
     table[std::make_pair(full_characteristic::intelligence, short_characteristic::i)] = 50;
 }
 
-Table::Table(int n, std::map<std::pair<full_characteristic, short_characteristic>, int>t){
-    if (n > m_size){
-        throw std::invalid_argument("n is bigger than m_size");
-    }
-    for (auto &i: t){
-        if (table.count(i.first) == 0){
-            table[i.first] = i.second;
-        }
-    }
-}
 
 Table::Table(const Table& T) noexcept{
     for (auto &i: T.table){
@@ -43,7 +33,7 @@ int Table::getValue(short_characteristic name) const noexcept{
     return -1;
 }
 
-Table& Table::setValue(full_characteristic name, int v) noexcept{
+Table& Table::setValue(full_characteristic name, int v){
     if (v < 0){
         throw std::invalid_argument("negative value");
     }
@@ -62,7 +52,7 @@ Table& Table::setValue(full_characteristic name, int v) noexcept{
     return *this;
 }
 
-Table& Table::setValue(short_characteristic name, int v) noexcept{
+Table& Table::setValue(short_characteristic name, int v){
     if (v < 0){
         throw std::invalid_argument("negative value");
     }
