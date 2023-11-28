@@ -12,7 +12,7 @@ void Game::initGame(){
         dungeon.initializeEnemiesFile(mobs);
         mobs.close();
 
-        isGame = true;
+        isGame = false;
     } catch(...){
         throw;
     }
@@ -21,11 +21,23 @@ void Game::initGame(){
 
 bool Game::tick(Dungeon &dungeon){
     try{
-        if (dungeon.getHero().isDead()){
+        if (dungeon.getHero().isDead() || dungeon.getEnemies().size() == 0){
             isGame = false;
         }
         if (isGame){
-            actionMobs(dungeon);
+            auto threadNum = 2;
+            std::cout<<threadNum<<"----"<<std::endl;
+            std::vector<std::thread> threads(threadNum);
+            int elements = dungeon.getEnemies().size();
+            for (size_t i = 0; i < threadNum; ++i) {
+                int start_i = i * elements / threadNum;
+                int end_i = (i + 1) * elements / threadNum;
+                threads[i] = std::thread([=](){actionMobs(start_i, end_i);});
+
+            }
+            for(auto& th : threads) {
+                th.join();
+            }
             dungeon.getHero().updateEndurance();
             return true;
         } else{
@@ -36,18 +48,19 @@ bool Game::tick(Dungeon &dungeon){
     }
 }
 
-void Game::actionMobs(Dungeon &dungeon){
+void Game::actionMobs(int i, int j){
     try{
-        for (size_t i = 0; i < dungeon.getEnemies().size(); i++){
-            if (dungeon.getEnemies()[i].first == dungeon.getCur_Level()){
+        std::cout<<i<<" "<<j<<std::endl;
+        for (int k = i; k < j; k++){
+            if (dungeon.getEnemies()[k].first == dungeon.getCur_Level()){
                 type_destination destination = dungeon.getEnemies()[i].second->vision(dungeon);
                 if (destination != type_destination::none){
-                    dungeon.getEnemies()[i].second->move(destination, dungeon);
+                    dungeon.getEnemies()[k].second->move(destination, dungeon);
                 }
-                else if (!dungeon.getEnemies()[i].second->isNear(dungeon)){
-                    dungeon.getEnemies()[i].second->randomMoveMob(dungeon);
-                } else if (dungeon.getEnemies()[i].second->isNear(dungeon)){
-                    dungeon.getEnemies()[i].second->attack(&static_cast<Character&>(dungeon.getHero()));
+                else if (!dungeon.getEnemies()[k].second->isNear(dungeon)){
+                    dungeon.getEnemies()[k].second->randomMoveMob(dungeon);
+                } else if (dungeon.getEnemies()[k].second->isNear(dungeon)){
+                    dungeon.getEnemies()[k].second->attack(&static_cast<Character&>(dungeon.getHero()));
                 }
             }
         }

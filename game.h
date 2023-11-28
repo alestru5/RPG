@@ -1,9 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <thread>
+#include <mutex>
 #include "dungeon.h"
 #include "hero.h"
-
 
 class Game{
     private:
@@ -22,11 +23,11 @@ class Game{
 
         Game &setMapWidth(int mW) noexcept { mapWidth = mW; return *this; }
         Game &setMapHeight(int mH) noexcept { mapHeight = mH; return *this; }
-
+        Game &setisGame(bool status) noexcept { isGame = status; }
         void initGame();
         bool tick(Dungeon &dungeon);
 
-        void actionMobs(Dungeon &dungeon);
+        void actionMobs(int i, int j);
 };
 
 #endif // GAME_H

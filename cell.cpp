@@ -2,6 +2,8 @@
 #include "character.h"
 #include "game.h"
 
+
+
 Cell::Cell(type_cell T, Item *I, Chest *C){
     if (T != type_cell::floor && I != nullptr){
         throw std::invalid_argument("Things can put only on floor");
@@ -12,6 +14,12 @@ Cell::Cell(type_cell T, Item *I, Chest *C){
     item = I;
     chest = C;
     type = T;
+}
+
+Cell::Cell(const Cell &C){
+    type = C.type;
+    item = C.item;
+    chest = C.chest;
 }
 
 void Cell::changeDoor(){

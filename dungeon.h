@@ -20,6 +20,7 @@ class Dungeon{
         Hero hero;
         std::vector<std::pair<int, Enemy *>> enemies;
         Matrix<Cell>* levels;
+        std::binary_semaphore check = std::binary_semaphore(1);
 
     public:
         Dungeon() noexcept: count_levels(0), cur_level(0), hero(), levels(nullptr) {}
@@ -33,7 +34,8 @@ class Dungeon{
         Matrix<Cell>* getLevels() const noexcept {return levels;}
         Hero &getHero() noexcept { return hero; }
         Matrix<Cell>& getCurLevel() noexcept { return levels[cur_level]; }
-        std::vector<std::pair<int, Enemy *>> getEnemies() const noexcept { return enemies; }
+        std::vector<std::pair<int, Enemy *>>& getEnemies() noexcept { return enemies; }
+        std::binary_semaphore& getCheck() noexcept { return check; }
 
         Dungeon &up_level() noexcept {cur_level+= 1; return *this; }
         Dungeon &down_level() noexcept {cur_level-= 1; return *this; }

@@ -59,6 +59,8 @@ class GameWindow : public QMainWindow{
 
         explicit GameWindow(QMainWindow *parent = nullptr);
 
+        Game& getGame() noexcept { return game; }
+
         void loadImg();
         void drawTools();
         void drawInventory();

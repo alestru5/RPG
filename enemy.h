@@ -1,6 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include <cmath>
+#include <semaphore>
 
 #include "character.h"
 #include "enums.h"
@@ -28,6 +29,7 @@ public:
     Enemy& setItem(Item *I) noexcept { item = I; return *this; }
     Enemy& setExperience(int exp);
 
+    bool findEnemy(Dungeon &dungeon, int i, int j);
     bool isNear(Dungeon &dungeon) const noexcept;
     type_destination vision(Dungeon &dungeon) const noexcept;
     void move(type_destination direction, Dungeon &dungeon) noexcept override;

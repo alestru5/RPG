@@ -31,6 +31,7 @@ void Title::quitProgram(){
     qApp->quit();
 }
 void Title::startGame(){
+    gamewindow.getGame().setisGame(true);
     gamewindow.setSize();
     gamewindow.showFullScreen();
 }
