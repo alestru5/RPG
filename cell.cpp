@@ -33,10 +33,12 @@ void Cell::changeDoor(){
 }
 
 Cell& Cell::operator=(const Cell &c){
+    Cell();
     type = c.type;
     item = c.item;
     chest = c.chest;
     return *this;
 }
+
 
 

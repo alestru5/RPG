@@ -23,7 +23,7 @@ class Game{
 
         Game &setMapWidth(int mW) noexcept { mapWidth = mW; return *this; }
         Game &setMapHeight(int mH) noexcept { mapHeight = mH; return *this; }
-        Game &setisGame(bool status) noexcept { isGame = status; }
+        Game &setisGame(bool status) noexcept { isGame = status; return *this;}
         void initGame();
         bool tick(Dungeon &dungeon);
 

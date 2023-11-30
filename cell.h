@@ -39,6 +39,7 @@ class Cell{
         void changeDoor();
 
         Cell& operator=(const Cell &c);
+        bool operator==(const Cell &c);
 
 };
 

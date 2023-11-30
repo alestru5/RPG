@@ -13,6 +13,7 @@ void Game::initGame(){
         mobs.close();
 
         isGame = false;
+
     } catch(...){
         throw;
     }

@@ -188,36 +188,20 @@ bool Hero::take(Dungeon &dungeon){
             break;
         }
     }
-    if (dungeon.getCurLevel()[x][y+1].isItem()){
-        tmp = dungeon.getCurLevel()[x][y+1].getItem();
-        dungeon.getCurLevel()[x][y+1].setItem(inventory[ind]);
-        inventory[ind] = tmp;
-        updateHp();
-        return true;
+    auto it = dungeon.getCurLevel().beginS(
+        [&](Cell C, int index){
+            return C.isItem() && ((std::abs(index % dungeon.getCurLevel().getN() - y) == 1 && std::abs(index / dungeon.getCurLevel().getN() - x) == 0) ||
+                                  (std::abs(index % dungeon.getCurLevel().getN() - y) == 0 && std::abs(index / dungeon.getCurLevel().getN() - x) == 1));
+        });
+    if (it == dungeon.getCurLevel().endS()){
+        return false;
     }
-    else if (dungeon.getCurLevel()[x][y-1].isItem()){
-        tmp = dungeon.getCurLevel()[x][y-1].getItem();
-        dungeon.getCurLevel()[x][y-1].setItem(inventory[ind]);
-        inventory[ind] = tmp;
-        updateHp();
-        return true;
-    }
-    else if (dungeon.getCurLevel()[x+1][y].isItem()){
-        tmp = dungeon.getCurLevel()[x+1][y].getItem();
-        dungeon.getCurLevel()[x+1][y].setItem(inventory[ind]);
-        inventory[ind] = tmp;
-        updateHp();
-        return true;
-    }
-    else if (dungeon.getCurLevel()[x-1][y].isItem()){
-        tmp = dungeon.getCurLevel()[x-1][y].getItem();
-        dungeon.getCurLevel()[x-1][y].setItem(inventory[ind]);
-        inventory[ind] = tmp;
-        updateHp();
-        return true;
-    }
-    return false;
 
+    tmp = (*it).getItem();
+    (*it).setItem(inventory[ind]);
+    inventory[ind] = tmp;
+    updateHp();
+    return true;
 }
 
 void Hero::move(type_destination direction, Dungeon &dungeon) noexcept{
@@ -251,60 +235,23 @@ bool Hero::open_chest(Dungeon &dungeon) noexcept{
     if (c_bunch <= 0){
         return false;
     }
-    if (dungeon.getCurLevel()[x][y+1].isChest()){
-        std::pair<bool, bool> check = dungeon.getCurLevel()[x][y+1].getChest()->tryToOpen(this);
-        if (check.first){
-            dungeon.getCurLevel()[x][y+1].setItem(dungeon.getCurLevel()[x][y+1].getChest()->getItem());
-            dungeon.getCurLevel()[x][y+1].setChest(nullptr);
-            c_bunch -= 1;
-            return true;
-        }
-        if (check.second){
-            c_bunch -= 1;
-        }
+    auto it = dungeon.getCurLevel().beginS(
+        [&](Cell C, int index){
+            return C.isChest() && ((std::abs(index % dungeon.getCurLevel().getN() - y) == 1 && std::abs(index / dungeon.getCurLevel().getN() - x) == 0) ||
+                                  (std::abs(index % dungeon.getCurLevel().getN() - y) == 0 && std::abs(index / dungeon.getCurLevel().getN() - x) == 1));
+        });
+    if (it == dungeon.getCurLevel().endS()){
         return false;
     }
-
-    if (dungeon.getCurLevel()[x][y-1].isChest()){
-        std::pair<bool, bool> check = dungeon.getCurLevel()[x][y-1].getChest()->tryToOpen(this);
-        if (check.first){
-            dungeon.getCurLevel()[x][y-1].setItem(dungeon.getCurLevel()[x][y-1].getChest()->getItem());
-            dungeon.getCurLevel()[x][y-1].setChest(nullptr);
-            c_bunch -= 1;
-            return true;
-        }
-        if (check.second){
-            c_bunch -= 1;
-        }
-        return false;
+    std::pair<bool, bool> check = (*it).getChest()->tryToOpen(this);
+    if (check.first){
+        (*it).setItem((*it).getChest()->getItem());
+        (*it).setChest(nullptr);
+        c_bunch -= 1;
+        return true;
     }
-
-    if (dungeon.getCurLevel()[x+1][y].isChest()){
-        std::pair<bool, bool> check = dungeon.getCurLevel()[x+1][y].getChest()->tryToOpen(this);
-        if (check.first){
-            dungeon.getCurLevel()[x+1][y].setItem(dungeon.getCurLevel()[x+1][y].getChest()->getItem());
-            dungeon.getCurLevel()[x+1][y].setChest(nullptr);
-            c_bunch -= 1;
-            return true;
-        }
-        if (check.second){
-            c_bunch -= 1;
-        }
-        return false;
-    }
-
-    if (dungeon.getCurLevel()[x-1][y].isChest()){
-        std::pair<bool, bool> check = dungeon.getCurLevel()[x-1][y].getChest()->tryToOpen(this);
-        if (check.first){
-            dungeon.getCurLevel()[x-1][y].setItem(dungeon.getCurLevel()[x-1][y].getChest()->getItem());
-            dungeon.getCurLevel()[x-1][y].setChest(nullptr);
-            c_bunch -= 1;
-            return true;
-        }
-        if (check.second){
-            c_bunch -= 1;
-        }
-        return false;
+    if (check.second){
+        c_bunch -= 1;
     }
     return false;
 }
@@ -333,19 +280,13 @@ bool Hero::climb(Dungeon &dungeon) noexcept{
 
 bool Hero::change_door(Dungeon &dungeon) noexcept {
     if (dungeon.getCurLevel()[x][y+1].isDoor()){
-        Cell tmp = dungeon.getCurLevel()[x][y+1];
-        tmp.changeDoor();
-        dungeon.getCurLevel().setValue(x, y+1, tmp);
+        dungeon.getCurLevel()[x][y+1].changeDoor();
        return true;
     } else if (dungeon.getCurLevel()[x][y-1].isDoor()){
-       Cell tmp = dungeon.getCurLevel()[x][y-1];
-       tmp.changeDoor();
-       dungeon.getCurLevel().setValue(x, y-1, tmp);
+       dungeon.getCurLevel()[x][y-1].changeDoor();
        return true;
     } else if (dungeon.getCurLevel()[x+1][y].isDoor()){
-       Cell tmp = dungeon.getCurLevel()[x+1][y];
-       tmp.changeDoor();
-       dungeon.getCurLevel().setValue(x+1, y, tmp);
+       dungeon.getCurLevel()[x+1][y].changeDoor();
        return true;
     } else if (dungeon.getCurLevel()[x-1][y].isDoor()){
        dungeon.getCurLevel()[x-1][y].changeDoor();

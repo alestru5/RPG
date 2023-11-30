@@ -112,7 +112,7 @@ void Enemy::move(type_destination direction, Dungeon &dungeon) noexcept{
 
     dungeon.getCurLevel()[i2][j2].getBusy().acquire();
     dungeon.getCheck().acquire();
-    if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
+    if (!findEnemy(dungeon, i2, j2) && (destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;
     }
@@ -124,6 +124,7 @@ void Enemy::randomMoveMob(Dungeon &dungeon) noexcept{
     if (isDead()){
         return;
     }
+
     int a = rand() % 4;
     Cell destination;
     destination = dungeon.getCurLevel()[x-1][y];
@@ -137,6 +138,7 @@ void Enemy::randomMoveMob(Dungeon &dungeon) noexcept{
         dungeon.getCheck().release();
         return;
     }
+
     dungeon.getCheck().release();
     dungeon.getCurLevel()[x-1][y].getBusy().release();
     a = rand() % 3;
@@ -150,6 +152,7 @@ void Enemy::randomMoveMob(Dungeon &dungeon) noexcept{
         dungeon.getCheck().release();
         return;
     }
+
     dungeon.getCheck().release();
     a = rand() % 2;
     dungeon.getCurLevel()[x+1][y].getBusy().release();
@@ -163,6 +166,7 @@ void Enemy::randomMoveMob(Dungeon &dungeon) noexcept{
         dungeon.getCheck().release();
         return;
     }
+
     dungeon.getCheck().release();
     dungeon.getCurLevel()[x][y+1].getBusy().release();
     dungeon.getCurLevel()[x][y-1].getBusy().acquire();

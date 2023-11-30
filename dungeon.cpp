@@ -29,8 +29,17 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
                 if(l == 0 && hero.getX() == -1){
                     throw std::runtime_error("No hero");
                 }
-                levels[l] = Matrix<Cell>(data);
+                Matrix<Cell> m_tmp(data);
+                levels[l] = m_tmp;
+                std::vector<Cell> t;
+                for (int u = 0 ; u < levels[l].getM(); u++){
+                    for(int p = 0; p < levels[l].getN(); p++){
+                        t.push_back(levels[l][u][p]);
+                    }
+
+                }
                 l += 1;
+
                 data.erase(data.begin(), data.end());
                 break;
             }

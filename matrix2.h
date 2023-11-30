@@ -135,7 +135,7 @@ class Matrix2{
         }
 
         valuetype* operator[] (int index){
-            return &matrix[index/n + index%n];
+            return &matrix[index*n];
         }
         
         template<typename ...Args>
