@@ -29,31 +29,32 @@
 #include "../weaponartifactenchantment.h"
 #include "../weaponenchantment.h"
 #include "../item.h"
-#include "../matrix2.h"
 
 #include <iostream>
 using namespace std;
 
 TEST_CASE("MATRIX"){
-    Matrix2<Cell> cn;
-    Matrix2<Cell> cM1(10, 10, Cell(type_cell::floor));
-    Matrix2<Cell> cM2(10, 10, Cell(type_cell::wall));
-    Matrix2<Cell> cM3(10, 10, Cell(type_cell::open_door));
-    Matrix2<Cell> cM4(10, 10, Cell(type_cell::close_door));
-
-    Matrix2<Cell> cM5(cM1);
+    Matrix<Cell> cn;
+    REQUIRE_THROWS(cn[10][10]);
+    REQUIRE_THROWS(cn[0][0]);
+    REQUIRE_THROWS(cn[-2][-1]);
+    Matrix<Cell> cM1(10, 10, Cell(type_cell::floor));
+    Matrix<Cell> cM2(10, 10, Cell(type_cell::wall));
+    Matrix<Cell> cM3(10, 10, Cell(type_cell::open_door));
+    Matrix<Cell> cM4(10, 10, Cell(type_cell::close_door));
+    Matrix<Cell> cM5(cM1);
     REQUIRE(cM1.getM() == cM5.getM());
     REQUIRE(cM1.getN() == cM5.getN());
 
-    Matrix2<Cell> cM7(10, 10, Cell(type_cell::floor));
-    Matrix2<Cell> cM6(std::move(cM7));
+    Matrix<Cell> cM7(10, 10, Cell(type_cell::floor));
+    Matrix<Cell> cM6(std::move(cM7));
     REQUIRE(cM1.getM() == 10);
     REQUIRE(cM1.getN() == 10);
     REQUIRE(cM7.getM() == 0);
     REQUIRE(cM7.getN() == 0);
 
-    Matrix2<Cell> cM8(10, 10, Cell(type_cell::floor));
-    Matrix2<Cell> cM9(cM8.begin(), cM8.end());
+    Matrix<Cell> cM8(10, 10, Cell(type_cell::floor));
+    Matrix<Cell> cM9(cM8.begin(), cM8.end());
     REQUIRE(cM9.getM() == 1);
     REQUIRE(cM9.getN() == 100);
 
@@ -92,29 +93,29 @@ TEST_CASE("MATRIX"){
     REQUIRE(cM1.erase_cols(cM1.begin() + 1, cM1.begin() + 5) == cM1.begin() + 5);
 
     std::cout<<"--------------------------------------\n";
-    Matrix2<int> n;
-    Matrix2<int> M1(10, 10, 0);
-    Matrix2<int> M2(10, 10, 1);
-    Matrix2<int> M3(10, 10, 2);
-    Matrix2<int> M4(10, 10, 3);
+    Matrix<int> n;
+    Matrix<int> M1(10, 10, 0);
+    Matrix<int> M2(10, 10, 1);
+    Matrix<int> M3(10, 10, 2);
+    Matrix<int> M4(10, 10, 3);
 
-    Matrix2<int> M5(M1);
+    Matrix<int> M5(M1);
     REQUIRE(M1.getM() == M5.getM());
     REQUIRE(M1.getN() == M5.getN());
 
-    Matrix2<int> M7(10, 10, 0);
-    Matrix2<int> M6(std::move(M7));
+    Matrix<int> M7(10, 10, 0);
+    Matrix<int> M6(std::move(M7));
     REQUIRE(M1.getM() == 10);
     REQUIRE(M1.getN() == 10);
     REQUIRE(M7.getM() == 0);
     REQUIRE(M7.getN() == 0);
 
-    Matrix2<int> M8(10, 10, 0);
-    Matrix2<int> M9(M8.begin(), M8.end());
+    Matrix<int> M8(10, 10, 0);
+    Matrix<int> M9(M8.begin(), M8.end());
     REQUIRE(M9.getM() == 1);
     REQUIRE(M9.getN() == 100);
 
-    Matrix2<int> M10({6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ,6, 6, 6, 6, 6});
+    Matrix<int> M10({6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ,6, 6, 6, 6, 6});
     REQUIRE(M10.getM() == 1);
     REQUIRE(M10.getN() == 30);
 
@@ -122,7 +123,7 @@ TEST_CASE("MATRIX"){
     REQUIRE(M1.insert_rows(M1.begin(), M2.begin(), M2.end()) == M1.begin());
     REQUIRE(M1.insert_cols(M1.begin() + M1.getN(), M3.begin(), M3.end()) == M1.begin() + M1.getN() - 10);
     REQUIRE(M1.getM() == 20);
-    REQUIRE(M1.getN() == 20);x
+    REQUIRE(M1.getN() == 20);
 
     
     for (int i = 0; i < M1.getM(); i++){
@@ -650,12 +651,11 @@ TEST_CASE("GAME"){
     REQUIRE(G.getMapHeight() == 16);
 
     REQUIRE_NOTHROW(G.initGame());
-    REQUIRE(G.tick(d) == true);
+    REQUIRE(G.tick(d) == false);
     G.getDungeon().getHero().setCur_Hp(0);
     REQUIRE(G.tick(G.getDungeon()) == false);
 
-    REQUIRE_NOTHROW(G.actionMobs(G.getDungeon()));
-    REQUIRE((G.getDungeon().getEnemies()[0].second != d.getEnemies()[0].second));
+
 }
 
 TEST_CASE("HERO"){

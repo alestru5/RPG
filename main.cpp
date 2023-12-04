@@ -5,8 +5,8 @@
 #include<fstream>
 #include <QTimer>
 #include <thread>
-#include "mainwindow.h"
-#include "game.h"
+#include "./graphics/mainwindow.h"
+#include "./engine/game.h"
 
 int main(int argc, char *argv[]){
     srand(time(NULL));
