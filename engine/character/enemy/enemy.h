@@ -8,6 +8,8 @@
 #include "../../helps/sets/setdamage.h"
 #include "../../item/item.h"
 
+class Item;
+
 class Enemy: public Character{
 private:
     name_enemy name;

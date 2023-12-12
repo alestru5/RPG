@@ -23,7 +23,7 @@ Hero::Hero(const Hero &H) noexcept{
 }
 
 
-Hero & Hero::setEquipment(std::list<Equipment*> &E) noexcept{
+Hero & Hero::setEquipment(std::list<Item*> &E) noexcept{
     equipment = E;
     return *this;
 }
@@ -72,7 +72,7 @@ Hero& Hero::operator = (const Hero &H){
 int Hero::fullProtect() const noexcept{
     int protect = 0;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        protect += (*iter)->getProtect();
+        protect += dynamic_cast<Equipment *>(*iter)->getProtect();
     }
     return protect;
 }
@@ -80,7 +80,7 @@ int Hero::fullProtect() const noexcept{
 int Hero::minProtect() const noexcept{
     int protect = 0;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        protect += (*iter)->getMin_Protect();
+        protect += dynamic_cast<Equipment *>(*iter)->getMin_Protect();
     }
     return protect;
 }
@@ -88,21 +88,21 @@ int Hero::minProtect() const noexcept{
 int Hero::maxProtect() const noexcept{
     int protect = 0;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        protect += (*iter)->getMax_Protect();
+        protect += dynamic_cast<Equipment *>(*iter)->getMax_Protect();
     }
     return protect;
 }
 
 int Hero::minDamage() const noexcept{
     if (weapon){
-        return weapon->getMin_Damage();
+        return dynamic_cast<Weapon *>(weapon)->getMin_Damage();
     }
     return 0;
 }
 
 int Hero::maxDamage() const noexcept{
     if (weapon){
-        return weapon->getMax_Damage();
+        return dynamic_cast<Weapon *>(weapon)->getMax_Damage();
     }
     return 0;
 }
@@ -129,7 +129,7 @@ int Hero::findEnemy(Dungeon &dungeon) const noexcept{
 
 int Hero::fullDamage(Enemy *enemy) const noexcept{
     if (weapon){
-        return weapon->getDamage(enemy) + table.getValue(full_characteristic::agility) / 10;
+        return dynamic_cast<Weapon *>(weapon)->getDamage(enemy) + table.getValue(full_characteristic::agility) / 10;
     }else{
         return table.getValue(full_characteristic::agility) / 10;
     }

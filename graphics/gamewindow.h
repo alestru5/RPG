@@ -49,7 +49,7 @@ class GameWindow : public QMainWindow{
         std::vector<std::vector<QLabel*>> equipmentSlot;
         std::vector<std::vector<QLabel*>> inventorySlot;
 
-        const int tileHeight = 30;
+        const int tileHeight = 60;
         const int infoHeight = 120;
 
         int timer;

@@ -36,6 +36,7 @@ class WeaponEnchantment: public virtual Weapon, public Enchantment{
          * @param Карта
          */
         void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 };
 
 #endif // WEAPONENCHANTMENT_H

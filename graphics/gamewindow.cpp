@@ -114,7 +114,7 @@ void GameWindow::loadImg(){
 void GameWindow::drawTools(){
 
     if (game.getDungeon().getHero().getWeapon() != nullptr){
-        weaponSlot->setPixmap(weaponPix[game.getDungeon().getHero().getWeapon()->getWeapon_Name()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
+        weaponSlot->setPixmap(weaponPix[static_cast<Weapon *>(game.getDungeon().getHero().getWeapon())->getWeapon_Name()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
         if (game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_artifact ||
             game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_artifact_enchantment){
 
@@ -129,17 +129,17 @@ void GameWindow::drawTools(){
         }
     }
 
-    std::list<Equipment *> T = game.getDungeon().getHero().getEquipment();
+    std::list<Item *> T = game.getDungeon().getHero().getEquipment();
     for (auto iter = T.begin(); iter != T.end(); iter++){
         int i;
         int j;
-        switch((*iter)->getEquipment_Type()){
+        switch(static_cast<Equipment *>(*iter)->getEquipment_Type()){
             case type_equipment::bib: i = 0; j = 0; break;
             case type_equipment::boots: i = 1; j = 0; break;
             case type_equipment::helmet:i = 0; j = 1; break;
             case type_equipment::leggings: i = 1; j = 1; break;
         }
-        equipmentSlot[i][j]->setPixmap(equipmentPix[(*iter)->getEquipment_Type()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
+        equipmentSlot[i][j]->setPixmap(equipmentPix[static_cast<Equipment *>(*iter)->getEquipment_Type()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
 
         if ((*iter)->getItem_Type() == type_item::equipment_artifact){
             switch(static_cast<EquipmentArtifact *>(*iter)->getArtifact_Type()){
@@ -422,7 +422,7 @@ std::string GameWindow::status(){
             res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type()) + " ";
             res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(game.getDungeon().getHero().getWeapon())->getEnchantment_Type()) + " ";
         }
-        res += EnumToString::toString(game.getDungeon().getHero().getWeapon()->getWeapon_Name());
+        res += EnumToString::toString(static_cast<Weapon *>(game.getDungeon().getHero().getWeapon())->getWeapon_Name());
     } else{
         res += "None";
     }
@@ -435,13 +435,13 @@ std::string GameWindow::status(){
 
     res += "\nHelmet: ";
     int f = 1;
-    std::list<Equipment*> E = game.getDungeon().getHero().getEquipment();
+    std::list<Item*> E = game.getDungeon().getHero().getEquipment();
     for (auto iter = E.begin(); iter !=  E.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::helmet){
+        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::helmet){
             if ((*iter)->getItem_Type() == type_item::equipment_artifact){
                 res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
             }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
             f = 0;
             break;
         }
@@ -453,11 +453,11 @@ std::string GameWindow::status(){
     res += "Bib: ";
     f = 1;
     for (auto iter =  E.begin(); iter !=  E.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::bib){
+        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::bib){
             if ((*iter)->getItem_Type() == type_item::equipment_artifact){
                 res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
             }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
             f = 0;
             break;
         }
@@ -469,11 +469,11 @@ std::string GameWindow::status(){
     res += "Leggings: ";
     f = 1;
     for (auto iter =  E.begin(); iter !=  E.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::leggings){
+        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::leggings){
             if ((*iter)->getItem_Type() == type_item::equipment_artifact){
                 res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
             }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
             f = 0;
             break;
         }
@@ -485,11 +485,11 @@ std::string GameWindow::status(){
     res += "Boots: ";
     f = 1;
     for (auto iter =  E.begin(); iter !=  E.end(); iter++){
-        if ((*iter)->getEquipment_Type() == type_equipment::boots){
+        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::boots){
             if ((*iter)->getItem_Type() == type_item::equipment_artifact){
                 res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
             }
-            res += EnumToString::toString((*iter)->getEquipment_Name(), (*iter)->getEquipment_Type()) + "\t";
+            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
             f = 0;
             break;
         }

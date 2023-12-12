@@ -28,3 +28,4 @@ void WeaponArtifact::use(Dungeon &dungeon){
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
 }
+

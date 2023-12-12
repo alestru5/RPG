@@ -14,8 +14,8 @@
 
 class Hero : public Character {
     private:
-        Weapon *weapon;
-        std::list<Equipment*> equipment;
+        Item *weapon;
+        std::list<Item*> equipment;
 
         int curr_chosen_item;
         static const int m_inventory = 10;
@@ -34,8 +34,8 @@ class Hero : public Character {
 
         ~Hero() { delete weapon; }
 
-        Weapon* getWeapon() const noexcept { return weapon; }
-        std::list<Equipment*> getEquipment() const noexcept { return equipment; }
+        Item* getWeapon() const noexcept { return weapon; }
+        std::list<Item*> getEquipment() const noexcept { return equipment; }
         int getCurr_Chosen_Item() const noexcept { return curr_chosen_item; }
         Item *getCurrChosenItem() noexcept { return inventory[curr_chosen_item]; }
         int getM_Inventory() const noexcept { return m_inventory; }
@@ -45,8 +45,8 @@ class Hero : public Character {
         Table& getTable() noexcept { return table; }
 
 
-        Hero &setWeapon(Weapon *W) noexcept { weapon = W; return *this; }
-        Hero &setEquipment(std::list<Equipment*> &E) noexcept;
+        Hero &setWeapon(Item *W) noexcept { weapon = W; return *this; }
+        Hero &setEquipment(std::list<Item*> &E) noexcept;
         Hero &setCurr_Chosen_Item(int a);
         Hero &setInventory(std::vector<Item*> &I) noexcept { inventory = I; return *this; }
         Hero &setC_Bunch(int b);

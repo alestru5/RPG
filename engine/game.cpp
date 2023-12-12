@@ -3,14 +3,12 @@
 void Game::initGame(){
     try{
         std::ifstream lvl;
-        lvl.open("/home/alestru/PetProjects/RPG/map2.txt");
+        lvl.open("/home/alestru/PetProjects/RPG/map.txt");
         dungeon.initializeLevelsFile(lvl, *this);
         lvl.close();
 
         std::ifstream mobs;
-        mobs.open("/home/alestru/PetProjects/RPG/enemies2"
-                  ""
-                  ".txt");
+        mobs.open("/home/alestru/PetProjects/RPG/enemies.txt");
         dungeon.initializeEnemiesFile(mobs);
         mobs.close();
 

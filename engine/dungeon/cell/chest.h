@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../../item/item.h"
+class Hero;
 
 class Chest{
     private:

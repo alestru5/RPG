@@ -36,6 +36,7 @@ class WeaponArtifact: public virtual Weapon, public Artifact{
          * @param Карта
          */
         void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 
 };
 

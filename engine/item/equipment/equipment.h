@@ -71,7 +71,8 @@ class Equipment: public Item{
          * @brief Виртуальнйы метод - надеть броню на героя
          * @param Карта
          */
-        void use(Dungeon &Dungeon) override;
+        void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 
 };
 

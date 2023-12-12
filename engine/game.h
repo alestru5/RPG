@@ -3,8 +3,9 @@
 
 #include <thread>
 #include <mutex>
+
 #include "./dungeon/dungeon.h"
-#include "./character/hero/hero.h"
+
 
 class Game{
     private:

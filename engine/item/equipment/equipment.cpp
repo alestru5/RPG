@@ -34,10 +34,10 @@ int Equipment::getProtect() const noexcept{
 
 void Equipment::use(Dungeon &dungeon){
     Item * tmp = nullptr;
-    std::list<Equipment *> L;
-    std::list<Equipment *> T = dungeon.getHero().getEquipment();
+    std::list<Item *> L;
+    std::list<Item *> T = dungeon.getHero().getEquipment();
     for (auto iter = T.begin(); iter != T.end(); iter++){
-        if ((*iter)->getEquipment_Type() == equipment_type){
+        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == equipment_type){
             L.push_back(this);
             tmp = (*iter);
         } else{
@@ -54,3 +54,4 @@ void Equipment::use(Dungeon &dungeon){
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
 }
+

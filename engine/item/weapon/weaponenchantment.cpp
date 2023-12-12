@@ -11,11 +11,8 @@ void WeaponEnchantment::use(Dungeon &dungeon){
     Item *tmp = dungeon.getHero().getWeapon();
     dungeon.getHero().setWeapon(this);
     if (tmp != nullptr){
-        if (tmp->getItem_Type() == type_item::weapon_artifact){
+        if (tmp->getItem_Type() == type_item::weapon_artifact || tmp->getItem_Type() == type_item::weapon_artifact_enchantment){
             dynamic_cast<WeaponArtifact *>(tmp)->unUseChanges(dungeon.getHero());
-        }
-        if (tmp->getItem_Type() == type_item::weapon_artifact_enchantment){
-            dynamic_cast<WeaponArtifactEnchantment *>(tmp)->unUseChanges(dungeon.getHero());
         }
     }
     std::vector<Item *> I = dungeon.getHero().getInventory();

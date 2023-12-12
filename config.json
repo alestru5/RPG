@@ -1,0 +1,1669 @@
+{   
+    "items":[
+        {
+            "item_type": "weapon",
+            "item_name": "knife",
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon",
+            "item_name": "nunchucks",
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon",
+            "item_name": "sword",
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "knife",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "nunchucks",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "sword",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "nunchucks",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "sword",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "knife",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "nunchucks",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "sword",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "nunchucks",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact",
+            "item_name": "sword",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "knife",
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "nunchucks",
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "sword",
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "knife",
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "nunchucks",
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "sword",
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "knife",
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "nunchucks",
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "sword",
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "knife",
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "nunchucks",
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_enchantment",
+            "item_name": "sword",
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        }, 
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        }, 
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },   
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_damage": 5,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_damage": 10,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_damage": 15,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "knife",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 1,
+            "max_damage": 10
+        },  
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "nunchucks",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 10,
+            "max_damage": 20
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlackKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "BlueKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "RedKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "weapon_artifact_enchantment",
+            "item_name": "sword",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_damage": 25,
+            "enchantment_type": "WhiteKiller",
+            "coef": 1.5,
+            "min_damage": 20,
+            "max_damage": 50
+        },
+        {
+            "item_type": "bunch",
+            "item_name": "small",
+            "count": 1
+        },
+        {
+            "item_type": "bunch",
+            "item_name": "medium",
+            "count": 2
+        },
+        {
+            "item_type": "bunch",
+            "item_name": "big",
+            "count": 3
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "leather",
+            "equipment_type": "helmet",
+            "min_protect": 1,
+            "max_protect": 3
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "leather",
+            "equipment_type": "bib",
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "leather",
+            "equipment_type": "leggings",
+            "min_protect": 4,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "leather",
+            "equipment_type": "boots",
+            "min_protect": 2,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "iron",
+            "equipment_type": "helmet",
+            "min_protect": 1,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "iron",
+            "equipment_type": "bib",
+            "min_protect": 5,
+            "max_protect": 7
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "iron",
+            "equipment_type": "leggings",
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "iron",
+            "equipment_type": "boots",
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "gold",
+            "equipment_type": "helmet",
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "gold",
+            "equipment_type": "bib",
+            "min_protect": 8,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "gold",
+            "equipment_type": "leggings",
+            "min_protect": 6,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "gold",
+            "equipment_type": "boots",
+            "min_protect": 3,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "diamond",
+            "equipment_type": "helmet",
+            "min_protect": 2,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "diamond",
+            "equipment_type": "bib",
+            "min_protect": 10,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "diamond",
+            "equipment_type": "leggings",
+            "min_protect": 8,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment",
+            "item_name": "diamond",
+            "equipment_type": "boots",
+            "min_protect": 4,
+            "max_protect": 8
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "helmet",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 1,
+            "max_protect": 3
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "bib",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "leggings",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 4,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "boots",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 2,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "helmet",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 1,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "bib",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 5,
+            "max_protect": 7
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "leggings",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "boots",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "helmet",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "bib",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 8,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "leggings",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 6,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "boots",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 3,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "helmet",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 2,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "bib",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 10,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "leggings",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 8,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "boots",
+            "artifact_type": "casual",
+            "changes": 5,
+            "bonus_protect": 5,
+            "min_protect": 4,
+            "max_protect": 8
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "helmet",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 1,
+            "max_protect": 3
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "bib",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "leggings",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 4,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "boots",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 2,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "helmet",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 1,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "bib",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 5,
+            "max_protect": 7
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "leggings",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "boots",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "helmet",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "bib",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 8,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "leggings",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 6,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "boots",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 3,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "helmet",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 2,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "bib",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 10,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "leggings",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 8,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "boots",
+            "artifact_type": "rare",
+            "changes": 10,
+            "bonus_protect": 10,
+            "min_protect": 4,
+            "max_protect": 8
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "helmet",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 1,
+            "max_protect": 3
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "bib",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "leggings",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 4,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "boots",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 2,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "helmet",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 1,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "bib",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 5,
+            "max_protect": 7
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "leggings",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "boots",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "helmet",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "bib",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 8,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "leggings",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 6,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "boots",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 3,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "helmet",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 2,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "bib",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 10,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "leggings",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 8,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "boots",
+            "artifact_type": "mythical",
+            "changes": 15,
+            "bonus_protect": 15,
+            "min_protect": 4,
+            "max_protect": 8
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "helmet",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 1,
+            "max_protect": 3
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "bib",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "leggings",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 4,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "leather",
+            "equipment_type": "boots",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 2,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "helmet",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 1,
+            "max_protect": 4
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "bib",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 5,
+            "max_protect": 7
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "leggings",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 5,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "iron",
+            "equipment_type": "boots",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "helmet",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 2,
+            "max_protect": 5
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "bib",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 8,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "leggings",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 6,
+            "max_protect": 9
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "gold",
+            "equipment_type": "boots",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 3,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "helmet",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 2,
+            "max_protect": 6
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "bib",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 10,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "leggings",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 8,
+            "max_protect": 12
+        },
+        {
+            "item_type": "equipment_artifact",
+            "item_name": "diamond",
+            "equipment_type": "boots",
+            "artifact_type": "legendary",
+            "changes": 25,
+            "bonus_protect": 25,
+            "min_protect": 4,
+            "max_protect": 8
+        },
+        {
+            "item_type": "potion",
+            "item_name": "experience",
+            "experience": 100,
+            "hp": 0,
+            "agility": 0,
+            "intelligence": 0,
+            "strength": 0,
+            "endurance": 0
+        },
+        {
+            "item_type": "potion",
+            "item_name": "hp",
+            "experience": 0,
+            "hp": 100,
+            "agility": 0,
+            "intelligence": 0,
+            "strength": 0,
+            "endurance": 0
+        },
+        {
+            "item_type": "potion",
+            "item_name": "agility",
+            "experience": 0,
+            "hp": 0,
+            "agility": 5,
+            "intelligence": 0,
+            "strength": 0,
+            "endurance": 0
+        },
+        {
+            "item_type": "potion",
+            "item_name": "intelligence",
+            "experience": 0,
+            "hp": 0,
+            "agility": 0,
+            "intelligence": 5,
+            "strength": 0,
+            "endurance": 0
+        },
+        {
+            "item_type": "potion",
+            "item_name": "strength",
+            "experience": 0,
+            "hp": 0,
+            "agility": 0,
+            "intelligence": 0,
+            "strength": 5,
+            "endurance": 0
+        },
+        {
+            "item_type": "potion",
+            "item_name": "endurance",
+            "experience": 0,
+            "hp": 0,
+            "agility": 0,
+            "intelligence": 0,
+            "strength": 0,
+            "endurance": 5
+        }
+    ] 
+}

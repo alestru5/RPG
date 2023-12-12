@@ -31,6 +31,7 @@ class EquipmentArtifact: public Equipment, public Artifact{
          * @param Карта
          */
         void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
         /*!
          * @brief Оператор копирования
          * @param I Другая броня

@@ -47,6 +47,7 @@ class Bunch: public Item{
          * @param Карта
          */
         void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 
 };
 

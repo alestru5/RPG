@@ -32,6 +32,7 @@ class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment
          * @param Карта
          */
         void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 
 };
 
