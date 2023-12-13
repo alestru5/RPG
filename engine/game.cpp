@@ -27,7 +27,6 @@ bool Game::tick(Dungeon &dungeon){
         }
         if (isGame){
             auto threadNum = std::thread::hardware_concurrency();
-            std::cout<<threadNum<<"----"<<std::endl;
             std::vector<std::thread> threads(threadNum);
             int elements = dungeon.getEnemies().size();
             for (size_t i = 0; i < threadNum; ++i) {

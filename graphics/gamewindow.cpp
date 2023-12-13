@@ -145,12 +145,12 @@ void GameWindow::drawTools(){
         }
         equipmentSlot[i][j]->setPixmap(equipmentPix[static_cast<Equipment *>(*iter)->getEquipment_Type()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
 
-        if ((*iter)->getItemType() == "equipment_artifact"){
+        if ((*iter)->getItemType().find("artifact") != std::string::npos){
             std::string at = static_cast<EquipmentArtifact *>(*iter)->getArtifact_Type();
-            if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
-            if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
-            if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
-            if (at == "legendary") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
+            if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;");
+            if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;");
+            if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;");
+            if (at == "legendary") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;");
         } else {
             equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed white;");
         }
@@ -164,7 +164,6 @@ void GameWindow::drawInventory(){
             inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed white;");
 
             if (game.getDungeon().getHero().getCurr_Chosen_Item() == 5 * (i + 1) - j - 1){
-
                 inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed red;");
             }
 
@@ -192,10 +191,10 @@ void GameWindow::drawInventory(){
 
             if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("artifact") != std::string::npos){
                 std::string at = dynamic_cast<Artifact *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getArtifact_Type();
-                if (at == "casual") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
-                if (at == "rare") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
-                if (at == "mythical") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
-                if (at == "legendary") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
+                if (at == "casual") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;");
+                if (at == "rare") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;");
+                if (at == "mythical") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;");
+                if (at == "legendary") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;");
             }
 
             if (game.getDungeon().getHero().getCurr_Chosen_Item() == 5 * (i + 1) - j - 1){

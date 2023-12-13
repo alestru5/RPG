@@ -24,7 +24,7 @@ class Weapon: public Item{
          * @brief Пустой конструктор
          */
         Weapon() noexcept: min_damage(0), max_damage(0), item_type("weapon"){}
-        Weapon(std::string wn, int mn, int mx) noexcept: weapon_name(wn), min_damage(mn), max_damage(mx) {}
+        Weapon(std::string wn, int mn, int mx) noexcept: weapon_name(wn), min_damage(mn), max_damage(mx), item_type("weapon") {}
         /*!
          * @brief Геттер названия оружия
          * @return Название оружия

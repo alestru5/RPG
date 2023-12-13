@@ -127,7 +127,6 @@ void Enemy::randomMoveMob(Dungeon &dungeon) noexcept{
     int a = rand() % 4;
     Cell destination;
     destination = dungeon.getCurLevel()[x-1][y];
-    std::cout<<std::this_thread::get_id()<< " "<< x -1 << " " << y<<" "<<a<<std::endl;
     dungeon.getCurLevel()[x-1][y].getBusy().acquire();
     if (!findEnemy(dungeon, x - 1, y) && a == 1 && ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr &&
                    dungeon.getCurLevel()[x-1][y].getItem() == nullptr)){

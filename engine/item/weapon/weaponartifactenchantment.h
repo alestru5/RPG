@@ -16,7 +16,7 @@ class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment
 
         WeaponArtifactEnchantment(std::string wn, int mn, int mx, int bd, std::string at, std::list<std::pair<std::string, int>> co,
                                   std::string et, std::list<std::pair<std::string, double>> c) noexcept: Weapon(wn, mn, mx),
-            WeaponArtifact(wn, mn, mx, bd, at, co), WeaponEnchantment(wn, mn, mx, et, c) {}
+            WeaponArtifact(wn, mn, mx, bd, at, co), WeaponEnchantment(wn, mn, mx, et, c) { item_type = "weapon_artifact_enchantment"; }
         /*!
          * @brief Виртуальнйы метод - взять оружие в руки
          * @param Карта

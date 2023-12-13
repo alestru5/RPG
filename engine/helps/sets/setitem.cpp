@@ -40,7 +40,7 @@ Item *SetItem::createItem(){
                 ta = "legendary";
             }
             std::list<std::pair<std::string, int>> tmp2;
-            tmp2.push_back(std::make_pair(ta, 5));
+            tmp2.push_back(std::make_pair("strength", 5));
             return new EquipmentArtifact(n, t, 1, 5, 5, ta, tmp2);
         }
 
@@ -81,17 +81,17 @@ Item *SetItem::createItem(){
             return new Weapon(n, 1, 5);
         } else if (c == 1){
             std::list<std::pair<std::string, double>> tmp;
-            tmp.push_back(std::make_pair(te, 1.5));
+            tmp.push_back(std::make_pair("BlackKiller", 1.5));
             return new WeaponEnchantment(n, 1, 5, te, tmp);
         } else if (c == 2){
             std::list<std::pair<std::string, int>> tmp2;
-            tmp2.push_back(std::make_pair(ta, 5));
+            tmp2.push_back(std::make_pair("strength", 5));
             return new WeaponArtifact(n, 1, 5, 5, ta, tmp2);
         } else{
             std::list<std::pair<std::string, double>> tmp;
-            tmp.push_back(std::make_pair(te, 1.5));
+            tmp.push_back(std::make_pair("BlackKiller", 1.5));
             std::list<std::pair<std::string, int>> tmp2;
-            tmp2.push_back(std::make_pair(ta, 5));
+            tmp2.push_back(std::make_pair("strength", 5));
             return new WeaponArtifactEnchantment(n, 1, 5, 5, ta, tmp2, te, tmp);
         }
     } else if (a == 2){
