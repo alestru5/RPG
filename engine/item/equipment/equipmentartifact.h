@@ -14,30 +14,22 @@ class EquipmentArtifact: public Equipment, public Artifact{
         /*!
          * @brief Пустой конструктор
          */
-        EquipmentArtifact() noexcept: Equipment(), Artifact(), bonus_protect(0) { setType(type_item::equipment_artifact); }
-        /*!
-         * @brief Конструктор по значению
-         * @param N Имя брони
-         * @param T Тип брони
-         * @param A Тип артифакта
-         */
-        EquipmentArtifact(name_equipment N, type_equipment T, type_artifact A) noexcept;
-        /*!
-         * @brief Виртуальнйы метод - получить текущую защиту
-         */
-        int getProtect() const noexcept override;
-        /*!
-         * @brief Виртуальнйы метод - надеть броню на героя
-         * @param Карта
-         */
-        void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        EquipmentArtifact() noexcept: Equipment(), Artifact(), bonus_protect(0) { item_type = "equipment_artifact"; }
+        EquipmentArtifact(std::string en, std::string et, int mn, int mx, int bp,
+                          std::string at, std::list<std::pair<std::string, int>> c) noexcept:
+                Equipment(en, et, mn, mx), Artifact(at, c), bonus_protect(bp) {item_type = "equipment_artifact";}
         /*!
          * @brief Оператор копирования
          * @param I Другая броня
          * @return Ссылка на текущую броню
          */
         EquipmentArtifact& operator=(const EquipmentArtifact& I) noexcept;
+
+        std::string getItemType() const noexcept override { return item_type; }
+        std::string getItemName() const noexcept override { return equipment_name + "_" + equipment_type; }
+        int getValue() const noexcept override;
+        void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 };
 
 #endif // EQUIPMENTARTIFACT_H

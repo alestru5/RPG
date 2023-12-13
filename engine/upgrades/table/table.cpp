@@ -1,5 +1,12 @@
 #include "table.h"
 
+Table::Table() noexcept{
+    table[std::make_pair("strength", "s")] = 50;
+    table[std::make_pair("agility", "a")] = 50;
+    table[std::make_pair("endurance", "e")] = 10000000;
+    table[std::make_pair("intelligence", "i")] = 50;
+}
+
 Table::Table(const Table& T) noexcept{
     for (auto &i: T.table){
         table[i.first] = i.second;
@@ -16,7 +23,7 @@ int Table::getValue(std::string name) const noexcept{
             return i.second;
         }
     }
-    return -1;
+    return 0;
 }
 
 Table& Table::setValue(std::string name, int v){

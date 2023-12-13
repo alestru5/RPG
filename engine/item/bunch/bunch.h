@@ -12,7 +12,8 @@
 class Bunch: public Item{
     private:
         // Тип набора отмычек
-        type_bunch bunch_type;
+        std::string item_type;
+        std::string bunch_name;
         // Количество отмычек в наборе
         int count;
 
@@ -20,22 +21,9 @@ class Bunch: public Item{
         /*!
          * @brief Пустой конструктор
          */
-        Bunch() noexcept: count(0), Item(type_item::bunch) {}
-        /*!
-         * @brief Конструктор по значению
-         * @param T Тип набора отмычек
-         */
-        Bunch(type_bunch T) noexcept;
-        /*!
-         * @brief Геттер типа набора отмычек
-         * @return Тип набора отычек
-         */
-        type_bunch getBunch_Type() const noexcept { return bunch_type; }
-        /*!
-         * @brief Геттер кооличества отмычек
-         * @return Количество отмычек
-         */
-        int getCount() const noexcept { return count; }
+        Bunch() noexcept: count(0), item_type("bunch"){}
+        Bunch(std::string name, int c) noexcept: bunch_name(name), count(c), item_type("bunch") {}
+
         /*!
          * @brief Оператор копирования
          * @param I Другой набор отмычек
@@ -46,6 +34,10 @@ class Bunch: public Item{
          * @brief Виртуальнйы метод - распаковать набор отмычек и положить в "карман"
          * @param Карта
          */
+
+        std::string getItemType() const noexcept override { return item_type; }
+        std::string getItemName() const noexcept override { return bunch_name; }
+        int getValue() const noexcept override { return count; }
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 

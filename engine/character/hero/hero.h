@@ -22,6 +22,7 @@ class Hero : public Character {
         std::vector<Item*> inventory;
 
         int c_bunch;
+        int protect;
         int cur_endurance;
 
         Table table;
@@ -68,7 +69,7 @@ class Hero : public Character {
         void updateEndurance() noexcept;
 
         void addExperience(int a);
-        void levelUp(short_characteristic n);
+        void levelUp(std::string n);
         void usingChosenItem(Dungeon &dungeon) noexcept;
         void attack(Character *C) override;
         bool take(Dungeon &dungeon);

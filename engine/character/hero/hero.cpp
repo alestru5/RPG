@@ -2,9 +2,9 @@
 #include "../../game.h"
 #include "../../item/item.h"
 
-Hero::Hero() noexcept: Character(), weapon(nullptr), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100000), inventory(m_inventory, nullptr){}
+Hero::Hero() noexcept: Character(), weapon(nullptr), protect(0), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100000), inventory(m_inventory, nullptr){}
 
-Hero::Hero(int i, int j) noexcept: Character(), weapon(nullptr), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(10000000), inventory(m_inventory, nullptr){
+Hero::Hero(int i, int j) noexcept: Character(), weapon(nullptr), protect(0), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(10000000), inventory(m_inventory, nullptr){
     x = i;
     y = j;
 }
@@ -17,6 +17,7 @@ Hero::Hero(const Hero &H) noexcept{
     x = H.x.load();
     y = H.y.load();
     weapon = H.weapon;
+    protect = H.protect;
     curr_chosen_item = H.curr_chosen_item;
     inventory = H.inventory;
     c_bunch = H.c_bunch;
@@ -72,7 +73,7 @@ Hero& Hero::operator = (const Hero &H){
 int Hero::fullProtect() const noexcept{
     int protect = 0;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        protect += dynamic_cast<Equipment *>(*iter)->getProtect();
+        protect += (*iter)->getValue();
     }
     return protect;
 }
@@ -108,8 +109,8 @@ int Hero::maxDamage() const noexcept{
 }
 
 void Hero::getDamage(int damage){
-    int protect = table.getValue(full_characteristic::strength) / 10 + fullProtect();
-    if (rand() % 100 >= (table.getValue(full_characteristic::agility) - 50) / 100){
+    int protect = table.getValue("strength") / 10 + fullProtect();
+    if (rand() % 100 >= (table.getValue("agility") - 50) / 100){
         cur_hp -= std::max((damage - protect), 1);
     }
 }
@@ -129,20 +130,20 @@ int Hero::findEnemy(Dungeon &dungeon) const noexcept{
 
 int Hero::fullDamage(Enemy *enemy) const noexcept{
     if (weapon){
-        return dynamic_cast<Weapon *>(weapon)->getDamage(enemy) + table.getValue(full_characteristic::agility) / 10;
+        return (weapon)->getValue() + table.getValue("agility") / 10;
     }else{
-        return table.getValue(full_characteristic::agility) / 10;
+        return table.getValue("agility") / 10;
     }
 }
 
 void Hero::updateEndurance() noexcept{
-    cur_endurance = std::min(cur_endurance + 20, table.getValue(short_characteristic::e));
+    cur_endurance = std::min(cur_endurance + 20, table.getValue("e"));
 
 }
 
 void Hero::updateHp() noexcept{
     double coef = static_cast<double>(cur_hp) / static_cast<double>(max_hp);
-    max_hp = table.getValue(short_characteristic::s) * 2;
+    max_hp = table.getValue("s") * 2;
     cur_hp = static_cast<int>(coef * max_hp);
 }
 
@@ -153,7 +154,7 @@ void Hero::addExperience(int a){
     experience += a;
 }
 
-void Hero::levelUp(short_characteristic n){
+void Hero::levelUp(std::string n){
     if (experience < 200){
         return;
     }
@@ -173,7 +174,7 @@ void Hero::usingChosenItem(Dungeon &dungeon) noexcept{
 void Hero::attack(Character *C) {
     if (!C->isDead()){
         int damage = fullDamage(static_cast<Enemy *>(C));
-        if (rand() % 100 > table.getValue(short_characteristic::a)){
+        if (rand() % 100 > table.getValue("a")){
             static_cast<Enemy *>(C)->getDamage(damage);
         }
     }
@@ -223,7 +224,6 @@ void Hero::move(type_destination direction, Dungeon &dungeon) noexcept{
         destination = dungeon.getCurLevel()[x - 1][y];
         i2 -= 1;
     }
-
     if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;

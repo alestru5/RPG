@@ -18,7 +18,7 @@ Chest& Chest::setLevel(int l){
 }
 
 std::pair<bool, bool> Chest::tryToOpen(Hero *H) const noexcept{
-    int intelligence = H->getTable().getValue(short_characteristic::i);
+    int intelligence = H->getTable().getValue("intelligence");
     int chance = intelligence;
     if (rand() % 100 <= chance / level){
         return std::make_pair(true, true);

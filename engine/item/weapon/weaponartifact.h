@@ -12,29 +12,16 @@ class WeaponArtifact: public virtual Weapon, public Artifact{
         /*!
          * @brief Пустой конструктор
          */
-        WeaponArtifact() noexcept: Artifact(), Weapon(), bonus_damage(0) { setType(type_item::weapon_artifact); }
-        /*!
-         * @brief Конструктор по значению
-         * @param N Название оружия
-         */
-        WeaponArtifact(name_weapon N) noexcept: Weapon(N), Artifact(), bonus_damage(0) { setType(type_item::weapon_artifact); }
-        /*!
-         * @brief Конструктор по значению
-         * @param N Название оружия
-         * @param T Тип артефакта
-         */
-        WeaponArtifact(name_weapon N, type_artifact T) noexcept;
-
-        /*!
-         * @brief Виртуальный метод получения урона, наносимого оружием врагу
-         * @param enemy Враг
-         * @return Итоговый урон
-         */
-        int getDamage(Enemy *enemy) const noexcept override;
+        WeaponArtifact() noexcept: Artifact(), Weapon(), bonus_damage(0) { item_type = "weapon_artifact"; }
+        WeaponArtifact(std::string wn, int mn, int mx, int bd, std::string at, std::list<std::pair<std::string, int>> c) noexcept:
+            Weapon(wn, mn, mx), bonus_damage(bd), Artifact(at, c) { item_type = "weapon_artifact"; }
         /*!
          * @brief Виртуальнйы метод - взять оружие в руки
          * @param Карта
          */
+        std::string getItemType() const noexcept override { return item_type; }
+        std::string getItemName() const noexcept override { return weapon_name; }
+        int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 

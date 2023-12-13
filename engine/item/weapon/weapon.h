@@ -11,9 +11,10 @@
  * @brief Класс оружия
  */
 class Weapon: public Item{
-    private:
+    protected:
         // Название оружия
-        name_weapon weapon_name;
+        std::string item_type;
+        std::string weapon_name;
         // Минимальный урон
         int min_damage;
         // Максимальный урон
@@ -22,18 +23,13 @@ class Weapon: public Item{
         /*!
          * @brief Пустой конструктор
          */
-        Weapon() noexcept: min_damage(0), max_damage(0), weapon_name(name_weapon::knife), Item(type_item::weapon) {}
-        /*!
-         * @brief Конструктор по значению
-         * @param n Название оружия
-         */
-        explicit Weapon(name_weapon n) noexcept;
-
+        Weapon() noexcept: min_damage(0), max_damage(0), item_type("weapon"){}
+        Weapon(std::string wn, int mn, int mx) noexcept: weapon_name(wn), min_damage(mn), max_damage(mx) {}
         /*!
          * @brief Геттер названия оружия
          * @return Название оружия
          */
-        name_weapon getWeapon_Name() const noexcept { return weapon_name; }
+        std::string getWeapon_Name() const noexcept { return weapon_name; }
         /*!
          * @brief Геттер минимального урона
          * @return Минимальный урон
@@ -44,13 +40,6 @@ class Weapon: public Item{
          * @return МАксимальный урон
          */
         int getMax_Damage() const noexcept {return max_damage; }
-
-        /*!
-         * @brief Сеттер названия оружия
-         * @param t Название оружия
-         * @return Ссылка на текущее оружие
-         */
-        Weapon& setName(name_weapon t) noexcept;
         /*!
          * @brief Оператор копирования
          * @param I Другое оружие
@@ -58,15 +47,12 @@ class Weapon: public Item{
          */
         Weapon& operator=(const Weapon& I) noexcept;
         /*!
-         * @brief Виртуальный метод получения урона, наносимого оружием врагу
-         * @param enemy Враг
-         * @return Итоговый урон
-         */
-        virtual int getDamage(Enemy *enemy) const noexcept;
-        /*!
          * @brief Виртуальнйы метод - взять оружие в руки
          * @param Карта
          */
+        std::string getItemType() const noexcept override { return item_type; }
+        std::string getItemName() const noexcept override { return weapon_name; }
+        int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 };

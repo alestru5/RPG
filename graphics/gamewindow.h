@@ -37,8 +37,8 @@ class GameWindow : public QMainWindow{
         QPixmap potionPix;
         QPixmap bunchPix;
 
-        std::map<name_weapon, QPixmap> weaponPix;
-        std::map<type_equipment, QPixmap> equipmentPix;
+        std::map<std::string, QPixmap> weaponPix;
+        std::map<std::string, QPixmap> equipmentPix;
         std::map<type_cell, QPixmap> cellPix;
         std::map<name_enemy, QPixmap> mobPix;
 

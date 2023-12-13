@@ -14,36 +14,26 @@ class Hero;
 class Artifact{
     protected:
         // Тип артефакта
-        type_artifact artifact_type;
+        std::string artifact_type;
         // Изменения характеристик, которые дает артефакт
-        std::list<std::pair<short_characteristic, int>> changes;
+        std::list<std::pair<std::string, int>> changes;
 
     public:
         /*!
          * @brief Пустой конструктор
          */
-        Artifact() noexcept;
-        /*!
-         * @brief Конструктор по значению
-         * @param A Тип артефакта
-         */
-        Artifact(type_artifact T) noexcept;
+        Artifact() noexcept {}
+        Artifact(std::string at, std::list<std::pair<std::string, int>> c) noexcept: artifact_type(at), changes(c) {}
         /*!
          * @brief Геттер типа артефакта
          * @return Тип артефакта
          */
-        type_artifact getArtifact_Type() const noexcept { return artifact_type; }
+        std::string getArtifact_Type() const noexcept { return artifact_type; }
         /*!
          * @brief Геттер списка изменений
          * @return Список изменений
          */
-        std::list<std::pair<short_characteristic, int>> getChanges() const noexcept {return changes; }
-        /*!
-         * @brief Сеттер типа артефакта
-         * @param T Тип артефакта
-         */
-        void SetArtifact_Type(type_artifact T) noexcept;
-
+        std::list<std::pair<std::string, int>> getChanges() const noexcept { return changes; }
         /*!
          * @brief Применение изменений на героя
          * @param H Герой

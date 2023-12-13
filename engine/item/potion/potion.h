@@ -12,29 +12,26 @@
 class Potion: public Item{
     private:
         // Название зелья
-        name_potion potion_name;
+        std::string item_type;
+        std::string potion_name;
         // Изменения характеристик после употребления
-        std::pair<changes_characteristic, int> changes;
+        std::pair<std::string, int> changes;
     public:
         /*!
          * @brief Пустой конструктор
          */
-        Potion() noexcept: changes(), Item(type_item::potion){}
-        /*!
-         * @brief Конструктор по значению
-         * @param N Название зелья
-         */
-        Potion(name_potion N) noexcept;
+        Potion() noexcept: item_type("potion"){}
+        Potion(std::string pn, std::pair<std::string, int> c) noexcept: potion_name(pn), changes(c), item_type("potion") {}
         /*!
          * @brief Геттер имени зелья
          * @return Имя зелья
          */
-        name_potion getPotion_Name() const noexcept { return potion_name; }
+        std::string getPotion_Name() const noexcept { return potion_name; }
         /*!
          * @brief Геттер изменения характеристик
          * @return Изменение характиристик
          */
-        std::pair<changes_characteristic, int> getChanges() { return changes; }
+        std::pair<std::string, int> getChanges() { return changes; }
         /*!
          * @brief Оператор копирования
          * @param I Другое зелье
@@ -45,7 +42,11 @@ class Potion: public Item{
          * @brief Виртуальнйы метод - выпить зелье
          * @param Карта
          */
+        std::string getItemType() const noexcept override { return item_type; }
+        std::string getItemName() const noexcept override { return potion_name; }
+        int getValue() const noexcept override { return changes.second; }
         void use(Dungeon &dungeon) override;
+        Item& buildItem(const json& data) override {}
 };
 
 #endif // POTION_H

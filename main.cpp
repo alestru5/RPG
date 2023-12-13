@@ -13,13 +13,10 @@
 
 
 int main(int argc, char *argv[]){
-    /*srand(time(NULL));
+    srand(time(NULL));
     QApplication a(argc, argv);
     MainWindow w;
     w.setSize();
     QTimer::singleShot(40,&w,SLOT(show()));
-    f.close();
-    return a.exec();*/
-
-    return 0;
+    return a.exec();
 }

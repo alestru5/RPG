@@ -93,14 +93,14 @@ void GameWindow::loadImg(){
     cellPix[type_cell::close_door].load("/home/alestru/PetProjects/RPG/img/close_door.png");
     cellPix[type_cell::floor].load("/home/alestru/PetProjects/RPG/img/nothing.png");
 
-    weaponPix[name_weapon::knife].load("/home/alestru/PetProjects/RPG/img/knife.png");
-    weaponPix[name_weapon::sword].load("/home/alestru/PetProjects/RPG/img/sword.png");
-    weaponPix[name_weapon::nunchucks].load("/home/alestru/PetProjects/RPG/img/nunchucks.png");
+    weaponPix["knife"].load("/home/alestru/PetProjects/RPG/img/knife.png");
+    weaponPix["sword"].load("/home/alestru/PetProjects/RPG/img/sword.png");
+    weaponPix["nunchucks"].load("/home/alestru/PetProjects/RPG/img/nunchucks.png");
 
-    equipmentPix[type_equipment::helmet].load("/home/alestru/PetProjects/RPG/img/helmet.png");
-    equipmentPix[type_equipment::bib].load("/home/alestru/PetProjects/RPG/img/bib.png");
-    equipmentPix[type_equipment::leggings].load("/home/alestru/PetProjects/RPG/img/leggings.png");
-    equipmentPix[type_equipment::boots].load("/home/alestru/PetProjects/RPG/img/boots.png");
+    equipmentPix["helmet"].load("/home/alestru/PetProjects/RPG/img/helmet.png");
+    equipmentPix["bib"].load("/home/alestru/PetProjects/RPG/img/bib.png");
+    equipmentPix["leggings"].load("/home/alestru/PetProjects/RPG/img/leggings.png");
+    equipmentPix["boots"].load("/home/alestru/PetProjects/RPG/img/boots.png");
 
     bunchPix.load("/home/alestru/PetProjects/RPG/img/bunch.png");
     potionPix.load("/home/alestru/PetProjects/RPG/img/potion.png");
@@ -115,15 +115,12 @@ void GameWindow::drawTools(){
 
     if (game.getDungeon().getHero().getWeapon() != nullptr){
         weaponSlot->setPixmap(weaponPix[static_cast<Weapon *>(game.getDungeon().getHero().getWeapon())->getWeapon_Name()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
-        if (game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_artifact ||
-            game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_artifact_enchantment){
-
-            switch(dynamic_cast<WeaponArtifact *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type()){
-                case type_artifact::rare: weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
-                case type_artifact::mythical: weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
-                case type_artifact::legendary: weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
-                case type_artifact::casual: weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
-            }
+        if (game.getDungeon().getHero().getWeapon()->getItemType().find("artifact") != std::string::npos){
+            std::string at = dynamic_cast<WeaponArtifact *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type();
+            if (at == "rare") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed blue;");
+            if (at == "mythical") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed purple;");
+            if (at == "legendary") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed yellow;");
+            if (at == "casual") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed black;");
         } else {
             weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed white;");
         }
@@ -133,21 +130,27 @@ void GameWindow::drawTools(){
     for (auto iter = T.begin(); iter != T.end(); iter++){
         int i;
         int j;
-        switch(static_cast<Equipment *>(*iter)->getEquipment_Type()){
-            case type_equipment::bib: i = 0; j = 0; break;
-            case type_equipment::boots: i = 1; j = 0; break;
-            case type_equipment::helmet:i = 0; j = 1; break;
-            case type_equipment::leggings: i = 1; j = 1; break;
+        std::string et = static_cast<Equipment *>(*iter)->getEquipment_Type();
+        if (et == "bib"){
+            i = 0; j = 0;
+        }
+        if (et == "boots"){
+            i = 1; j = 0;
+        }
+        if (et == "helmet"){
+            i = 0; j = 1;
+        }
+        if (et == "leggings"){
+            i = 1; j = 1;
         }
         equipmentSlot[i][j]->setPixmap(equipmentPix[static_cast<Equipment *>(*iter)->getEquipment_Type()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
 
-        if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-            switch(static_cast<EquipmentArtifact *>(*iter)->getArtifact_Type()){
-                case type_artifact::casual: equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
-                case type_artifact::rare: equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
-                case type_artifact::mythical: equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
-                case type_artifact::legendary: equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
-            }
+        if ((*iter)->getItemType() == "equipment_artifact"){
+            std::string at = static_cast<EquipmentArtifact *>(*iter)->getArtifact_Type();
+            if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
+            if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
+            if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
+            if (at == "legendary") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
         } else {
             equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed white;");
         }
@@ -171,40 +174,28 @@ void GameWindow::drawInventory(){
                 continue;
             }
 
-            if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::bunch){
+            if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType() == "bunch"){
                 inventorySlot[i][j]->setPixmap(bunchPix.scaledToHeight(tileHeight));
             }
 
-            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::equipment ||
-                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::equipment_artifact){
-
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("equipment") != std::string::npos){
                 inventorySlot[i][j]->setPixmap(equipmentPix[dynamic_cast<Equipment *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getEquipment_Type()].scaledToHeight(tileHeight));
-
             }
 
-            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::potion){
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType() == "potion"){
                 inventorySlot[i][j]->setPixmap(potionPix.scaledToHeight(tileHeight));
             }
 
-            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon ||
-                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_artifact ||
-                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_artifact_enchantment ||
-                     game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_enchantment){
-
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("weapon") != std::string::npos){
                 inventorySlot[i][j]->setPixmap(weaponPix[dynamic_cast<Weapon *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getWeapon_Name()].scaledToHeight(tileHeight));
             }
 
-            if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::equipment_artifact ||
-                game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_artifact ||
-                game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItem_Type() == type_item::weapon_artifact_enchantment){
-
-                switch(dynamic_cast<Artifact *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getArtifact_Type()){
-                    case type_artifact::casual: inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
-                    case type_artifact::rare: inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
-                    case type_artifact::mythical: inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
-                    case type_artifact::legendary: inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
-                }
-
+            if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("artifact") != std::string::npos){
+                std::string at = dynamic_cast<Artifact *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getArtifact_Type();
+                if (at == "casual") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;"); break;
+                if (at == "rare") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;"); break;
+                if (at == "mythical") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;"); break;
+                if (at == "legendary") inventorySlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;"); break;
             }
 
             if (game.getDungeon().getHero().getCurr_Chosen_Item() == 5 * (i + 1) - j - 1){
@@ -306,26 +297,19 @@ void GameWindow::drawGame(){
             }
             else if (game.getDungeon().getCurLevel()[i][j].getItem()){
 
-                if (game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::bunch){
+                if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType() == "bunch"){
 
                     tile[i][j]->setPixmap(bunchPix.scaledToHeight(tileHeight));
 
                 }
-                else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::equipment ||
-                         game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::equipment_artifact){
+                else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType().find("equipment") != std::string::npos){
 
                     tile[i][j]->setPixmap(equipmentPix[static_cast<Equipment *>(game.getDungeon().getCurLevel()[i][j].getItem())->getEquipment_Type()].scaledToHeight(tileHeight));
                 }
-                else if (game.getDungeon().getLevels()[game.getDungeon().getCur_Level()][i][j].getItem()->getItem_Type() == type_item::potion){
-
+                else if (game.getDungeon().getLevels()[game.getDungeon().getCur_Level()][i][j].getItem()->getItemType() == "potion"){
                     tile[i][j]->setPixmap(potionPix.scaledToHeight(tileHeight));
-
                 }
-                else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::weapon ||
-                         game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::weapon_artifact ||
-                         game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::weapon_artifact_enchantment ||
-                         game.getDungeon().getCurLevel()[i][j].getItem()->getItem_Type() == type_item::weapon_enchantment){
-
+                else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType().find("weapon") != std::string::npos){
                     tile[i][j]->setPixmap(weaponPix[static_cast<Weapon *>(game.getDungeon().getCurLevel()[i][j].getItem())->getWeapon_Name()].scaledToHeight(tileHeight));
                 }
             }
@@ -358,7 +342,6 @@ void GameWindow::act(std::string key){
 
 
     if (command == "south" || command == "east" || command == "west" || command == "north"){
-
         type_destination destination;
         if (command == "south") destination = type_destination::south;
         else if (command == "east") destination = type_destination::east;
@@ -390,11 +373,11 @@ void GameWindow::act(std::string key){
 
     } else if (command == "strength" || command == "intelligence" || command == "agility" || command == "endurance"){
 
-        short_characteristic up;
-        if (command == "strength") up = short_characteristic::s;
-        else if (command == "intelligence") up = short_characteristic::i;
-        else if (command == "agility") up = short_characteristic::a;
-        else if (command == "endurance") up = short_characteristic::e;
+        std::string up;
+        if (command == "strength") up = "s";
+        else if (command == "intelligence") up = "i";
+        else if (command == "agility") up = "a";
+        else if (command == "endurance") up = "e";
         game.getDungeon().getHero().levelUp(up);
 
     } else if (command == "use"){
@@ -404,7 +387,7 @@ void GameWindow::act(std::string key){
 
 std::string GameWindow::status(){
     std::string res;
-
+    /*
     res += "HP: " + std::to_string(game.getDungeon().getHero().getCur_Hp()) + "/" + std::to_string(game.getDungeon().getHero().getMax_Hp());
     res += "\t\t\t\tDungeon Level: " + std::to_string(-game.getDungeon().getCur_Level());
     res += "\t\t\t\tProtect: " + std::to_string(game.getDungeon().getHero().minProtect()) + "-" + std::to_string(game.getDungeon().getHero().maxProtect()) + "(+" + std::to_string(game.getDungeon().getHero().getTable().getValue(full_characteristic::strength) / 10) + ")";
@@ -498,7 +481,7 @@ std::string GameWindow::status(){
         res += "None\t";
     }
 
-    res += "\nBunch: " + std::to_string(game.getDungeon().getHero().getC_Bunch());
+    res += "\nBunch: " + std::to_string(game.getDungeon().getHero().getC_Bunch());*/
     return res;
 }
 

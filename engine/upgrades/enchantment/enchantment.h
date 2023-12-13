@@ -11,39 +11,30 @@
 class Enchantment{
     private:
         // Тип зачарования
-        type_enchantment enchantment_type;
+        std::string enchantment_type;
         // Список коэф. для атаки на фракции врагов
-        std::list<std::pair<trait, double>> coef;
+        std::list<std::pair<std::string, double>> coef;
 
     public:
         /*!
          * @brief Пустой конструктор
          */
-        Enchantment() noexcept;
-        /*!
-         * @brief Конструктор по значению
-         * @param N Тип зачарования
-         */
-        Enchantment(type_enchantment T) noexcept;
+        Enchantment() noexcept {}
+        Enchantment(std::string et, std::list<std::pair<std::string, double>> c) noexcept: enchantment_type(et), coef(c) {}
+
         /*!
          * @brief Геттер типа зачарования
          * @return Тип зачарования
          */
-        type_enchantment getEnchantment_Type() const noexcept { return enchantment_type; }
+        std::string getEnchantment_Type() const noexcept { return enchantment_type; }
         /*!
          * @brief Геттер список коэффициентов
          * @return Список коэффициентов
          */
-        std::list<std::pair<trait, double>> getCoef() const noexcept { return coef; }
+        std::list<std::pair<std::string, double>> getCoef() const noexcept { return coef; }
         /*!
          * @brief Сеттер типа зачарования
          * @param T Тип зачарования
-         */
-        void setEnchantment_Type(type_enchantment T) noexcept;
-        /*!
-         * @brief Получение коэффициента атаки по врагу
-         * @param enemy Враг
-         * @return Коэффициент
          */
         double getMultiply(Enemy *enemy) const noexcept;
         /*!

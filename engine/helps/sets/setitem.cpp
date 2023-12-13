@@ -4,113 +4,127 @@ Item *SetItem::createItem(){
     int a = rand() % 4;
     if (a == 0){
         int b = rand() % 4;
-        name_equipment n;
+        std::string n;
         if (b == 0){
-            n = name_equipment::leather;
+            n = "leather";
         } else if (b == 1){
-            n = name_equipment::iron;
+            n = "iron";
         } else if (b == 2){
-            n = name_equipment::gold;
+            n = "gold";
         } else{
-            n = name_equipment::diamond;
+            n = "diamond";
         }
         int c =rand() % 4;
-        type_equipment t;
+        std::string t;
         if (c == 0){
-            t = type_equipment::boots;
+            t = "boots";
         } else if (c == 1){
-            t = type_equipment::leggings;
+            t = "leggings";
         } else if (c == 2){
-            t = type_equipment::bib;
+            t = "bib";
         } else{
-            t = type_equipment::helmet;
+            t = "helmet";
         }
         if (rand()%2 == 0){
-            return new Equipment(n,t);
+            return new Equipment(n, t, 1, 5);
         } else{
             int d = rand() % 4;
-            type_artifact ta;
+            std::string ta;
             if (d == 0){
-                ta = type_artifact::casual;
+                ta = "casual";
             } else if (d == 1){
-                ta = type_artifact::rare;
+                ta = "rare";
             } else if (d == 2){
-                ta = type_artifact::mythical;
+                ta = "mythical";
             } else{
-                ta = type_artifact::legendary;
+                ta = "legendary";
             }
-            return new EquipmentArtifact(n, t, ta);
+            std::list<std::pair<std::string, int>> tmp2;
+            tmp2.push_back(std::make_pair(ta, 5));
+            return new EquipmentArtifact(n, t, 1, 5, 5, ta, tmp2);
         }
 
     } else if (a == 1){
         int b = rand() % 3;
-        name_weapon n;
+        std::string n;
         if ( b == 0){
-            n = name_weapon::knife;
+            n = "knife";
         } else if (b == 1){
-            n = name_weapon::nunchucks;
+            n = "nunchucks";
         } else{
-            n = name_weapon::sword;
+            n ="sword";
         }
-        type_enchantment te;
+        std::string te;
         int d = rand() % 4;
         if (d == 0){
-            te = type_enchantment::BlackKiller;
+            te = "BlackKiller";
         } else if (d == 1){
-            te = type_enchantment::BlueKiller;
+            te = "BlueKiller";
         } else if (d == 2){
-            te = type_enchantment::WhiteKiller;
+            te = "WhiteKiller";
         } else{
-            te = type_enchantment::RedKiller;
+            te = "RedKiller";
         }
         int e = rand() % 4;
-        type_artifact ta;
+        std::string ta;
         if (e == 0){
-            ta = type_artifact::casual;
+            ta = "casual";
         } else if (e == 1){
-            ta = type_artifact::rare;
+            ta = "rare";
         } else if (e == 2){
-            ta = type_artifact::mythical;
+            ta = "mythical";
         } else{
-            ta = type_artifact::legendary;
+            ta = "legendary";
         }
         int c = rand() % 4;
         if (c == 0){
-            return new Weapon(n);
+            return new Weapon(n, 1, 5);
         } else if (c == 1){
-            return new WeaponEnchantment(n, te);
+            std::list<std::pair<std::string, double>> tmp;
+            tmp.push_back(std::make_pair(te, 1.5));
+            return new WeaponEnchantment(n, 1, 5, te, tmp);
         } else if (c == 2){
-            return new WeaponArtifact(n, ta);
+            std::list<std::pair<std::string, int>> tmp2;
+            tmp2.push_back(std::make_pair(ta, 5));
+            return new WeaponArtifact(n, 1, 5, 5, ta, tmp2);
         } else{
-            return new WeaponArtifactEnchantment(n, ta, te);
+            std::list<std::pair<std::string, double>> tmp;
+            tmp.push_back(std::make_pair(te, 1.5));
+            std::list<std::pair<std::string, int>> tmp2;
+            tmp2.push_back(std::make_pair(ta, 5));
+            return new WeaponArtifactEnchantment(n, 1, 5, 5, ta, tmp2, te, tmp);
         }
     } else if (a == 2){
-        name_potion n;
+        std::string n;
         int b = rand() % 6;
         if (b == 0){
-            n = name_potion::hp;
+            n = "hp";
         } else if (b == 1){
-            n = name_potion::experience;
+            n = "experience";
         } else if (b == 2){
-            n = name_potion::agility;
+            n = "agility";
         } else if (b == 3){
-            n = name_potion::intelligence;
+            n = "intelligence";
         } else if (b == 4){
-            n = name_potion::strength;
+            n = "strength";
         } else{
-            n = name_potion::endurance;
+            n = "endurance";
         }
-        return new Potion(n);
+        return new Potion(n, std::make_pair(n, 5));
     } else{
         int b = rand() % 3;
-        type_bunch tb;
+        std::string tb;
+        int d;
         if (b == 0){
-            tb = type_bunch::small;
+            tb = "small";
+            d = 1;
         } else if (b == 1){
-            tb = type_bunch::medium;
+            tb = "medium";
+            d = 2;
         } else{
-            tb = type_bunch::big;
+            tb = "big";
+            d = 3;
         }
-        return new Bunch(tb);
+        return new Bunch(tb, d);
     }
 }

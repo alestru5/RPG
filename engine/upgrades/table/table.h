@@ -3,12 +3,13 @@
 #include <map>
 #include <iostream>
 #include "../../helps/enums.h"
-
+#include <json.hpp>
+using json = nlohmann::json;
 
 class Table{
     private:
         static const int m_size = 4;
-        std::map<std::pair<full_characteristic, short_characteristic>, int> table;
+        std::map<std::pair<std::string, std::string>, int> table;
     public:
         Table() noexcept;
         Table(const Table& T) noexcept;
@@ -16,14 +17,13 @@ class Table{
         ~Table() {}
 
         int getM_Size() const noexcept { return m_size; }
-        std::map<std::pair<full_characteristic, short_characteristic>, int> getTable() noexcept { return table; }
+        std::map<std::pair<std::string, std::string>, int> getTable() noexcept { return table; }
 
-        int getValue(full_characteristic name) const noexcept;
-        int getValue(short_characteristic name) const noexcept;
+        int getValue(std::string name) const noexcept;
 
-        Table& setValue(full_characteristic name, int v);
-        Table& setValue(short_characteristic name, int v);
+        Table& setValue(std::string name, int v);
 
+        Table& buildTable(const json& data) {}
 };
 
 #endif // TABLE_H
