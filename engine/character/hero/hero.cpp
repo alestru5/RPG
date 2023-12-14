@@ -2,9 +2,9 @@
 #include "../../game.h"
 #include "../../item/item.h"
 
-Hero::Hero() noexcept: Character(), weapon(nullptr), protect(0), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100000), inventory(m_inventory, nullptr){}
+Hero::Hero() noexcept: Character(), weapon(nullptr), protect(0), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory, nullptr){}
 
-Hero::Hero(int i, int j) noexcept: Character(), weapon(nullptr), protect(0), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(10000000), inventory(m_inventory, nullptr){
+Hero::Hero(int i, int j) noexcept: Character(), weapon(nullptr), protect(0), table(), curr_chosen_item(0), c_bunch(100), cur_endurance(100), inventory(m_inventory, nullptr){
     x = i;
     y = j;
 }
@@ -136,11 +136,6 @@ int Hero::fullDamage(Enemy *enemy) const noexcept{
     }
 }
 
-void Hero::updateEndurance() noexcept{
-    cur_endurance = std::min(cur_endurance + 20, table.getValue("e"));
-
-}
-
 void Hero::updateHp() noexcept{
     double coef = static_cast<double>(cur_hp) / static_cast<double>(max_hp);
     max_hp = table.getValue("s") * 2;
@@ -227,7 +222,7 @@ void Hero::move(type_destination direction, Dungeon &dungeon) noexcept{
     if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;
-        cur_endurance -= 5;
+        cur_endurance -= 2;
     }
 }
 

@@ -38,7 +38,8 @@ bool Game::tick(Dungeon &dungeon){
             for(auto& th : threads) {
                 th.join();
             }
-            dungeon.getHero().updateEndurance();
+            dungeon.getHero().setCur_Endurance(std::min(dungeon.getHero().getCur_Endurance() + 10, dungeon.getHero().getTable().getValue("e")));
+            dungeon.getHero().setCur_Hp(std::min(dungeon.getHero().getCur_Hp() + 1, dungeon.getHero().getMax_Hp()));
             return true;
         } else{
             return false;

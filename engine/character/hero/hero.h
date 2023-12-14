@@ -66,7 +66,6 @@ class Hero : public Character {
 
         int findEnemy(Dungeon &dungeon) const noexcept;
         int fullDamage(Enemy *enemy) const noexcept;
-        void updateEndurance() noexcept;
 
         void addExperience(int a);
         void levelUp(std::string n);

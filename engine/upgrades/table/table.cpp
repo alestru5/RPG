@@ -3,7 +3,7 @@
 Table::Table() noexcept{
     table[std::make_pair("strength", "s")] = 50;
     table[std::make_pair("agility", "a")] = 50;
-    table[std::make_pair("endurance", "e")] = 10000000;
+    table[std::make_pair("endurance", "e")] = 100;
     table[std::make_pair("intelligence", "i")] = 50;
 }
 

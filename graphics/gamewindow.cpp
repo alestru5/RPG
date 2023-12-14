@@ -30,6 +30,24 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
 
     game.initGame();
 
+    bar = new QGraphicsView(this);
+    bar->setGeometry(70, 0, 4 * tileHeight, infoHeight / 2 + tileHeight / 10);
+    bar->setBackgroundBrush(Qt::black);
+    bar->setFrameShape(QFrame::NoFrame);
+    bar->setScene(new QGraphicsScene(this));
+
+    hpBar = new QGraphicsRectItem(0, 0, 4 * tileHeight, infoHeight / 4);
+    hpBar->setPen(Qt::NoPen);
+    hpBar->setBrush(Qt::red);
+
+    eBar = new QGraphicsRectItem(0, infoHeight / 4 + tileHeight / 10, 4 * tileHeight, infoHeight / 4);
+    eBar->setPen(Qt::NoPen);
+    eBar->setBrush(Qt::green);
+
+    bar->scene()->addItem(hpBar);
+    bar->scene()->addItem(eBar);
+
+
     inventorySlot.assign(2, std::vector<QLabel*>(5));
     for (int i = 0; i < 2; i++){
         for (int j = 0; j < 5; j++){
@@ -47,15 +65,22 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
         for (int j = 0; j < 2; j++){
             equipmentSlot[i][j] = new QLabel(this);
             equipmentSlot[i][j]->setGeometry((game.getMapWidth() - 1) * tileHeight  - j * tileHeight - j * tileHeight / 16 - tileHeight * 6 - tileHeight / 4, i * tileHeight + i * tileHeight/16, tileHeight * 31 / 32, tileHeight * 31 / 32);
-            equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed white;");
+            equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid white;");
         }
     }
 
     weaponSlot = new QLabel(this);
     weaponSlot->setGeometry((game.getMapWidth() - 1) * tileHeight  - 9 * tileHeight - 5 * tileHeight / 16, 0, tileHeight * 31 / 32, tileHeight * 31 / 32);
-    weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed white;");
+    weaponSlot->setStyleSheet("background-color: gray; border: 3px solid white;");
 
-    statusLabel->setText(QString::fromStdString(status()));
+    bunchSlot = new QLabel(this);
+    bunchSlot->setGeometry((game.getMapWidth() - 1) * tileHeight  - 11 * tileHeight - 5 * tileHeight / 16, 0, tileHeight * 31 / 32, tileHeight * 31 / 32);
+    bunchSlot->setStyleSheet("background-color: gray; border: 3px solid white;");
+    bunchSlot->setPixmap(bunchPix.scaled(tileHeight, tileHeight * 31 / 32));
+
+    bunchCount = new QLabel(this);
+    bunchCount->setGeometry((game.getMapWidth() - 1) * tileHeight  - 11 * tileHeight - 5 * tileHeight / 16, tileHeight * 15 / 16, tileHeight * 31 / 32, tileHeight * 31 / 32);
+    bunchCount->setStyleSheet("background-color: gray; border: 3px solid white; font-size: 35px; text-align: center; color: white   ");
 
     tile.assign(game.getMapHeight(), std::vector<QLabel*>(game.getMapWidth()));
     hpTile.assign(game.getMapHeight(), std::vector<QLabel*>(game.getMapWidth()));
@@ -72,8 +97,9 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
             hpTile[i][j]->setStyleSheet("color: white; font-size: 12pt; font-weight: bold; ");
         }
     }
-    drawGame();
 
+
+    drawGame();
     timer = startTimer(1000);
 }
 
@@ -117,12 +143,12 @@ void GameWindow::drawTools(){
         weaponSlot->setPixmap(weaponPix[static_cast<Weapon *>(game.getDungeon().getHero().getWeapon())->getWeapon_Name()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
         if (game.getDungeon().getHero().getWeapon()->getItemType().find("artifact") != std::string::npos){
             std::string at = dynamic_cast<WeaponArtifact *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type();
-            if (at == "rare") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed blue;");
-            if (at == "mythical") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed purple;");
-            if (at == "legendary") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed yellow;");
-            if (at == "casual") weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed black;");
+            if (at == "rare") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid blue;");
+            if (at == "mythical") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid  purple;");
+            if (at == "legendary") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid yellow;");
+            if (at == "casual") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid black;");
         } else {
-            weaponSlot->setStyleSheet("background-color: gray; border: 3px dashed white;");
+            weaponSlot->setStyleSheet("background-color: gray; border: 3px solid white;");
         }
     }
 
@@ -147,12 +173,12 @@ void GameWindow::drawTools(){
 
         if ((*iter)->getItemType().find("artifact") != std::string::npos){
             std::string at = static_cast<EquipmentArtifact *>(*iter)->getArtifact_Type();
-            if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed black;");
-            if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed blue;");
-            if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed purple;");
-            if (at == "legendary") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed yellow;");
+            if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid black;");
+            if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid blue;");
+            if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid purple;");
+            if (at == "legendary") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid yellow;");
         } else {
-            equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px dashed white;");
+            equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid white;");
         }
     }
 }
@@ -232,8 +258,6 @@ void GameWindow::mousePressEvent(QMouseEvent *e){
         act("right");
     }
     drawGame();
-
-
 }
 void GameWindow::keyPressEvent(QKeyEvent* e){
     std::string key = e->text().toLocal8Bit().constData();
@@ -256,6 +280,7 @@ void GameWindow::keyPressEvent(QKeyEvent* e){
         }
     }
     drawGame();
+    update();
 }
 
 void GameWindow::timerEvent(QTimerEvent *e){
@@ -270,7 +295,11 @@ void GameWindow::timerEvent(QTimerEvent *e){
 }
 
 void GameWindow::drawGame(){
+    hpBar->setRect(0, 0, static_cast<double>(game.getDungeon().getHero().getCur_Hp()) / static_cast<double>(game.getDungeon().getHero().getMax_Hp()) * 4. * static_cast<double>(tileHeight), infoHeight/4);
+    eBar->setRect(0, infoHeight / 4 + tileHeight / 10, static_cast<double>(game.getDungeon().getHero().getCur_Endurance()) / static_cast<double>(game.getDungeon().getHero().getTable().getValue("e")) * 4. * static_cast<double>(tileHeight), infoHeight/4);
+
     statusLabel->setText(QString::fromStdString(status()));
+    bunchCount->setText(QString::fromStdString(std::to_string(game.getDungeon().getHero().getC_Bunch())));
 
     drawTools();
     drawInventory();
@@ -386,6 +415,7 @@ void GameWindow::act(std::string key){
 
 std::string GameWindow::status(){
     std::string res;
+
     /*
     res += "HP: " + std::to_string(game.getDungeon().getHero().getCur_Hp()) + "/" + std::to_string(game.getDungeon().getHero().getMax_Hp());
     res += "\t\t\t\tDungeon Level: " + std::to_string(-game.getDungeon().getCur_Level());

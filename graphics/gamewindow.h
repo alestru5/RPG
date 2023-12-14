@@ -45,9 +45,14 @@ class GameWindow : public QMainWindow{
         QLabel* statusLabel;
         QLabel* info;
 
+        QLabel *bunchSlot;
+        QLabel *bunchCount;
         QLabel *weaponSlot;
         std::vector<std::vector<QLabel*>> equipmentSlot;
         std::vector<std::vector<QLabel*>> inventorySlot;
+        QGraphicsView* bar;
+        QGraphicsRectItem * hpBar;
+        QGraphicsRectItem * eBar;
 
         const int tileHeight = 60;
         const int infoHeight = 120;
