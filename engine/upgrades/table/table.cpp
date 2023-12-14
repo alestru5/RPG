@@ -5,6 +5,7 @@ Table::Table() noexcept{
     table[std::make_pair("agility", "a")] = 50;
     table[std::make_pair("endurance", "e")] = 100;
     table[std::make_pair("intelligence", "i")] = 50;
+    table[std::make_pair("experience", "exp")] = 100;
 }
 
 Table::Table(const Table& T) noexcept{
@@ -32,7 +33,7 @@ Table& Table::setValue(std::string name, int v){
     }
     for (auto i: table){
         if (i.first.first == name || i.first.second == name){
-            i.second = v;
+            table[std::make_pair(i.first.first, i.first.second)] = v;
         }
     }
 

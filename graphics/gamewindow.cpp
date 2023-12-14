@@ -31,7 +31,7 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     game.initGame();
 
     bar = new QGraphicsView(this);
-    bar->setGeometry(70, 0, 4 * tileHeight, infoHeight / 2 + tileHeight / 10);
+    bar->setGeometry(70, 0, 5 * tileHeight, infoHeight / 2);
     bar->setBackgroundBrush(Qt::black);
     bar->setFrameShape(QFrame::NoFrame);
     bar->setScene(new QGraphicsScene(this));
@@ -40,7 +40,7 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     hpBar->setPen(Qt::NoPen);
     hpBar->setBrush(Qt::red);
 
-    eBar = new QGraphicsRectItem(0, infoHeight / 4 + tileHeight / 10, 4 * tileHeight, infoHeight / 4);
+    eBar = new QGraphicsRectItem(0, infoHeight / 4, 4 * tileHeight, infoHeight / 4);
     eBar->setPen(Qt::NoPen);
     eBar->setBrush(Qt::green);
 
@@ -79,8 +79,40 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     bunchSlot->setPixmap(bunchPix.scaled(tileHeight, tileHeight * 31 / 32));
 
     bunchCount = new QLabel(this);
-    bunchCount->setGeometry((game.getMapWidth() - 1) * tileHeight  - 11 * tileHeight - 5 * tileHeight / 16, tileHeight * 15 / 16, tileHeight * 31 / 32, tileHeight * 31 / 32);
-    bunchCount->setStyleSheet("background-color: gray; border: 3px solid white; font-size: 35px; text-align: center; color: white   ");
+    bunchCount->setGeometry((game.getMapWidth() - 1) * tileHeight  - 11 * tileHeight - 5 * tileHeight / 16, tileHeight * 17/16, tileHeight * 31 / 32, tileHeight * 31 / 32);
+    bunchCount->setStyleSheet("background-color: gray; border: 3px solid white; font-size: 35px; text-align: center; color: white");
+
+    characteristicSlots.push_back(std::vector<QLabel*>(8));
+    for (int i = 0; i <= characteristicSlots.size()-1; i++){
+        for (int j = 0; j <= characteristicSlots[i].size()-1; j++){
+            characteristicSlots[i][j] = new QLabel(this);
+            characteristicSlots[i][j]->setFrameShape(QFrame::NoFrame);
+            characteristicSlots[i][j]->setGeometry((game.getMapWidth() - 1) * tileHeight  - 23 * tileHeight - 6 * tileHeight / 16 + (j + static_cast<int>(j>=2) + static_cast<int>(j>=4) + static_cast<int>(j>=6)) * tileHeight, 0, tileHeight, tileHeight * 31 / 32);
+            if (i == 0 && j == 1){
+                characteristicSlots[i][j]->setStyleSheet("background-color: red; font-size: 35px; text-align: center; color: black; position: absolute;");
+            } else if (i == 0 && j == 3){
+                characteristicSlots[i][j]->setStyleSheet("background-color: #00ff00; font-size: 35px; text-align: center; color: black;");
+            } else if (i == 0 && j == 5){
+                characteristicSlots[i][j]->setStyleSheet("background-color: blue; font-size: 35px; text-align: center; color: black;");
+            } else if (i == 0 && j == 7){
+                characteristicSlots[i][j]->setStyleSheet("background-color: #14b814; font-size: 35px; text-align: center; color: black;");
+            }
+            if (i == 0 && j == 0){
+                characteristicSlots[i][j]->setStyleSheet("background-color: red;");
+                characteristicSlots[i][j]->setPixmap(characteristicPix["strength"].scaled(tileHeight, tileHeight * 31 / 32));
+            } else if (i == 0 && j == 2){
+                characteristicSlots[i][j]->setStyleSheet("background-color: #00ff00;");
+                characteristicSlots[i][j]->setPixmap(characteristicPix["agility"].scaled(tileHeight, tileHeight * 31 / 32));
+            } else if (i == 0 && j == 4){
+                characteristicSlots[i][j]->setStyleSheet("background-color: blue; font-size: 35px; text-align: center; color: white");
+                characteristicSlots[i][j]->setPixmap(characteristicPix["intelligence"].scaled(tileHeight, tileHeight * 31 / 32));
+            } else if(i == 0 && j == 6){
+                characteristicSlots[i][j]->setStyleSheet("background-color: #14b814; font-size: 35px; text-align: center; color: white");
+                characteristicSlots[i][j]->setPixmap(characteristicPix["experience"].scaled(tileHeight, tileHeight * 31 / 32));
+            }
+
+        }
+    }
 
     tile.assign(game.getMapHeight(), std::vector<QLabel*>(game.getMapWidth()));
     hpTile.assign(game.getMapHeight(), std::vector<QLabel*>(game.getMapWidth()));
@@ -122,6 +154,11 @@ void GameWindow::loadImg(){
     weaponPix["knife"].load("/home/alestru/PetProjects/RPG/img/knife.png");
     weaponPix["sword"].load("/home/alestru/PetProjects/RPG/img/sword.png");
     weaponPix["nunchucks"].load("/home/alestru/PetProjects/RPG/img/nunchucks.png");
+
+    characteristicPix["strength"].load("/home/alestru/PetProjects/RPG/img/strength.png");
+    characteristicPix["agility"].load("/home/alestru/PetProjects/RPG/img/agility.png");
+    characteristicPix["intelligence"].load("/home/alestru/PetProjects/RPG/img/intelligence.png");
+    characteristicPix["experience"].load("/home/alestru/PetProjects/RPG/img/experience.png");
 
     equipmentPix["helmet"].load("/home/alestru/PetProjects/RPG/img/helmet.png");
     equipmentPix["bib"].load("/home/alestru/PetProjects/RPG/img/bib.png");
@@ -296,11 +333,15 @@ void GameWindow::timerEvent(QTimerEvent *e){
 
 void GameWindow::drawGame(){
     hpBar->setRect(0, 0, static_cast<double>(game.getDungeon().getHero().getCur_Hp()) / static_cast<double>(game.getDungeon().getHero().getMax_Hp()) * 4. * static_cast<double>(tileHeight), infoHeight/4);
-    eBar->setRect(0, infoHeight / 4 + tileHeight / 10, static_cast<double>(game.getDungeon().getHero().getCur_Endurance()) / static_cast<double>(game.getDungeon().getHero().getTable().getValue("e")) * 4. * static_cast<double>(tileHeight), infoHeight/4);
+    eBar->setRect(0, infoHeight / 4, static_cast<double>(game.getDungeon().getHero().getCur_Endurance()) / static_cast<double>(game.getDungeon().getHero().getTable().getValue("e")) * 4. * static_cast<double>(tileHeight), infoHeight/4);
 
     statusLabel->setText(QString::fromStdString(status()));
     bunchCount->setText(QString::fromStdString(std::to_string(game.getDungeon().getHero().getC_Bunch())));
 
+    characteristicSlots[0][1]->setText(QString::fromStdString(" " + std::to_string(game.getDungeon().getHero().getTable().getValue("s"))));
+    characteristicSlots[0][3]->setText(QString::fromStdString(" " + std::to_string(game.getDungeon().getHero().getTable().getValue("a"))));
+    characteristicSlots[0][5]->setText(QString::fromStdString(" " + std::to_string(game.getDungeon().getHero().getTable().getValue("i"))));
+    characteristicSlots[0][7]->setText(QString::fromStdString(std::to_string(game.getDungeon().getHero().getTable().getValue("exp"))));
     drawTools();
     drawInventory();
 

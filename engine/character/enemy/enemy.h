@@ -13,6 +13,7 @@ class Item;
 class Enemy: public Character{
 private:
     name_enemy name;
+    int experience;
     int min_damage;
     int max_damage;
     Item *item;
@@ -25,11 +26,12 @@ public:
     ~Enemy() { delete item; }
 
     name_enemy getName() const noexcept { return name; }
+    int getExperience() const noexcept { return experience; }
     Item* getItem() const noexcept { return item; }
 
     Enemy& setName(name_enemy n) noexcept { name = n; return *this; }
     Enemy& setItem(Item *I) noexcept { item = I; return *this; }
-    Enemy& setExperience(int exp);
+    Enemy& setExperience(int exp) noexcept { experience = exp; return *this; }
 
     bool findEnemy(Dungeon &dungeon, int i, int j);
     bool isNear(Dungeon &dungeon) const noexcept;

@@ -17,13 +17,6 @@ void Character::setX(int i){
     x = i;
 }
 
-void Character::setExperience(int exp){
-    if (exp < 0){
-        throw std::invalid_argument("negative experiece");
-    }
-    experience = exp;
-}
-
 void Character::setMax_Hp(int hp){
     if (hp <= 0){
         throw std::invalid_argument("not positive hp");

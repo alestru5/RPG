@@ -41,10 +41,13 @@ class GameWindow : public QMainWindow{
         std::map<std::string, QPixmap> equipmentPix;
         std::map<type_cell, QPixmap> cellPix;
         std::map<name_enemy, QPixmap> mobPix;
+        std::map<std::string, QPixmap> characteristicPix;
 
         QLabel* statusLabel;
         QLabel* info;
 
+
+        std::vector<std::vector<QLabel*>> characteristicSlots;
         QLabel *bunchSlot;
         QLabel *bunchCount;
         QLabel *weaponSlot;

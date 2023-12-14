@@ -96,21 +96,25 @@ Item *SetItem::createItem(){
         }
     } else if (a == 2){
         std::string n;
-        int b = rand() % 6;
+        int b = rand() % 5;
+        int c ;
         if (b == 0){
-            n = "hp";
-        } else if (b == 1){
             n = "experience";
-        } else if (b == 2){
+            c = 100;
+        } else if (b == 1){
             n = "agility";
-        } else if (b == 3){
+            c = 5;
+        } else if (b == 2){
             n = "intelligence";
-        } else if (b == 4){
+            c = 5;
+        } else if (b == 3){
             n = "strength";
+            c = 5;
         } else{
             n = "endurance";
+            c = 100;
         }
-        return new Potion(n, std::make_pair(n, 5));
+        return new Potion(n, std::make_pair(n, c));
     } else{
         int b = rand() % 3;
         std::string tb;

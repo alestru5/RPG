@@ -10,7 +10,6 @@ Hero::Hero(int i, int j) noexcept: Character(), weapon(nullptr), protect(0), tab
 }
 
 Hero::Hero(const Hero &H) noexcept{
-    experience = H.experience;
     cur_endurance = H.cur_endurance;
     max_hp = H.max_hp;
     cur_hp = H.cur_hp;
@@ -58,7 +57,6 @@ Hero &Hero::setCur_Endurance(int a){
 
 
 Hero& Hero::operator = (const Hero &H){
-    experience = H.experience;
     cur_endurance = H.cur_endurance;
     max_hp = H.max_hp;
     cur_hp = H.cur_hp;
@@ -146,15 +144,15 @@ void Hero::addExperience(int a){
     if (a < 0){
         throw std::invalid_argument("negative experince");
     }
-    experience += a;
+    table.setValue("exp", table.getValue("exp") + a);
 }
 
 void Hero::levelUp(std::string n){
-    if (experience < 200){
+    if (table.getValue("exp") < 200){
         return;
     }
     table.setValue(n, table.getValue(n) + 5);
-    experience -= 200;
+    table.setValue("exp", table.getValue("experience") -200);
     updateHp();
 }
 
