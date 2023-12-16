@@ -15,9 +15,12 @@ class Title : public QGraphicsScene{
         Title(View *view, QWidget *parent = 0);
     signals:
         void closeWindow();
+        void showWindow();
     private slots:
         void quitProgram();
         void startGame();
+        void continueGame();
+        void quitGame();
 
     private:
         int selection = 0;
@@ -25,8 +28,10 @@ class Title : public QGraphicsScene{
         const int height = 1080;
         View *viewer;
 
-        QPushButton *quitButton;
+
         QPushButton *startButton;
+        QPushButton *continueButton;
+        QPushButton *quitButton;
 
         GameWindow gamewindow;
 };

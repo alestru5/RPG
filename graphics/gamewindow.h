@@ -23,8 +23,11 @@
 
 class GameWindow : public QMainWindow{
     Q_OBJECT
+    signals:
+        void quitGame();
     private slots:
-    void resumeGame();
+        void pause();
+        void endGame();
     private:
         Game game;
 
@@ -77,6 +80,11 @@ class GameWindow : public QMainWindow{
         void drawTools();
         void drawInventory();
         void drawMob();
+
+        void startTick() { timer = startTimer(1000); }
+        void stopTick() { killTimer(timer); }
+
+        void start(std::ifstream &in);
 
         void mousePressEvent(QMouseEvent *e);
         void wheelEvent(QWheelEvent* event);

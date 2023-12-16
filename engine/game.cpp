@@ -1,17 +1,8 @@
 #include "game.h"
 
-void Game::initGame(){
+void Game::initGame(std::ifstream& map){
     try{
-        std::ifstream lvl;
-        lvl.open("/home/alestru/PetProjects/RPG/map.txt");
-        dungeon.initializeLevelsFile(lvl, *this);
-        lvl.close();
-
-        std::ifstream mobs;
-        mobs.open("/home/alestru/PetProjects/RPG/enemies.txt");
-        dungeon.initializeEnemiesFile(mobs);
-        mobs.close();
-
+        dungeon.initializeLevelsFile(map, *this);
         isGame = false;
 
     } catch(...){

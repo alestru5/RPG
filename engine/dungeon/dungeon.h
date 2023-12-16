@@ -26,7 +26,6 @@ class Dungeon{
         ~Dungeon();
 
         Dungeon& initializeLevelsFile(std::ifstream &in, Game &game);
-        Dungeon& initializeEnemiesFile(std::ifstream &in);
 
         int getCount_Levels() const noexcept {return count_levels; }
         int getCur_Level() const noexcept { return cur_level; }

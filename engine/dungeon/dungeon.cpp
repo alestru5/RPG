@@ -8,6 +8,7 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
     std::string temp;
     in >> count_levels;
     int a;
+    int index;
     in >> a;
     game.setMapWidth(a);
     in >> a;
@@ -21,6 +22,10 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
     std::vector<std::vector<Cell>> data;
     for (size_t i = 0; i < map.size(); i++){
         std::vector<Cell> tmp;
+        if (map[i] == "Enemies:"){
+            index = i + 1;
+            break;
+        }
         for (size_t j = 0; j < map[i].size(); j++){
             if (map[i][j] == '-'){
                 if (data.size() != game.getMapHeight()){
@@ -84,25 +89,18 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
     if (l != count_levels){
         throw std::runtime_error("Error of count levels");
     }
-    return *this;
-}
-
-Dungeon& Dungeon::initializeEnemiesFile(std::ifstream &in){
-    std::string tmp;
-    while (in >> tmp){
-        int x;
-        int y;
-        int lvl;
-        in >> x;
-        in >> y;
-        in >> lvl;
-        if (tmp == "wolf"){
+    enemies.clear();
+    for (int i = index; i < map.size(); i+= 4){
+        int x = std::stoi(map[i + 1]);
+        int y = std::stoi(map[i + 2]);
+        int lvl = std::stoi(map[i + 3]);
+        if (map[i] == "wolf"){
             enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::blue_wolf)));
-        } else if (tmp == "tiger"){
+        } else if (map[i] == "tiger"){
             enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::red_tiger)));
-        } else if (tmp == "druid"){
+        } else if (map[i] == "druid"){
             enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::black_druid)));
-        } else if (tmp == "golem"){
+        } else if (map[i] == "golem"){
             enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::white_golem)));
         } else {
             throw std::invalid_argument("its not mob");

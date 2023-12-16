@@ -7,10 +7,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent){
     setCentralWidget(view);
     setWindowTitle("Vagabund");
     connect(title, &Title::closeWindow, this, &MainWindow::closeWindow);
+    connect(title, &Title::showWindow, this, &MainWindow::showWindow);
 }
 
 void MainWindow::closeWindow(){
     this->close();
+}
+
+void MainWindow::showWindow(){
+    this->showFullScreen();
 }
 
 void MainWindow::setSize(){

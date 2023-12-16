@@ -12,17 +12,23 @@
 class PauseMenu: public QWidget {
     Q_OBJECT
     public:
-    PauseMenu(QWidget *parent = nullptr);
+        PauseMenu(QWidget *parent = nullptr);
 
-    void paintEvent(QPaintEvent *event);
-    void keyPressEvent(QKeyEvent* e);
+        void paintEvent(QPaintEvent *event);
+        void keyPressEvent(QKeyEvent* e);
     signals:
-            void resumeClicked();
+        void resumeGame();
+        void endGame();
 
     private slots:
         void onResumeClicked();
+        void onQuitClicked();
     private:
+        int width = 1920;
+        int height = 1080;
+
         QPushButton *resumeButton;
+        QPushButton *quitButton;
 };
 
 #endif // PAUSEMENU_H

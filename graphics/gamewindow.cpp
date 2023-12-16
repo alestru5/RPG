@@ -3,10 +3,21 @@
 #include "./engine/character/character.h"
 #include "./engine/character/hero/hero.h"
 
-void GameWindow::resumeGame()
+void GameWindow::pause()
 {
-    pauseMenu->hide();
-    // Add logic here to resume the game
+    if (pauseMenu->isVisible()){
+        pauseMenu->hide();
+        timer = startTimer(1000);
+    } else{
+        pauseMenu->showFullScreen();
+        killTimer(timer);
+    }
+}
+
+void GameWindow::endGame(){
+    hide();
+    game.setisGame(false);
+    emit quitGame();
 }
 
 void GameWindow::setSize(){
@@ -15,16 +26,15 @@ void GameWindow::setSize(){
     int y = ((screenGeometry.height() - this->height()) / 2);
     this->move(x, y);
 }
+GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){}
 
-GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
+void GameWindow::start(std::ifstream &in){
     setWindowTitle("Vagabund");
-
-
-
     pauseMenu = new PauseMenu(this);
-    connect(pauseMenu, &PauseMenu::resumeClicked, this, &GameWindow::resumeGame);
+    connect(pauseMenu, &PauseMenu::resumeGame, this, &GameWindow::pause);
+    connect(pauseMenu, &PauseMenu::endGame, this, &GameWindow::endGame);
     pauseMenu->hide();
-    pauseMenu->setWindowFlags(Qt::Tool | Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    pauseMenu->setWindowFlags(Qt::Tool | Qt::Window | Qt::FramelessWindowHint);
 
     playerPix.resize(1);
 
@@ -38,8 +48,6 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     QLabel *avatarLabel = new QLabel(this);
     avatarLabel->setGeometry(10, 10, 50, 50);
     avatarLabel->setPixmap(avatar.scaledToHeight(50));
-
-    game.initGame();
 
     bar = new QGraphicsView(this);
     bar->setGeometry(70, 0, 4 * tileHeight, infoHeight / 2);
@@ -58,6 +66,7 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     bar->scene()->addItem(hpBar);
     bar->scene()->addItem(eBar);
 
+    game.initGame(in);
 
     inventorySlot.assign(2, std::vector<QLabel*>(5));
     for (int i = 0; i < 2; i++){
@@ -141,9 +150,7 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
         }
     }
 
-
     drawGame();
-    timer = startTimer(1000);
 }
 
 void GameWindow::loadImg(){
@@ -310,7 +317,7 @@ void GameWindow::mousePressEvent(QMouseEvent *e){
 
 void GameWindow::wheelEvent(QWheelEvent *event)
 {
-    if(event->delta()>0 && event->delta()<150 && timer){
+    if(event->delta()>0 && event->delta()<150){
         act("wheelUp");
     } else if (event->delta() < 0 && event->delta() > -150){
         act("wheelDown");
@@ -318,14 +325,9 @@ void GameWindow::wheelEvent(QWheelEvent *event)
 }
 
 void GameWindow::keyPressEvent(QKeyEvent* e){
+
     if (e->key() == Qt::Key_Escape){
-        if (!pauseMenu->isVisible()) {
-            pauseMenu->showFullScreen();
-            e->accept();
-        } else {
-            pauseMenu->hide();
-            e->accept();
-        }
+        pause();
     }
     std::string key = e->text().toLocal8Bit().constData();
     act(key);

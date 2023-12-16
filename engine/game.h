@@ -25,7 +25,7 @@ class Game{
         Game &setMapWidth(int mW) noexcept { mapWidth = mW; return *this; }
         Game &setMapHeight(int mH) noexcept { mapHeight = mH; return *this; }
         Game &setisGame(bool status) noexcept { isGame = status; return *this;}
-        void initGame();
+        void initGame(std::ifstream& map);
         bool tick(Dungeon &dungeon);
 
         void actionMobs(int i, int j);
