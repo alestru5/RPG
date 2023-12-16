@@ -14,16 +14,21 @@
 #include <QPixmap>
 #include <QGraphicsView>
 #include <iostream>
+
+
+
 #include "../engine/game.h"
 #include "../engine/helps/enums.h"
-
+#include "pausemenu.h"
 
 class GameWindow : public QMainWindow{
     Q_OBJECT
-
+    private slots:
+    void resumeGame();
     private:
         Game game;
 
+        PauseMenu *pauseMenu;
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
 
         std::vector<QPixmap> playerPix;
@@ -43,7 +48,6 @@ class GameWindow : public QMainWindow{
         std::map<name_enemy, QPixmap> mobPix;
         std::map<std::string, QPixmap> characteristicPix;
 
-        QLabel* statusLabel;
         QLabel* info;
 
 
@@ -75,12 +79,12 @@ class GameWindow : public QMainWindow{
         void drawMob();
 
         void mousePressEvent(QMouseEvent *e);
+        void wheelEvent(QWheelEvent* event);
         void keyPressEvent(QKeyEvent* e);
         void timerEvent(QTimerEvent *e);
-
         void drawGame();
         void act(std::string key);
-        std::string status();
+
 };
 
 #endif // GAMEWINDOW_H

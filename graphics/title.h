@@ -14,15 +14,15 @@ class Title : public QGraphicsScene{
     public:
         Title(View *view, QWidget *parent = 0);
     signals:
-        void quitGame();
+        void closeWindow();
     private slots:
         void quitProgram();
         void startGame();
 
     private:
         int selection = 0;
-        const int width = 1280;
-        const int height = 720;
+        const int width = 1920;
+        const int height = 1080;
         View *viewer;
 
         QPushButton *quitButton;

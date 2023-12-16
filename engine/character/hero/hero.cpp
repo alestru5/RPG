@@ -68,6 +68,14 @@ Hero& Hero::operator = (const Hero &H){
     return *this;
 }
 
+void Hero::prevChosenItem() noexcept{
+    curr_chosen_item -= 1;
+    if (curr_chosen_item < 0){
+        curr_chosen_item = m_inventory - 1;
+    }
+    return;
+}
+
 int Hero::fullProtect() const noexcept{
     int protect = 0;
     for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
@@ -124,6 +132,18 @@ int Hero::findEnemy(Dungeon &dungeon) const noexcept{
         }
     }
     return -1;
+}
+
+int Hero::findEnemy(Dungeon &dungeon, int k, int l) const noexcept{
+    std::vector<std::pair<int, Enemy *>> tmp= dungeon.getEnemies();
+    for (size_t i = 0; i < tmp.size(); i++){
+        if (tmp[i].first == dungeon.getCur_Level()){
+            if (tmp[i].second->getX() == k && tmp[i].second->getY() == l){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 int Hero::fullDamage(Enemy *enemy) const noexcept{
@@ -217,7 +237,7 @@ void Hero::move(type_destination direction, Dungeon &dungeon) noexcept{
         destination = dungeon.getCurLevel()[x - 1][y];
         i2 -= 1;
     }
-    if ((destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
+    if (!findEnemy(dungeon, i2, j2) && (destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
         y = j2;
         cur_endurance -= 2;

@@ -57,6 +57,7 @@ class Hero : public Character {
         Hero& operator=(const Hero& H);
 
         void nextChosenItem() noexcept { curr_chosen_item = (curr_chosen_item + 1) % m_inventory;}
+        void prevChosenItem() noexcept;
         int fullProtect() const noexcept;
         int minProtect() const noexcept;
         int maxProtect() const noexcept;
@@ -65,6 +66,7 @@ class Hero : public Character {
         void getDamage(int damage) override;
 
         int findEnemy(Dungeon &dungeon) const noexcept;
+        int findEnemy(Dungeon &dungeon, int k, int l) const noexcept;
         int fullDamage(Enemy *enemy) const noexcept;
 
         void addExperience(int a);

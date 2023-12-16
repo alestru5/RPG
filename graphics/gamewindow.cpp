@@ -3,6 +3,12 @@
 #include "./engine/character/character.h"
 #include "./engine/character/hero/hero.h"
 
+void GameWindow::resumeGame()
+{
+    pauseMenu->hide();
+    // Add logic here to resume the game
+}
+
 void GameWindow::setSize(){
     this->setFixedSize(1920,1080);
     int x = ((screenGeometry.width() - this->width()) / 2);
@@ -12,6 +18,14 @@ void GameWindow::setSize(){
 
 GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     setWindowTitle("Vagabund");
+
+
+
+    pauseMenu = new PauseMenu(this);
+    connect(pauseMenu, &PauseMenu::resumeClicked, this, &GameWindow::resumeGame);
+    pauseMenu->hide();
+    pauseMenu->setWindowFlags(Qt::Tool | Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+
     playerPix.resize(1);
 
     loadImg();
@@ -20,9 +34,6 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     info->setGeometry(0, 0, 1920, infoHeight);
     info->setStyleSheet("background-color: #000000; border-bottom: 10 px white;");
 
-    statusLabel = new QLabel(this);
-    statusLabel->setGeometry(70, 10, 1920 - 50 - 20, 50);
-    statusLabel->setStyleSheet("color: white; font-family: Arial;font-style: normal;font-size: 8pt;font-weight: bold; background-color: #000000; border-bottom: 10 px white;");
 
     QLabel *avatarLabel = new QLabel(this);
     avatarLabel->setGeometry(10, 10, 50, 50);
@@ -31,7 +42,7 @@ GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){
     game.initGame();
 
     bar = new QGraphicsView(this);
-    bar->setGeometry(70, 0, 5 * tileHeight, infoHeight / 2);
+    bar->setGeometry(70, 0, 4 * tileHeight, infoHeight / 2);
     bar->setBackgroundBrush(Qt::black);
     bar->setFrameShape(QFrame::NoFrame);
     bar->setScene(new QGraphicsScene(this));
@@ -296,14 +307,28 @@ void GameWindow::mousePressEvent(QMouseEvent *e){
     }
     drawGame();
 }
-void GameWindow::keyPressEvent(QKeyEvent* e){
-    std::string key = e->text().toLocal8Bit().constData();
-    if (key == "w" || key == "a" || key == "s" || key == "d" || key == "e" || key == "f" || key == "t" || key == "u" || key == "i" ||  key == "o" || key == "p"
-        || key == " "){
-        act(key);
-    }else{
-        return;
+
+void GameWindow::wheelEvent(QWheelEvent *event)
+{
+    if(event->delta()>0 && event->delta()<150 && timer){
+        act("wheelUp");
+    } else if (event->delta() < 0 && event->delta() > -150){
+        act("wheelDown");
     }
+}
+
+void GameWindow::keyPressEvent(QKeyEvent* e){
+    if (e->key() == Qt::Key_Escape){
+        if (!pauseMenu->isVisible()) {
+            pauseMenu->showFullScreen();
+            e->accept();
+        } else {
+            pauseMenu->hide();
+            e->accept();
+        }
+    }
+    std::string key = e->text().toLocal8Bit().constData();
+    act(key);
 
     if (game.getDungeon().getCurLevel()[game.getDungeon().getHero().getX()][game.getDungeon().getHero().getY()].getType() == type_cell::open_door){   
         playerPix[0].load("/home/alestru/PetProjects/RPG/img/H_open_door.png");  
@@ -335,7 +360,6 @@ void GameWindow::drawGame(){
     hpBar->setRect(0, 0, static_cast<double>(game.getDungeon().getHero().getCur_Hp()) / static_cast<double>(game.getDungeon().getHero().getMax_Hp()) * 4. * static_cast<double>(tileHeight), infoHeight/4);
     eBar->setRect(0, infoHeight / 4, static_cast<double>(game.getDungeon().getHero().getCur_Endurance()) / static_cast<double>(game.getDungeon().getHero().getTable().getValue("e")) * 4. * static_cast<double>(tileHeight), infoHeight/4);
 
-    statusLabel->setText(QString::fromStdString(status()));
     bunchCount->setText(QString::fromStdString(std::to_string(game.getDungeon().getHero().getC_Bunch())));
 
     characteristicSlots[0][1]->setText(QString::fromStdString(" " + std::to_string(game.getDungeon().getHero().getTable().getValue("s"))));
@@ -407,7 +431,9 @@ void GameWindow::act(std::string key){
     else if (key == "o") command = "agility";
     else if (key == "p") command = "endurance";
     else if (key == " ") command = "use";
-    else command = "invalid";
+    else if (key == "wheelUp") command = key;
+    else if (key == "wheelDown") command = key;
+    else return;
 
 
     if (command == "south" || command == "east" || command == "west" || command == "north"){
@@ -437,9 +463,6 @@ void GameWindow::act(std::string key){
             }
         }
 
-    } else if (command == "change"){
-        game.getDungeon().getHero().nextChosenItem();
-
     } else if (command == "strength" || command == "intelligence" || command == "agility" || command == "endurance"){
 
         std::string up;
@@ -451,107 +474,13 @@ void GameWindow::act(std::string key){
 
     } else if (command == "use"){
         game.getDungeon().getHero().usingChosenItem(game.getDungeon());
+    } else if (command == "wheelUp"){
+        game.getDungeon().getHero().nextChosenItem();
+    } else if (command == "wheelDown"){
+        game.getDungeon().getHero().prevChosenItem();
     }
+    drawGame();
 }
 
-std::string GameWindow::status(){
-    std::string res;
 
-    /*
-    res += "HP: " + std::to_string(game.getDungeon().getHero().getCur_Hp()) + "/" + std::to_string(game.getDungeon().getHero().getMax_Hp());
-    res += "\t\t\t\tDungeon Level: " + std::to_string(-game.getDungeon().getCur_Level());
-    res += "\t\t\t\tProtect: " + std::to_string(game.getDungeon().getHero().minProtect()) + "-" + std::to_string(game.getDungeon().getHero().maxProtect()) + "(+" + std::to_string(game.getDungeon().getHero().getTable().getValue(full_characteristic::strength) / 10) + ")";
-    res += "\t\t\t\tFull damage: " + std::to_string(game.getDungeon().getHero().minDamage()) + "-" + std::to_string(game.getDungeon().getHero().maxDamage()) + "(+" + std::to_string(game.getDungeon().getHero().getTable().getValue(full_characteristic::agility    ) / 10) + ")";
-
-    res += "\nWeapon: ";
-    if (game.getDungeon().getHero().getWeapon() != nullptr){
-        if (game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_artifact){
-            res += EnumToString::toString(dynamic_cast<WeaponArtifact *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type()) + " ";
-        }
-        if (game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_enchantment){
-            res += EnumToString::toString(dynamic_cast<WeaponEnchantment *>(game.getDungeon().getHero().getWeapon())->getEnchantment_Type()) + " ";
-        }
-        if (game.getDungeon().getHero().getWeapon()->getItem_Type() == type_item::weapon_artifact_enchantment){
-            res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type()) + " ";
-            res += EnumToString::toString(dynamic_cast<WeaponArtifactEnchantment *>(game.getDungeon().getHero().getWeapon())->getEnchantment_Type()) + " ";
-        }
-        res += EnumToString::toString(static_cast<Weapon *>(game.getDungeon().getHero().getWeapon())->getWeapon_Name());
-    } else{
-        res += "None";
-    }
-
-    res += "\tStrength: " + std::to_string(game.getDungeon().getHero().getTable().getValue(short_characteristic::s));
-    res += "\tAgility: " + std::to_string(game.getDungeon().getHero().getTable().getValue(short_characteristic::a));
-    res += "\tIntelligence: " + std::to_string(game.getDungeon().getHero().getTable().getValue(short_characteristic::i));
-    res += "\tExperience: " + std::to_string(game.getDungeon().getHero().getExperience());
-    res += "\tEndurance: " + std::to_string(game.getDungeon().getHero().getCur_Endurance()) + "/" + std::to_string(game.getDungeon().getHero().getTable().getValue(short_characteristic::e));
-
-    res += "\nHelmet: ";
-    int f = 1;
-    std::list<Item*> E = game.getDungeon().getHero().getEquipment();
-    for (auto iter = E.begin(); iter !=  E.end(); iter++){
-        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::helmet){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "Bib: ";
-    f = 1;
-    for (auto iter =  E.begin(); iter !=  E.end(); iter++){
-        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::bib){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "Leggings: ";
-    f = 1;
-    for (auto iter =  E.begin(); iter !=  E.end(); iter++){
-        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::leggings){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "Boots: ";
-    f = 1;
-    for (auto iter =  E.begin(); iter !=  E.end(); iter++){
-        if (static_cast<Equipment *>(*iter)->getEquipment_Type() == type_equipment::boots){
-            if ((*iter)->getItem_Type() == type_item::equipment_artifact){
-                res += EnumToString::toString(static_cast<EquipmentArtifact*>(*iter)->getArtifact_Type()) + " ";
-            }
-            res += EnumToString::toString(static_cast<Equipment *>(*iter)->getEquipment_Name(), static_cast<Equipment *>(*iter)->getEquipment_Type()) + "\t";
-            f = 0;
-            break;
-        }
-    }
-    if (f){
-        res += "None\t";
-    }
-
-    res += "\nBunch: " + std::to_string(game.getDungeon().getHero().getC_Bunch());*/
-    return res;
-}
 

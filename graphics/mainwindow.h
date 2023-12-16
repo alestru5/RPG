@@ -17,7 +17,8 @@ class View;
 
 class MainWindow : public QMainWindow{
     Q_OBJECT
-
+    public slots:
+        void closeWindow();
     public:
         MainWindow(QWidget *parent = nullptr);
         void setSize();
