@@ -6,9 +6,7 @@
 #include "../character.h"
 #include "../../helps/enums.h"
 #include "../../helps/sets/setdamage.h"
-#include "../../item/item.h"
 
-class Item;
 
 class Enemy: public Character{
 private:

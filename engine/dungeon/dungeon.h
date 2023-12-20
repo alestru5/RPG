@@ -5,11 +5,12 @@
 #include<fstream>
 #include <iostream>
 
-#include "../character/enemy/enemy.h"
+#include "../helps/enumtostring.h"
 #include "./matrix/matrix.h"
 #include "./cell/cell.h"
 #include "../character/hero/hero.h"
-
+#include "../character/enemy/enemy.h"
+#include "./cell/chest.h"
 
 class Game;
 

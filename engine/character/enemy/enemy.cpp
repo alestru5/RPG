@@ -1,6 +1,6 @@
 #include "enemy.h"
-#include "../../helps/sets/setitem.h"
-#include "../../game.h"
+#include "../../dungeon/dungeon.h"
+#include "../../item/item.h"
 
 Enemy::Enemy() noexcept: experience(100), Character(), name(name_enemy::white_golem){
     experience = 100;

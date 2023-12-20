@@ -1,5 +1,4 @@
 #include "weapon.h"
-#include "../../game.h"
 
 
 Weapon& Weapon::operator=(const Weapon& I) noexcept{

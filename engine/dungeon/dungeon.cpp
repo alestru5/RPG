@@ -1,7 +1,5 @@
 #include "dungeon.h"
-#include "../character/hero/hero.h"
 #include "../game.h"
-#include "../helps/enumtostring.h"
 
 Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, const json& config, Game &game){
     std::vector<std::string> map;

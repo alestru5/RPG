@@ -1,10 +1,7 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include <iostream>
-
 #include "../item.h"
-#include "../../helps/enums.h"
 #include "../../upgrades/artifact/artifact.h"
 /*!
  * @brief Класс оружия

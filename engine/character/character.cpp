@@ -1,7 +1,6 @@
 #include "character.h"
-#include "../game.h"
-#include "../dungeon/cell/cell.h"
 #include "../dungeon/dungeon.h"
+#include "../item/item.h"
 
 void Character::setY(int j){
     if (j < 0){

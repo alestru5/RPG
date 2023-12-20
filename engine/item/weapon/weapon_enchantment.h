@@ -1,5 +1,6 @@
 #ifndef WEAPON_ENCHANTMENT_H
 #define WEAPON_ENCHANTMENT_H
+
 #include "weapon.h"
 #include "../../upgrades/enchantment/enchantment.h"
 

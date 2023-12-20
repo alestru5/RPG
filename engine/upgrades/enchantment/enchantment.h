@@ -4,7 +4,6 @@
 #include <list>
 #include <string>
 
-#include "../../helps/enums.h"
 /*!
  * @brief Класс зачарования
 */

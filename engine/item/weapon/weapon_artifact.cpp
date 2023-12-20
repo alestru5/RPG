@@ -1,5 +1,4 @@
 #include "weapon_artifact.h"
-#include "../../dungeon/dungeon.h"
 
 int WeaponArtifact::getValue() const noexcept{
     return rand() % (getMax_Damage() - getMin_Damage()) + bonus_damage;

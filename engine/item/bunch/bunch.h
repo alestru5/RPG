@@ -4,8 +4,6 @@
 #include <iostream>
 
 #include "../item.h"
-#include "../../helps/enums.h"
-#include "../../helps/sets/setcount.h"
 /*!
  * @brief Класс набора отмычек
  */

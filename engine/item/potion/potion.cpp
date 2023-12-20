@@ -1,5 +1,4 @@
 #include "potion.h"
-#include "../../dungeon/dungeon.h"
 
 void Potion::use(Dungeon &dungeon){
     dungeon.getHero().getTable().setValue(changes.first, dungeon.getHero().getTable().getValue(changes.first) + changes.second);

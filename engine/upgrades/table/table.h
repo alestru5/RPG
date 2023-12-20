@@ -1,8 +1,9 @@
 #ifndef TABLE_H
 #define TABLE_H
+
 #include <map>
 #include <iostream>
-#include "../../helps/enums.h"
+
 #include "../../../json.hpp"
 using json = nlohmann::json;
 

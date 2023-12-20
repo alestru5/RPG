@@ -5,9 +5,10 @@
 
 #include "../character.h"
 #include "../../upgrades/table/table.h"
-#include "../../helps/enums.h"
-#include "../../helps/enumtostring.h"
-#include "../../character/enemy/enemy.h"
+
+
+class Dungeon;
+class Enemy;
 
 class Hero : public Character {
     private:

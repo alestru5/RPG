@@ -1,5 +1,4 @@
 #include "artifact.h"
-#include "../../character/hero/hero.h"
 
 void Artifact::useChanges(Hero &H) const noexcept{
     for (auto &i: changes){

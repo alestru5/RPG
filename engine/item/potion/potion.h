@@ -1,10 +1,7 @@
 #ifndef POTION_H
 #define POTION_H
 
-#include <list>
-#include "../../upgrades/table/table.h"
 #include "../item.h"
-#include "../../helps/enums.h"
 /*!
  * @brief Класс зелья
  */

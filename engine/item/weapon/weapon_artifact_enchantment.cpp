@@ -1,5 +1,4 @@
 #include "weapon_artifact_enchantment.h"
-#include "../../dungeon/dungeon.h"
 
 
 int WeaponArtifactEnchantment::getValue() const noexcept{

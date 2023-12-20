@@ -20,6 +20,10 @@
 #include "../engine/game.h"
 #include "../engine/helps/enums.h"
 #include "pausemenu.h"
+#include "./engine/dungeon/cell/cell.h"
+#include "./engine/character/hero/hero.h"
+#include "./engine/upgrades/artifact/artifact.h"
+#include "../engine/item/item.h"
 
 class GameWindow : public QMainWindow{
     Q_OBJECT

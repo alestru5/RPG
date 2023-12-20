@@ -4,9 +4,7 @@
 #include <iostream>
 #include <list>
 
-#include "../../helps/enums.h"
-
-class Hero;
+#include "../../character/hero/hero.h"
 /*!
  * @brief Класс артефакта
  */

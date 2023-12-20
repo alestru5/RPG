@@ -1,14 +1,15 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <vector>
+#include<vector>
 #include<string>
-#include <atomic>
+#include<atomic>
 
 #include "../helps/enums.h"
 
 
 class Dungeon;
+class Item;
 
 class Character{
     protected:

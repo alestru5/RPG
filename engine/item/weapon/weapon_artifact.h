@@ -1,5 +1,6 @@
 #ifndef WEAPON_ARTIFACT_H
 #define WEAPON_ARTIFACT_H
+
 #include "weapon.h"
 #include "../../upgrades/artifact/artifact.h"
 /*!

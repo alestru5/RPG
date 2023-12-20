@@ -1,6 +1,4 @@
 #include "weapon_enchantment.h"
-#include "../../item/weapon/weapon_artifact_enchantment.h"
-#include "../../dungeon/dungeon.h"
 
 int WeaponEnchantment::getValue() const noexcept{
     return static_cast<int> ((static_cast<double>(rand() % (getMax_Damage() - getMin_Damage()) + getMin_Damage())));

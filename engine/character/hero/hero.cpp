@@ -1,6 +1,7 @@
 #include "hero.h"
-#include "../../game.h"
+#include "../../dungeon/dungeon.h"
 #include "../../item/item.h"
+
 
 Hero::Hero() noexcept: Character(), weapon(nullptr), protect(0), table(), c_bunch(30), curr_chosen_item(0), cur_endurance(100), inventory(m_inventory, nullptr){}
 

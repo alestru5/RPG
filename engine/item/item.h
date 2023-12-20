@@ -3,11 +3,10 @@
 
 
 #include "../../json.hpp"
+#include "../dungeon/dungeon.h"
 using json = nlohmann::json;
 
 #include "../helps/enums.h"
-class Hero;
-class Dungeon;
 /*!
  * @brief Расширяемый класс - предмет
  */

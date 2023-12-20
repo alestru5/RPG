@@ -5,9 +5,11 @@
 #include <chrono>
 #include <semaphore>
 
-#include "../../item/item.h"
-#include "chest.h"
+
+
 #include "../../helps/enums.h"
+class Item;
+class Chest;
 
 class Cell{
     private:

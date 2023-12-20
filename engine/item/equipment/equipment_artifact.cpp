@@ -1,5 +1,4 @@
 #include "equipment_artifact.h"
-#include "../../dungeon/dungeon.h"
 
 int EquipmentArtifact::getValue() const noexcept{
     return rand() % (max_protect - min_protect) + min_protect + bonus_protect;

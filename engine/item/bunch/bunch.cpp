@@ -1,5 +1,4 @@
 #include "bunch.h"
-#include "../../dungeon/dungeon.h"
 
 Bunch& Bunch::operator= (const Bunch &I) noexcept{
     if (this != &I){

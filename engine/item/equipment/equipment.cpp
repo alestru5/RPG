@@ -1,5 +1,4 @@
 #include "equipment.h"
-#include "../../dungeon/dungeon.h"
 
 Equipment& Equipment::operator=(const Equipment& I) noexcept{
     if (this != &I){

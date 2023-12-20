@@ -1,9 +1,4 @@
 #include "gamewindow.h"
-#include "./engine/dungeon/cell/cell.h"
-#include "./engine/character/character.h"
-#include "./engine/character/hero/hero.h"
-#include "./engine/upgrades/artifact/artifact.h"
-
 
 void GameWindow::pause()
 {

@@ -10,6 +10,7 @@
 #include <QSplashScreen>
 #include "./graphics/mainwindow.h"
 #include "./engine/game.h"
+#include "./engine/item/item.h"
 
 #include <memory>
 #include <dlfcn.h>
