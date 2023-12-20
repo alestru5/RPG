@@ -1,8 +1,7 @@
 #include "enchantment.h"
-#include "../../helps/sets/setcoef.h"
 
-double Enchantment::getMultiply(Enemy *enemy) const noexcept{
-    if (!enemy){
+double Enchantment::getMultiply() const noexcept{
+    /*if (!enemy){
         return 1.;
     }
     for (auto iter = coef.begin(); iter != coef.end(); iter++){
@@ -18,7 +17,7 @@ double Enchantment::getMultiply(Enemy *enemy) const noexcept{
         if ((*iter).first == "white" && enemy->getName() == name_enemy::white_golem){
             return (*iter).second;
         }
-    }
+    }*/
     return 1.;
 
 }

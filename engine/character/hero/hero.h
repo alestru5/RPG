@@ -4,9 +4,6 @@
 #include <list>
 
 #include "../character.h"
-#include "../../item/weapon/weapon.h"
-#include "../../item/equipment/equipment.h"
-#include "../../item/potion/potion.h"
 #include "../../upgrades/table/table.h"
 #include "../../helps/enums.h"
 #include "../../helps/enumtostring.h"
@@ -59,10 +56,6 @@ class Hero : public Character {
         void nextChosenItem() noexcept { curr_chosen_item = (curr_chosen_item + 1) % m_inventory;}
         void prevChosenItem() noexcept;
         int fullProtect() const noexcept;
-        int minProtect() const noexcept;
-        int maxProtect() const noexcept;
-        int minDamage() const noexcept;
-        int maxDamage() const noexcept;
         void getDamage(int damage) override;
 
         int findEnemy(Dungeon &dungeon) const noexcept;

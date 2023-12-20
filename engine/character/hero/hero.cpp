@@ -84,35 +84,7 @@ int Hero::fullProtect() const noexcept{
     return protect;
 }
 
-int Hero::minProtect() const noexcept{
-    int protect = 0;
-    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        protect += dynamic_cast<Equipment *>(*iter)->getMin_Protect();
-    }
-    return protect;
-}
 
-int Hero::maxProtect() const noexcept{
-    int protect = 0;
-    for (auto iter = equipment.begin(); iter != equipment.end(); iter++){
-        protect += dynamic_cast<Equipment *>(*iter)->getMax_Protect();
-    }
-    return protect;
-}
-
-int Hero::minDamage() const noexcept{
-    if (weapon){
-        return dynamic_cast<Weapon *>(weapon)->getMin_Damage();
-    }
-    return 0;
-}
-
-int Hero::maxDamage() const noexcept{
-    if (weapon){
-        return dynamic_cast<Weapon *>(weapon)->getMax_Damage();
-    }
-    return 0;
-}
 
 void Hero::getDamage(int damage){
     int protect = table.getValue("strength") / 10 + fullProtect();

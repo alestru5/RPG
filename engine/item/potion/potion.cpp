@@ -1,5 +1,4 @@
 #include "potion.h"
-#include "../../character/hero/hero.h"
 #include "../../dungeon/dungeon.h"
 
 void Potion::use(Dungeon &dungeon){

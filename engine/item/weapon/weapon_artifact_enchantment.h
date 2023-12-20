@@ -1,8 +1,8 @@
 #ifndef WEAPONARTIFACTENCHANTMENT_H
 #define WEAPONARTIFACTENCHANTMENT_H
 
-#include "weaponartifact.h"
-#include "weaponenchantment.h"
+#include "weapon_artifact.h"
+#include "weapon_enchantment.h"
 /*!
  * @brief Класс зачарованного оружия-артефакта
  */
@@ -22,11 +22,11 @@ class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment
          * @param Карта
          */
         std::string getItemType() const noexcept override { return item_type; }
-        std::string getItemName() const noexcept override { return weapon_name; }
+        std::string getItemName() const noexcept override { return weapon_name + artifact_type + enchantment_type; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 
 };
-
+extern "C" const Item& load_weapon_artifact_enchantment();
 #endif // WEAPONARTIFACTENCHANTMENT_H

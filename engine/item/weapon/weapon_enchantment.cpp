@@ -1,6 +1,5 @@
-#include "weaponenchantment.h"
-#include "../../character/hero/hero.h"
-#include "../../item/weapon/weaponartifactenchantment.h"
+#include "weapon_enchantment.h"
+#include "../../item/weapon/weapon_artifact_enchantment.h"
 #include "../../dungeon/dungeon.h"
 
 int WeaponEnchantment::getValue() const noexcept{
@@ -18,4 +17,8 @@ void WeaponEnchantment::use(Dungeon &dungeon){
     std::vector<Item *> I = dungeon.getHero().getInventory();
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
+}
+const Item& load_weapon_enchantment(){
+    static WeaponEnchantment pluginInst;
+    return pluginInst;
 }

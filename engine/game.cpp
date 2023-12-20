@@ -1,8 +1,8 @@
 #include "game.h"
 
-void Game::initGame(std::ifstream& map){
+void Game::initGame(std::ifstream& map, const json& config){
     try{
-        dungeon.initializeLevelsFile(map, *this);
+        dungeon.initializeLevelsFile(map, config, *this);
         isGame = false;
 
     } catch(...){
@@ -59,6 +59,10 @@ void Game::actionMobs(int i, int j){
         throw;
     }
 
+}
+
+void Game::saveGame(std::ofstream &map){
+    dungeon.saveLevelsFile(map, *this);
 }
 
 

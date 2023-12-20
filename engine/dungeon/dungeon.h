@@ -9,7 +9,7 @@
 #include "./matrix/matrix.h"
 #include "./cell/cell.h"
 #include "../character/hero/hero.h"
-#include "../helps/sets/setitem.h"
+
 
 class Game;
 
@@ -25,7 +25,8 @@ class Dungeon{
         Dungeon() noexcept: count_levels(0), cur_level(0), hero(), levels(nullptr) {}
         ~Dungeon();
 
-        Dungeon& initializeLevelsFile(std::ifstream &in, Game &game);
+        Dungeon& initializeLevelsFile(std::ifstream &in, const json& config, Game &game);
+        Dungeon& saveLevelsFile(std::ofstream &in, Game &game);
 
         int getCount_Levels() const noexcept {return count_levels; }
         int getCur_Level() const noexcept { return cur_level; }

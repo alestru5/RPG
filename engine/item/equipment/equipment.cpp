@@ -1,6 +1,5 @@
 #include "equipment.h"
-#include "../../game.h"
-#include "../../character/hero/hero.h"
+#include "../../dungeon/dungeon.h"
 
 Equipment& Equipment::operator=(const Equipment& I) noexcept{
     if (this != &I){
@@ -39,4 +38,7 @@ void Equipment::use(Dungeon &dungeon){
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
 }
-
+const Item& load_equipment(){
+    static Equipment pluginInst;
+    return pluginInst;
+}

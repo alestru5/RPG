@@ -1,7 +1,8 @@
 #include "setitem.h"
 
 Item *SetItem::createItem(){
-    int a = rand() % 4;
+    return nullptr;
+    /*int a = rand() % 4;
     if (a == 0){
         int b = rand() % 4;
         std::string n;
@@ -130,5 +131,5 @@ Item *SetItem::createItem(){
             d = 3;
         }
         return new Bunch(tb, d);
-    }
+    }*/
 }

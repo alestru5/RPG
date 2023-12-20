@@ -1,5 +1,5 @@
-#ifndef EQUIPMENTARTIFACT_H
-#define EQUIPMENTARTIFACT_H
+#ifndef EQUIPMENT_ARTIFACT_H
+#define EQUIPMENT_ARTIFACT_H
 
 #include "equipment.h"
 /*!
@@ -26,10 +26,13 @@ class EquipmentArtifact: public Equipment, public Artifact{
         EquipmentArtifact& operator=(const EquipmentArtifact& I) noexcept;
 
         std::string getItemType() const noexcept override { return item_type; }
-        std::string getItemName() const noexcept override { return equipment_name + "_" + equipment_type; }
+        std::string getItemName() const noexcept override { return equipment_name + "_" + equipment_type + "_" + artifact_type; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 };
+
+extern "C" const Item& load_equipment_artifact();
+
 
 #endif // EQUIPMENTARTIFACT_H

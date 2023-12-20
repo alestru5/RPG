@@ -2,6 +2,8 @@
 #include "./engine/dungeon/cell/cell.h"
 #include "./engine/character/character.h"
 #include "./engine/character/hero/hero.h"
+#include "./engine/upgrades/artifact/artifact.h"
+
 
 void GameWindow::pause()
 {
@@ -20,6 +22,27 @@ void GameWindow::endGame(){
     emit quitGame();
 }
 
+void GameWindow::saveGame(){
+    QString path = "/home/alestru/PetProjects/RPG/Maps";
+    QDir directory(path);
+    if (!directory.exists()) {
+        return;
+    }
+    QStringList list = directory.entryList(QDir::Files);
+    QString count = "1";
+    for (int i = 0; i < list.size(); ++i) {
+        QString filename = list.at(i);
+        if (filename.toStdString().find("Saved") != std::string::npos && filename.toStdString().find(".txt") != std::string::npos){
+            count = filename.split(".")[0];
+            count = count.split("Saved")[1];
+        }
+    }
+    std::string newName = "Saved" + std::to_string(count.toInt() +1) + ".txt";
+    std::ofstream newFile((path + "/").toStdString() + newName);
+    game.saveGame(newFile);
+    newFile.close();
+}
+
 void GameWindow::setSize(){
     this->setFixedSize(1920,1080);
     int x = ((screenGeometry.width() - this->width()) / 2);
@@ -28,11 +51,12 @@ void GameWindow::setSize(){
 }
 GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){}
 
-void GameWindow::start(std::ifstream &in){
+void GameWindow::start(std::ifstream &in, const json& config){
     setWindowTitle("Vagabund");
     pauseMenu = new PauseMenu(this);
     connect(pauseMenu, &PauseMenu::resumeGame, this, &GameWindow::pause);
     connect(pauseMenu, &PauseMenu::endGame, this, &GameWindow::endGame);
+    connect(pauseMenu, &PauseMenu::saveGame, this, &GameWindow::saveGame);
     pauseMenu->hide();
     pauseMenu->setWindowFlags(Qt::Tool | Qt::Window | Qt::FramelessWindowHint);
 
@@ -66,7 +90,7 @@ void GameWindow::start(std::ifstream &in){
     bar->scene()->addItem(hpBar);
     bar->scene()->addItem(eBar);
 
-    game.initGame(in);
+    game.initGame(in, config);
 
     inventorySlot.assign(2, std::vector<QLabel*>(5));
     for (int i = 0; i < 2; i++){
@@ -195,9 +219,9 @@ void GameWindow::loadImg(){
 void GameWindow::drawTools(){
 
     if (game.getDungeon().getHero().getWeapon() != nullptr){
-        weaponSlot->setPixmap(weaponPix[static_cast<Weapon *>(game.getDungeon().getHero().getWeapon())->getWeapon_Name()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
+        weaponSlot->setPixmap(weaponPix[(game.getDungeon().getHero().getWeapon())->getItemName()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
         if (game.getDungeon().getHero().getWeapon()->getItemType().find("artifact") != std::string::npos){
-            std::string at = dynamic_cast<WeaponArtifact *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type();
+            std::string at = QString::fromStdString((game.getDungeon().getHero().getWeapon()->getItemName())).split("_")[1].toStdString();
             if (at == "rare") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid blue;");
             if (at == "mythical") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid  purple;");
             if (at == "legendary") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid yellow;");
@@ -211,7 +235,7 @@ void GameWindow::drawTools(){
     for (auto iter = T.begin(); iter != T.end(); iter++){
         int i;
         int j;
-        std::string et = static_cast<Equipment *>(*iter)->getEquipment_Type();
+        std::string et = QString::fromStdString((*iter)->getItemName()).split("_")[1].toStdString();
         if (et == "bib"){
             i = 0; j = 0;
         }
@@ -224,10 +248,10 @@ void GameWindow::drawTools(){
         if (et == "leggings"){
             i = 1; j = 1;
         }
-        equipmentSlot[i][j]->setPixmap(equipmentPix[static_cast<Equipment *>(*iter)->getEquipment_Type()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
+        equipmentSlot[i][j]->setPixmap(equipmentPix[QString::fromStdString((*iter)->getItemName()).split("_")[1].toStdString()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
 
         if ((*iter)->getItemType().find("artifact") != std::string::npos){
-            std::string at = static_cast<EquipmentArtifact *>(*iter)->getArtifact_Type();
+            std::string at = QString::fromStdString((*iter)->getItemName()).split("_")[2].toStdString();
             if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid black;");
             if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid blue;");
             if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid purple;");
@@ -259,7 +283,7 @@ void GameWindow::drawInventory(){
             }
 
             else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("equipment") != std::string::npos){
-                inventorySlot[i][j]->setPixmap(equipmentPix[dynamic_cast<Equipment *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getEquipment_Type()].scaledToHeight(tileHeight));
+                inventorySlot[i][j]->setPixmap(equipmentPix[QString::fromStdString(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemName()).split("_")[1].toStdString()].scaledToHeight(tileHeight));
             }
 
             else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType() == "potion"){
@@ -267,7 +291,7 @@ void GameWindow::drawInventory(){
             }
 
             else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("weapon") != std::string::npos){
-                inventorySlot[i][j]->setPixmap(weaponPix[dynamic_cast<Weapon *>(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getWeapon_Name()].scaledToHeight(tileHeight));
+                inventorySlot[i][j]->setPixmap(weaponPix[QString::fromStdString((game.getDungeon().getHero().getInventory()[5*(i+1)-j-1])->getItemName()).split("_")[0].toStdString()].scaledToHeight(tileHeight));
             }
 
             if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("artifact") != std::string::npos){
@@ -399,13 +423,13 @@ void GameWindow::drawGame(){
                 }
                 else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType().find("equipment") != std::string::npos){
 
-                    tile[i][j]->setPixmap(equipmentPix[static_cast<Equipment *>(game.getDungeon().getCurLevel()[i][j].getItem())->getEquipment_Type()].scaledToHeight(tileHeight));
+                    tile[i][j]->setPixmap(equipmentPix[QString::fromStdString(game.getDungeon().getCurLevel()[i][j].getItem()->getItemName()).split("_")[1].toStdString()].scaledToHeight(tileHeight));
                 }
                 else if (game.getDungeon().getLevels()[game.getDungeon().getCur_Level()][i][j].getItem()->getItemType() == "potion"){
                     tile[i][j]->setPixmap(potionPix.scaledToHeight(tileHeight));
                 }
                 else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType().find("weapon") != std::string::npos){
-                    tile[i][j]->setPixmap(weaponPix[static_cast<Weapon *>(game.getDungeon().getCurLevel()[i][j].getItem())->getWeapon_Name()].scaledToHeight(tileHeight));
+                    tile[i][j]->setPixmap(weaponPix[(game.getDungeon().getCurLevel()[i][j].getItem())->getItemName()].scaledToHeight(tileHeight));
                 }
             }
             else{

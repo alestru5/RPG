@@ -19,7 +19,9 @@ class Title : public QGraphicsScene{
     private slots:
         void quitProgram();
         void startGame();
-        void continueGame();
+        void startSelectGame(std::string in);
+        void changesButton();
+        void backToMenu();
         void quitGame();
 
     private:
@@ -32,6 +34,10 @@ class Title : public QGraphicsScene{
         QPushButton *startButton;
         QPushButton *continueButton;
         QPushButton *quitButton;
+        QPushButton *backButton;
+
+        int count;
+        QPushButton **mapsButton;
 
         GameWindow gamewindow;
 };

@@ -1,6 +1,4 @@
-#include "weaponartifact.h"
-#include "../../character/hero/hero.h"
-#include "../../item/weapon/weaponartifactenchantment.h"
+#include "weapon_artifact.h"
 #include "../../dungeon/dungeon.h"
 
 int WeaponArtifact::getValue() const noexcept{
@@ -19,3 +17,7 @@ void WeaponArtifact::use(Dungeon &dungeon){
     dungeon.getHero().setInventory(I);
 }
 
+const Item& load_weapon_artifact(){
+    static WeaponArtifact pluginInst;
+    return pluginInst;
+}

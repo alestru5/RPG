@@ -5,7 +5,6 @@
 #include <list>
 
 #include "../../helps/enums.h"
-#include "../../helps/sets/setchanges.h"
 
 class Hero;
 /*!

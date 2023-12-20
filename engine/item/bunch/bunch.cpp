@@ -1,5 +1,4 @@
 #include "bunch.h"
-#include "../../character/hero/hero.h"
 #include "../../dungeon/dungeon.h"
 
 Bunch& Bunch::operator= (const Bunch &I) noexcept{
@@ -12,6 +11,7 @@ Bunch& Bunch::operator= (const Bunch &I) noexcept{
 }
 
 void Bunch::use(Dungeon &dungeon){
+    name_potion t = name_potion::agility;
     dungeon.getHero().setC_Bunch(dungeon.getHero().getC_Bunch() + count);
     std::vector<Item *> I = dungeon.getHero().getInventory();
     I[dungeon.getHero().getCurr_Chosen_Item()] = nullptr;

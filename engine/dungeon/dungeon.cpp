@@ -3,7 +3,7 @@
 #include "../game.h"
 #include "../helps/enumtostring.h"
 
-Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
+Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, const json& config, Game &game){
     std::vector<std::string> map;
     std::string temp;
     in >> count_levels;
@@ -62,7 +62,7 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
             }
             else if (map[i][j] == 'C'){
                 Item *t = nullptr;
-                Item *I = SetItem::createItem();
+                Item *I = nullptr;
                 Chest *c = new Chest(1, I);
                 tmp.push_back(Cell(type_cell::floor, t, c));
             }
@@ -74,6 +74,9 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
             }
             else if (map[i][j] == 'E'){
                 tmp.push_back(Cell(type_cell::close_door));
+            }
+            else if (map[i][j] == 'O'){
+                tmp.push_back(Cell(type_cell::open_door));
             }
             else{
                 tmp.push_back(Cell(type_cell::floor));
@@ -107,6 +110,54 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, Game &game){
         }
     }
     return *this;
+}
+
+Dungeon &Dungeon::saveLevelsFile(std::ofstream &in, Game &game){
+    in << count_levels<<std::endl;
+    in << game.getMapWidth()<<std::endl;
+    in << game.getMapHeight()<<std::endl;
+    for (int i = 0; i < count_levels; i++){
+        for (int x = 0; x < levels[i].getM(); x++){
+            std::string tmp;
+            for (int y = 0; y < levels[i].getN(); y++){
+                if (hero.getX() == x && hero.getY() == y && i == cur_level){
+                    tmp.append("H");
+                } else if (levels[i][x][y].getType() == type_cell::wall){
+                    tmp.append("#");
+                } else if (levels[i][x][y].isChest()){
+                    tmp.append("C");
+                } else if (levels[i][x][y].getType() == type_cell::down_ladder){
+                    tmp.append("D");
+                } else if (levels[i][x][y].getType() == type_cell::up_ladder){
+                    tmp.append("U");
+                } else if (levels[i][x][y].getType() == type_cell::close_door){
+                    tmp.append("E");
+                } else if (levels[i][x][y].getType() == type_cell::open_door){
+                    tmp.append("O");
+                } else {
+                    tmp.append("0");
+                }
+
+            }
+            in << tmp<<std::endl;
+        }
+        in << "-"<<std::endl;
+    }
+    in << "Enemies:"<<std::endl;
+    for (int i = 0; i < enemies.size(); i++){
+        if (enemies[i].second->getName() == name_enemy::blue_wolf){
+            in << "wolf"<<std::endl;
+        } else if (enemies[i].second->getName() == name_enemy::red_tiger){
+            in << "tiger"<<std::endl;
+        } else if (enemies[i].second->getName() == name_enemy::black_druid){
+            in << "druid"<<std::endl;
+        } else if (enemies[i].second->getName() == name_enemy::white_golem){
+            in << "golem"<<std::endl;
+        }
+        in << enemies[i].second->getX()<<std::endl;
+        in << enemies[i].second->getY()<<std::endl;
+        in << enemies[i].first<<std::endl;
+    }
 }
 
 void Dungeon::enemyDead(int ind_enemy){

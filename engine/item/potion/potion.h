@@ -5,7 +5,6 @@
 #include "../../upgrades/table/table.h"
 #include "../item.h"
 #include "../../helps/enums.h"
-#include "../../helps/sets/setpotion.h"
 /*!
  * @brief Класс зелья
  */
@@ -48,5 +47,8 @@ class Potion: public Item{
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 };
-
+extern "C" const Item& load_potion() {
+        static Potion pluginInst;
+        return pluginInst;
+}
 #endif // POTION_H

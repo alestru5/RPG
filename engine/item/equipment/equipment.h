@@ -3,7 +3,6 @@
 
 #include "../item.h"
 #include "../../upgrades/artifact/artifact.h"
-#include "../../helps/sets/setprotect.h"
 /*!
  * @brief Класс брони
  */
@@ -62,5 +61,5 @@ class Equipment: public Item{
         Item& buildItem(const json& data) override {}
 
 };
-
+extern "C" const Item& load_equipment();
 #endif // EQUIPMENT_H

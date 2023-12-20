@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include <thread>
-#include <mutex>
 
 #include "./dungeon/dungeon.h"
 
@@ -15,7 +14,7 @@ class Game{
         bool isGame;
 
     public:
-        Game(): mapWidth(320), mapHeight(160), isGame(false), dungeon() { }
+        Game(): mapWidth(32), mapHeight(16), isGame(false), dungeon() { }
 
         Dungeon &getDungeon() noexcept { return dungeon; }
         int getMapWidth() const noexcept { return mapWidth; }
@@ -25,10 +24,13 @@ class Game{
         Game &setMapWidth(int mW) noexcept { mapWidth = mW; return *this; }
         Game &setMapHeight(int mH) noexcept { mapHeight = mH; return *this; }
         Game &setisGame(bool status) noexcept { isGame = status; return *this;}
-        void initGame(std::ifstream& map);
+
         bool tick(Dungeon &dungeon);
 
         void actionMobs(int i, int j);
+
+        void initGame(std::ifstream& map, const json& config);
+        void saveGame(std::ofstream& map);
 };
 
 #endif // GAME_H

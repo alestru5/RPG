@@ -2,11 +2,10 @@
 #define ITEM_H
 
 
-#include <json.hpp>
+#include "../../json.hpp"
 using json = nlohmann::json;
 
 #include "../helps/enums.h"
-
 class Hero;
 class Dungeon;
 /*!

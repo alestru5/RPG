@@ -1,5 +1,4 @@
-#include "equipmentartifact.h"
-#include "../../character/hero/hero.h"
+#include "equipment_artifact.h"
 #include "../../dungeon/dungeon.h"
 
 int EquipmentArtifact::getValue() const noexcept{
@@ -38,4 +37,9 @@ EquipmentArtifact& EquipmentArtifact::operator=(const EquipmentArtifact& I) noex
         Equipment::operator=(I);
     }
     return *this;
+}
+
+const Item& load_equipment_artifact(){
+    static EquipmentArtifact pluginInst;
+    return pluginInst;
 }

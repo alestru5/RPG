@@ -19,15 +19,18 @@ class PauseMenu: public QWidget {
     signals:
         void resumeGame();
         void endGame();
+        void saveGame();
 
     private slots:
         void onResumeClicked();
+        void onSaveClicked();
         void onQuitClicked();
     private:
         int width = 1920;
         int height = 1080;
 
         QPushButton *resumeButton;
+        QPushButton *saveButton;
         QPushButton *quitButton;
 };
 

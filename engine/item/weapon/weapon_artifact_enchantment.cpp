@@ -1,5 +1,4 @@
-#include "weaponartifactenchantment.h"
-#include "../../character/hero/hero.h"
+#include "weapon_artifact_enchantment.h"
 #include "../../dungeon/dungeon.h"
 
 
@@ -17,4 +16,9 @@ void WeaponArtifactEnchantment::use(Dungeon &dungeon){
     std::vector<Item *> I = dungeon.getHero().getInventory();
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
+}
+
+const Item& load_weapon_artifact_enchantment(){
+    static WeaponArtifactEnchantment pluginInst;
+    return pluginInst;
 }

@@ -42,5 +42,8 @@ class Bunch: public Item{
         Item& buildItem(const json& data) override {}
 
 };
-
+extern "C" const Item& load_bunch() {
+    static Bunch pluginInst;
+    return pluginInst;
+}
 #endif // BUNCH_H

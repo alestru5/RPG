@@ -6,7 +6,8 @@ Enemy::Enemy() noexcept: experience(100), Character(), name(name_enemy::white_go
     experience = 100;
     min_damage = SetDamage::createDamage(name_enemy::white_golem).first;
     max_damage = SetDamage::createDamage(name_enemy::white_golem).second;
-    item = SetItem::createItem();
+    /*item = SetItem::createItem();*/
+    item = nullptr;
 }
 Enemy::Enemy(int i, int j) noexcept: Enemy(){
     experience = 100;
@@ -18,7 +19,8 @@ Enemy::Enemy(int i, int j, name_enemy n) noexcept: experience(100), Character(),
     experience = 100;
     min_damage = SetDamage::createDamage(n).first;
     max_damage = SetDamage::createDamage(n).second;
-    item = SetItem::createItem();
+    /*item = SetItem::createItem();*/
+    item = nullptr;
     x = i;
     y = j;
 }

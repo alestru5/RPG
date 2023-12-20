@@ -1,6 +1,5 @@
 #include "weapon.h"
 #include "../../game.h"
-#include "../../helps/sets/setdamage.h"
 
 
 Weapon& Weapon::operator=(const Weapon& I) noexcept{
@@ -30,4 +29,8 @@ void Weapon::use(Dungeon &dungeon){
     std::vector<Item *> I = dungeon.getHero().getInventory();
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
+}
+const Item& load_weapon(){
+    static Weapon pluginInst;
+    return pluginInst;
 }

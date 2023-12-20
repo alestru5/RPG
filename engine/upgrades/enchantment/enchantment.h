@@ -2,14 +2,14 @@
 #define ENCHANTMENT_H
 
 #include <list>
+#include <string>
 
 #include "../../helps/enums.h"
-#include "../../character/enemy/enemy.h"
 /*!
  * @brief Класс зачарования
 */
 class Enchantment{
-    private:
+    protected:
         // Тип зачарования
         std::string enchantment_type;
         // Список коэф. для атаки на фракции врагов
@@ -36,7 +36,7 @@ class Enchantment{
          * @brief Сеттер типа зачарования
          * @param T Тип зачарования
          */
-        double getMultiply(Enemy *enemy) const noexcept;
+        double getMultiply() const noexcept;
         /*!
          * @brief Оператор копирования
          * @param I Другое зачарование

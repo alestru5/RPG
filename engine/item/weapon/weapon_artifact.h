@@ -1,5 +1,5 @@
-#ifndef WEAPONARTIFACT_H
-#define WEAPONARTIFACT_H
+#ifndef WEAPON_ARTIFACT_H
+#define WEAPON_ARTIFACT_H
 #include "weapon.h"
 #include "../../upgrades/artifact/artifact.h"
 /*!
@@ -20,11 +20,13 @@ class WeaponArtifact: public virtual Weapon, public Artifact{
          * @param Карта
          */
         std::string getItemType() const noexcept override { return item_type; }
-        std::string getItemName() const noexcept override { return weapon_name; }
+        std::string getItemName() const noexcept override { return weapon_name + artifact_type; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
         Item& buildItem(const json& data) override {}
 
 };
+
+extern "C" const Item& load_weapon_artifact();
 
 #endif // WEAPONARTIFACT_H

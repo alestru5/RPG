@@ -4,9 +4,8 @@
 #include <iostream>
 
 #include "../item.h"
-#include "../../helps/sets/setdamage.h"
 #include "../../helps/enums.h"
-#include "../../character/enemy/enemy.h"
+#include "../../upgrades/artifact/artifact.h"
 /*!
  * @brief Класс оружия
  */
@@ -57,4 +56,5 @@ class Weapon: public Item{
         Item& buildItem(const json& data) override {}
 };
 
+extern "C" const Item& load_weapon();
 #endif // WEAPON_H
