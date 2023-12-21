@@ -191,6 +191,8 @@ void GameWindow::loadImg(){
     weaponPix["sword"].load("/home/alestru/PetProjects/RPG/img/sword.png");
     weaponPix["nunchucks"].load("/home/alestru/PetProjects/RPG/img/nunchucks.png");
 
+    pickaxePix.load("/home/alestru/PetProjects/RPG/img/pickaxe.png");
+
     characteristicPix["strength"].load("/home/alestru/PetProjects/RPG/img/strength.png");
     characteristicPix["agility"].load("/home/alestru/PetProjects/RPG/img/agility.png");
     characteristicPix["intelligence"].load("/home/alestru/PetProjects/RPG/img/intelligence.png");
@@ -278,6 +280,10 @@ void GameWindow::drawInventory(){
 
             else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType().find("equipment") != std::string::npos){
                 inventorySlot[i][j]->setPixmap(equipmentPix[QString::fromStdString(game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemName()).split("_")[1].toStdString()].scaledToHeight(tileHeight));
+            }
+
+            else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType() == "pickaxe"){
+                inventorySlot[i][j]->setPixmap(pickaxePix.scaledToHeight(tileHeight));
             }
 
             else if (game.getDungeon().getHero().getInventory()[5*(i+1)-j-1]->getItemType() == "potion"){
@@ -417,6 +423,11 @@ void GameWindow::drawGame(){
 
                     tile[i][j]->setPixmap(equipmentPix[QString::fromStdString(game.getDungeon().getCurLevel()[i][j].getItem()->getItemName()).split("_")[1].toStdString()].scaledToHeight(tileHeight));
                 }
+                else if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType() == "pickaxe"){
+
+                    tile[i][j]->setPixmap(pickaxePix.scaledToHeight(tileHeight));
+                }
+
                 else if (game.getDungeon().getLevels()[game.getDungeon().getCur_Level()][i][j].getItem()->getItemType() == "potion"){
                     tile[i][j]->setPixmap(potionPix.scaledToHeight(tileHeight));
                 }

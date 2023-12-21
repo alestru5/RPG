@@ -1688,6 +1688,26 @@
                     "endurance": 5
                 }
             ] 
+        },
+        {
+            "item_type": "pickaxe",
+            "item_name": "wooden",
+            "durability": 2
+        },
+        {
+            "item_type": "pickaxe",
+            "item_name": "iron",
+            "durability": 3
+        },
+        {
+            "item_type": "pickaxe",
+            "item_name": "gold",
+            "durability": 4
+        },
+        {
+            "item_type": "pickaxe",
+            "item_name": "diamond",
+            "durability": 5
         }
     ] 
 }

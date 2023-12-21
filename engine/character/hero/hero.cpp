@@ -197,18 +197,21 @@ void Hero::move(type_destination direction, Dungeon &dungeon) noexcept{
     }
     Cell destination;
     int i2 = x, j2 = y;
-    if (direction == type_destination::south){
+    if (i2 + 1 < dungeon.getCurLevel().getM() && direction == type_destination::south){
         destination = dungeon.getCurLevel()[x + 1][y];
         i2 += 1;
-    } else if (direction == type_destination::east){
+    } else if (j2 + 1 < dungeon.getCurLevel().getN() && direction == type_destination::east){
         destination = dungeon.getCurLevel()[x][y + 1];
         j2 += 1;
-    } else if (direction == type_destination::west){
+    } else if (j2 >= 1 && direction == type_destination::west){
         destination = dungeon.getCurLevel()[x][y - 1];
         j2 -= 1;
-    } else if (direction == type_destination::north){
+    } else if (i2 >= 1 && direction == type_destination::north){
         destination = dungeon.getCurLevel()[x - 1][y];
         i2 -= 1;
+    }
+    if (i2 < 0 || i2 >= dungeon.getCurLevel().getM() || j2 < 0 || j2 >= dungeon.getCurLevel().getN()){
+        return;
     }
     if (!findEnemy(dungeon, i2, j2) && (destination.getType() == type_cell::floor || destination.isLadder() || destination.isOpenDoor()) && destination.getChest() == nullptr && destination.getItem() == nullptr){
         x = i2;
