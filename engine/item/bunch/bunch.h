@@ -37,11 +37,10 @@ class Bunch: public Item{
         std::string getItemName() const noexcept override { return bunch_name; }
         int getValue() const noexcept override { return count; }
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override;
+        Item* buildItem(const json& data) override;
 
 };
-extern "C" const Item& load_bunch() {
-    static Bunch pluginInst;
-    return pluginInst;
+extern "C" Item* load_bunch() {
+    return new Bunch();
 }
 #endif // BUNCH_H

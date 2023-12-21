@@ -8,7 +8,7 @@
 class Potion: public Item{
     private:
         // Название зелья
-        std::string item_type;
+        std::string item_type = "potion";
         std::string potion_name;
         // Изменения характеристик после употребления
         std::pair<std::string, int> changes;
@@ -42,10 +42,9 @@ class Potion: public Item{
         std::string getItemName() const noexcept override { return potion_name; }
         int getValue() const noexcept override { return changes.second; }
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override;
+        Item* buildItem(const json& data) override;
 };
-extern "C" const Item& load_potion() {
-    static Potion pluginInst;
-    return pluginInst;
+extern "C" Item* load_potion() {
+    return new Potion();
 }
 #endif // POTION_H

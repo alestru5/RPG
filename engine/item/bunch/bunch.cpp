@@ -17,9 +17,10 @@ void Bunch::use(Dungeon &dungeon){
     dungeon.getHero().setInventory(I);
 }
 
-Item& Bunch::buildItem(const json& data) {
-    item_type = data.at("item_type").get<std::string>();
-    bunch_name = data.at("item_name").get<std::string>();
-    count = data.at("count").get<int>();
-    return *this;
+Item* Bunch::buildItem(const json& data) {
+    Bunch *tmp = new Bunch();
+    tmp->item_type = data.at("item_type").get<std::string>();
+    tmp->bunch_name = data.at("item_name").get<std::string>();
+    tmp->count = data.at("count").get<int>();
+    return tmp;
 }

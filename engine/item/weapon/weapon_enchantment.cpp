@@ -16,7 +16,19 @@ void WeaponEnchantment::use(Dungeon &dungeon){
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
 }
-const Item& load_weapon_enchantment(){
-    static WeaponEnchantment pluginInst;
-    return pluginInst;
+
+Item* WeaponEnchantment::buildItem(const json& data) {
+    WeaponEnchantment *tmp = new WeaponEnchantment();
+    tmp->item_type = data.at("item_type").get<std::string>();
+    tmp->weapon_name = data.at("item_name").get<std::string>();
+    std::string e_t = data.at("enchantment_type").get<std::string>();
+    int c = data.at("coef").get<int>();
+    tmp->setAllC(e_t, c);
+    tmp->min_damage = data.at("min_damage").get<int>();
+    tmp->max_damage = data.at("max_damage").get<int>();
+    return tmp;
+}
+
+Item* load_weapon_enchantment(){
+    return new WeaponEnchantment();
 }

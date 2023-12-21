@@ -31,6 +31,7 @@ void Cell::changeDoor(){
 }
 
 Cell& Cell::operator=(const Cell &c){
+
     type = c.type;
     item = c.item;
     chest = c.chest;

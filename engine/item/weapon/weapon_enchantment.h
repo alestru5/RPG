@@ -22,10 +22,10 @@ class WeaponEnchantment: public virtual Weapon, public Enchantment{
          * @param Карта
          */
         std::string getItemType() const noexcept override { return item_type; }
-        std::string getItemName() const noexcept override { return weapon_name + enchantment_type; }
+        std::string getItemName() const noexcept override { return weapon_name; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item* buildItem(const json& data) override;
 };
-extern "C" const Item& load_weapon_enchantment();
+extern "C" Item* load_weapon_enchantment();
 #endif // WEAPONENCHANTMENT_H

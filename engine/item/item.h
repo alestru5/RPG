@@ -16,7 +16,7 @@ public:
     virtual std::string getItemName() const noexcept = 0;
     virtual int getValue() const noexcept = 0;
     virtual void use(Dungeon &dungeon) = 0;
-    virtual Item& buildItem(const json& data) = 0;
+    virtual Item* buildItem(const json& data) = 0;
 
 };
 

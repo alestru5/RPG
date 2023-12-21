@@ -14,6 +14,7 @@ class Game{
         int mapWidth;
         int mapHeight;
         bool isGame;
+        PluginManager manager;
         std::unordered_map<std::string, std::reference_wrapper<Item>>pluginByItem;
     public:
         Game(): mapWidth(32), mapHeight(16), isGame(false), dungeon(){ }

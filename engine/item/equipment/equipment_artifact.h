@@ -29,10 +29,10 @@ class EquipmentArtifact: public Equipment, public Artifact{
         std::string getItemName() const noexcept override { return equipment_name + "_" + equipment_type + "_" + artifact_type; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item* buildItem(const json& data) override;
 };
 
-extern "C" const Item& load_equipment_artifact();
+extern "C" Item* load_equipment_artifact();
 
 
 #endif // EQUIPMENTARTIFACT_H

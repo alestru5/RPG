@@ -2,7 +2,6 @@
 
 void Game::initGame(std::ifstream& map, const json& config, std::string pluginsDir){
     try{
-        PluginManager manager;
         manager.scan(pluginsDir, ".so");
         for(auto& pluginInfo : manager.getPlugins()) {
             Item& plugin = pluginInfo.second.plugin;
@@ -10,6 +9,7 @@ void Game::initGame(std::ifstream& map, const json& config, std::string pluginsD
         }
         dungeon.initializeLevelsFile(map, config, *this);
         isGame = false;
+
     } catch(...){
         throw;
     }

@@ -16,9 +16,10 @@ Potion& Potion::operator =(const Potion &I) noexcept{
     return *this;
 }
 
-Item& Potion::buildItem(const json& data) {
-    item_type = data.at("item_type").get<std::string>();
-    potion_name = data.at("item_name").get<std::string>();
-    changes = std::make_pair("experience", 100);
-    return *this;
+Item* Potion::buildItem(const json& data) {
+    Potion *tmp = new Potion();
+    tmp->item_type = data.at("item_type").get<std::string>();
+    tmp->potion_name = data.at("item_name").get<std::string>();
+    tmp->changes = std::make_pair("experience", 100);
+    return tmp;
 }

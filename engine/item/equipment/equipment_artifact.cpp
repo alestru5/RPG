@@ -38,7 +38,21 @@ EquipmentArtifact& EquipmentArtifact::operator=(const EquipmentArtifact& I) noex
     return *this;
 }
 
-const Item& load_equipment_artifact(){
-    static EquipmentArtifact pluginInst;
-    return pluginInst;
+Item* EquipmentArtifact::buildItem(const json& data){
+    EquipmentArtifact *tmp = new EquipmentArtifact();
+
+    tmp->item_type = data.at("item_type").get<std::string>();
+    tmp->equipment_name = data.at("item_name").get<std::string>();
+    tmp->equipment_type = data.at("equipment_type").get<std::string>();
+    std::string a_t = data.at("artifact_type").get<std::string>();
+    int ch = data.at("changes").get<int>();
+    tmp->setAll(a_t, ch);
+    tmp->min_protect = data.at("min_protect").get<int>();
+    tmp->max_protect = data.at("max_protect").get<int>();
+    tmp->bonus_protect = data.at("bonus_protect").get<int>();
+    return tmp;
+}
+
+Item* load_equipment_artifact(){
+    return new EquipmentArtifact();
 }

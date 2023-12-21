@@ -16,7 +16,19 @@ void WeaponArtifact::use(Dungeon &dungeon){
     dungeon.getHero().setInventory(I);
 }
 
-const Item& load_weapon_artifact(){
-    static WeaponArtifact pluginInst;
-    return pluginInst;
+Item* WeaponArtifact::buildItem(const json& data) {
+    WeaponArtifact *tmp = new WeaponArtifact();
+    tmp->item_type = data.at("item_type").get<std::string>();
+    tmp->weapon_name = data.at("item_name").get<std::string>();
+    std::string a_t = data.at("artifact_type").get<std::string>();
+    int ch = data.at("changes").get<int>();
+    tmp->setAll(a_t, ch);
+    tmp->bonus_damage = data.at("bonus_damage").get<int>();
+    tmp->min_damage = data.at("min_damage").get<int>();
+    tmp->max_damage = data.at("max_damage").get<int>();
+    return tmp;
+}
+
+Item* load_weapon_artifact(){
+    return new WeaponArtifact();
 }

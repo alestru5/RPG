@@ -21,6 +21,7 @@ class Artifact{
          */
         Artifact() noexcept {}
         Artifact(std::string at, std::list<std::pair<std::string, int>> c) noexcept: artifact_type(at), changes(c) {}
+        void setAll(std::string at, int c) noexcept;
         /*!
          * @brief Геттер типа артефакта
          * @return Тип артефакта

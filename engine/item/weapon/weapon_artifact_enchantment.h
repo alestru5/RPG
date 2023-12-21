@@ -22,11 +22,11 @@ class WeaponArtifactEnchantment: public WeaponArtifact, public WeaponEnchantment
          * @param Карта
          */
         std::string getItemType() const noexcept override { return item_type; }
-        std::string getItemName() const noexcept override { return weapon_name + artifact_type + enchantment_type; }
+        std::string getItemName() const noexcept override { return weapon_name; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item* buildItem(const json& data) override;
 
 };
-extern "C" const Item& load_weapon_artifact_enchantment();
+extern "C" Item* load_weapon_artifact_enchantment();
 #endif // WEAPONARTIFACTENCHANTMENT_H

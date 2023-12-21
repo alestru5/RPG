@@ -86,7 +86,6 @@ void GameWindow::start(std::ifstream &in, const json& config, std::string plugin
     bar->scene()->addItem(eBar);
 
     game.initGame(in, config, pluginsDir);
-
     inventorySlot.assign(2, std::vector<QLabel*>(5));
     for (int i = 0; i < 2; i++){
         for (int j = 0; j < 5; j++){
@@ -216,7 +215,7 @@ void GameWindow::drawTools(){
     if (game.getDungeon().getHero().getWeapon() != nullptr){
         weaponSlot->setPixmap(weaponPix[(game.getDungeon().getHero().getWeapon())->getItemName()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
         if (game.getDungeon().getHero().getWeapon()->getItemType().find("artifact") != std::string::npos){
-            std::string at = QString::fromStdString((game.getDungeon().getHero().getWeapon()->getItemName())).split("_")[1].toStdString();
+            std::string at = dynamic_cast<Artifact *>(game.getDungeon().getHero().getWeapon())->getArtifact_Type();;
             if (at == "rare") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid blue;");
             if (at == "mythical") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid  purple;");
             if (at == "legendary") weaponSlot->setStyleSheet("background-color: gray; border: 3px solid yellow;");
@@ -246,7 +245,7 @@ void GameWindow::drawTools(){
         equipmentSlot[i][j]->setPixmap(equipmentPix[QString::fromStdString((*iter)->getItemName()).split("_")[1].toStdString()].scaled(tileHeight * 31 / 32, tileHeight * 31 / 32));
 
         if ((*iter)->getItemType().find("artifact") != std::string::npos){
-            std::string at = QString::fromStdString((*iter)->getItemName()).split("_")[2].toStdString();
+            std::string at = dynamic_cast<Artifact *>(*iter)->getArtifact_Type();;
             if (at == "casual") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid black;");
             if (at == "rare") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid blue;");
             if (at == "mythical") equipmentSlot[i][j]->setStyleSheet("background-color: gray; border: 3px solid purple;");
@@ -405,11 +404,10 @@ void GameWindow::drawGame(){
 
             }
             else if (game.getDungeon().getLevels()[game.getDungeon().getCur_Level()][i][j].getChest() != nullptr){
-
                 tile[i][j]->setPixmap(chestPix.scaledToHeight(tileHeight));
 
             }
-            else if (game.getDungeon().getCurLevel()[i][j].getItem() != nullptr){
+            else if (game.getDungeon().getCurLevel()[i][j].getItem()){
                 if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType() == "bunch"){
 
                     tile[i][j]->setPixmap(bunchPix.scaledToHeight(tileHeight));

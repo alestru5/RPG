@@ -41,6 +41,7 @@ class Enchantment{
          * @param I Другое зачарование
          * @return Ссылка на текущее зачарование
          */
+        void setAllC(std::string et, double c) noexcept;
         Enchantment& operator=(const Enchantment& I) noexcept;
 
 };

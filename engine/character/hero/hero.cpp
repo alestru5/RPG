@@ -160,7 +160,7 @@ void Hero::usingChosenItem(Dungeon &dungeon) noexcept{
 void Hero::attack(Character *C) {
     if (!C->isDead()){
         int damage = fullDamage(static_cast<Enemy *>(C));
-        if (rand() % 100 > table.getValue("a")){
+        if (rand() % 100 < table.getValue("a")){
             static_cast<Enemy *>(C)->getDamage(damage);
         }
     }

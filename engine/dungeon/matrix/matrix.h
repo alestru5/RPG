@@ -368,6 +368,8 @@ public:
      * @brief Геттер матрицы
      */
     T* getMatrix() noexcept { return matrix; }
+
+    T& getter(int a, int b) { return matrix[a * n + b]; }
     /*!
      * @brief Копирующий оператор присваивания
      * @param o Копируемая матрица

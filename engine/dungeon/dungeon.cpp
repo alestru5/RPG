@@ -34,13 +34,6 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, const json& config, Ga
                 }
                 Matrix<Cell> m_tmp(data);
                 levels[l] = m_tmp;
-                std::vector<Cell> t;
-                for (int u = 0 ; u < levels[l].getM(); u++){
-                    for(int p = 0; p < levels[l].getN(); p++){
-                        t.push_back(levels[l][u][p]);
-                    }
-
-                }
                 l += 1;
 
                 data.erase(data.begin(), data.end());
@@ -59,23 +52,10 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, const json& config, Ga
                 throw std::runtime_error("Hero can be only on first level");
             }
             else if (map[i][j] == 'C'){
-                /*nlohmann::json jsonItem = config.at("items")[random() % config.at("items").size()];*/
-                nlohmann::json jsonItem;
-                if (rand() % 2){
-                    jsonItem["item_type"] = "bunch";
-                    jsonItem["item_name"] = "big";
-                    jsonItem["count"] = 6;
-                } else{
-                    jsonItem["item_type"] = "potion";
-                    jsonItem["item_name"] = "experience";
-                    jsonItem["changes"] = {{"experience", 100}};
-                }
-
-
-                Item& c_pl = (game.getPlugins().at(jsonItem["item_type"].get<std::string>()));
-                Item& I= c_pl.buildItem(jsonItem);
-                Chest *c = new Chest(1, &I);
-
+                nlohmann::json jsonItem = config.at("items")[random() % config.at("items").size()];
+                Item& c_pl = game.getPlugins().at(jsonItem["item_type"].get<std::string>());
+                Item *I = c_pl.buildItem(jsonItem);
+                Chest *c = new Chest(1, I);
                 tmp.push_back(Cell(type_cell::floor, nullptr, c));
             }
             else if (map[i][j] == 'D'){
@@ -106,17 +86,20 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, const json& config, Ga
     }
     enemies.clear();
     for (int i = index; i < map.size(); i+= 4){
+        nlohmann::json jsonItem = config.at("items")[random() % config.at("items").size()];
+        Item& c_pl = game.getPlugins().at(jsonItem["item_type"].get<std::string>());
+        Item *I = c_pl.buildItem(jsonItem);
         int x = std::stoi(map[i + 1]);
         int y = std::stoi(map[i + 2]);
         int lvl = std::stoi(map[i + 3]);
         if (map[i] == "wolf"){
-            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::blue_wolf)));
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::blue_wolf, I)));
         } else if (map[i] == "tiger"){
-            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::red_tiger)));
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::red_tiger, I)));
         } else if (map[i] == "druid"){
-            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::black_druid)));
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::black_druid, I)));
         } else if (map[i] == "golem"){
-            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::white_golem)));
+            enemies.push_back(std::make_pair(lvl, new Enemy(x, y, name_enemy::white_golem, I)));
         } else {
             throw std::invalid_argument("its not mob");
         }

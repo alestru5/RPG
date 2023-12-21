@@ -17,7 +17,22 @@ void WeaponArtifactEnchantment::use(Dungeon &dungeon){
     dungeon.getHero().setInventory(I);
 }
 
-const Item& load_weapon_artifact_enchantment(){
-    static WeaponArtifactEnchantment pluginInst;
-    return pluginInst;
+Item* WeaponArtifactEnchantment::buildItem(const json& data) {
+    WeaponArtifactEnchantment *tmp = new WeaponArtifactEnchantment();
+    tmp->item_type = data.at("item_type").get<std::string>();
+    tmp->weapon_name = data.at("item_name").get<std::string>();
+    std::string e_t = data.at("enchantment_type").get<std::string>();
+    int cf = data.at("coef").get<int>();
+    tmp->setAllC(e_t, cf);
+    std::string a_t = data.at("artifact_type").get<std::string>();
+    int ch = data.at("changes").get<int>();
+    tmp->setAll(a_t, ch);
+    tmp->bonus_damage = data.at("bonus_damage").get<int>();
+    tmp->min_damage = data.at("min_damage").get<int>();
+    tmp->max_damage = data.at("max_damage").get<int>();
+    return tmp;
+}
+
+Item* load_weapon_artifact_enchantment(){
+    return new WeaponArtifactEnchantment();
 }

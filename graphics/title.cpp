@@ -58,8 +58,7 @@ void Title::startGame(){
     gamewindow.startTick();
     gamewindow.showFullScreen();
 
-    lvl.close();
-    config.close();
+
     emit closeWindow();
 }
 

@@ -22,6 +22,11 @@ double Enchantment::getMultiply() const noexcept{
 
 }
 
+void Enchantment::setAllC(std::string et, double c) noexcept{
+    enchantment_type = et;
+    coef.push_back(std::make_pair(et, c));
+}
+
 Enchantment& Enchantment::operator=(const Enchantment& I) noexcept{
     if (this != &I){
         enchantment_type = I.enchantment_type;

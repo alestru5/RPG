@@ -50,8 +50,8 @@ class Weapon: public Item{
         std::string getItemName() const noexcept override { return weapon_name; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item* buildItem(const json& data) override;
 };
 
-extern "C" const Item& load_weapon();
+extern "C" Item* load_weapon();
 #endif // WEAPON_H
