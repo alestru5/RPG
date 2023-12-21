@@ -58,7 +58,7 @@ class Equipment: public Item{
         std::string getItemName() const noexcept override { return equipment_name + "_" + equipment_type; }
         int getValue() const noexcept override;
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item& buildItem(const json& data) override;
 
 };
 extern "C" const Item& load_equipment();

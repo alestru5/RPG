@@ -7,7 +7,6 @@
 
 #include "../helps/enums.h"
 
-
 class Dungeon;
 class Item;
 

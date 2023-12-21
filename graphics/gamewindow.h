@@ -15,8 +15,6 @@
 #include <QGraphicsView>
 #include <iostream>
 
-
-
 #include "../engine/game.h"
 #include "../engine/helps/enums.h"
 #include "pausemenu.h"
@@ -89,7 +87,7 @@ class GameWindow : public QMainWindow{
         void startTick() { timer = startTimer(1000); }
         void stopTick() { killTimer(timer); }
 
-        void start(std::ifstream &in, const json& config);
+        void start(std::ifstream &in, const json& config, std::string pluginsDir);
 
         void mousePressEvent(QMouseEvent *e);
         void wheelEvent(QWheelEvent* event);

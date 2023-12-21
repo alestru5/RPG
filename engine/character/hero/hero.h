@@ -6,7 +6,6 @@
 #include "../character.h"
 #include "../../upgrades/table/table.h"
 
-
 class Dungeon;
 class Enemy;
 

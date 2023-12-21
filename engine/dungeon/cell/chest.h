@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../../item/item.h"
+
 class Hero;
 
 class Chest{
@@ -13,7 +14,7 @@ class Chest{
 
     public:
         Chest() noexcept: level(1), item(nullptr) {}
-        Chest(int l, Item *I = nullptr);
+        Chest(int l, Item *I);
 
         int getLevel() const noexcept { return level; }
         Item *getItem() const noexcept { return item; }

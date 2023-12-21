@@ -59,10 +59,24 @@ Dungeon& Dungeon::initializeLevelsFile(std::ifstream &in, const json& config, Ga
                 throw std::runtime_error("Hero can be only on first level");
             }
             else if (map[i][j] == 'C'){
-                Item *t = nullptr;
-                Item *I = nullptr;
-                Chest *c = new Chest(1, I);
-                tmp.push_back(Cell(type_cell::floor, t, c));
+                /*nlohmann::json jsonItem = config.at("items")[random() % config.at("items").size()];*/
+                nlohmann::json jsonItem;
+                if (rand() % 2){
+                    jsonItem["item_type"] = "bunch";
+                    jsonItem["item_name"] = "big";
+                    jsonItem["count"] = 6;
+                } else{
+                    jsonItem["item_type"] = "potion";
+                    jsonItem["item_name"] = "experience";
+                    jsonItem["changes"] = {{"experience", 100}};
+                }
+
+
+                Item& c_pl = (game.getPlugins().at(jsonItem["item_type"].get<std::string>()));
+                Item& I= c_pl.buildItem(jsonItem);
+                Chest *c = new Chest(1, &I);
+
+                tmp.push_back(Cell(type_cell::floor, nullptr, c));
             }
             else if (map[i][j] == 'D'){
                 tmp.push_back(Cell(type_cell::down_ladder));

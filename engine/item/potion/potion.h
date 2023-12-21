@@ -16,7 +16,7 @@ class Potion: public Item{
         /*!
          * @brief Пустой конструктор
          */
-        Potion() noexcept: item_type("potion"){}
+        Potion() noexcept: potion_name("null"), changes(std::make_pair("null", 0)), item_type("potion") {}
         Potion(std::string pn, std::pair<std::string, int> c) noexcept: potion_name(pn), changes(c), item_type("potion") {}
         /*!
          * @brief Геттер имени зелья
@@ -42,10 +42,10 @@ class Potion: public Item{
         std::string getItemName() const noexcept override { return potion_name; }
         int getValue() const noexcept override { return changes.second; }
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item& buildItem(const json& data) override;
 };
 extern "C" const Item& load_potion() {
-        static Potion pluginInst;
-        return pluginInst;
+    static Potion pluginInst;
+    return pluginInst;
 }
 #endif // POTION_H

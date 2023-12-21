@@ -48,34 +48,34 @@ void Title::quitProgram(){
     qApp->quit();
 }
 void Title::startGame(){
-    std::ifstream lvl;
-    std::ifstream config;
     lvl.open("/home/alestru/PetProjects/RPG/Maps/NewMap.txt");
     config.open("/home/alestru/PetProjects/RPG/config.json");
-    gamewindow.start(lvl, nlohmann::json::parse(config));
-    lvl.close();
-    config.close();
+
+    gamewindow.start(lvl, nlohmann::json::parse(config), pluginsDir);
     gamewindow.getGame().setisGame(true);
     gamewindow.drawGame();
     gamewindow.setSize();
     gamewindow.startTick();
     gamewindow.showFullScreen();
+
+    lvl.close();
+    config.close();
     emit closeWindow();
 }
 
-void Title::startSelectGame(std::string in){
-    std::ifstream tmp;
-    tmp.open(in);
-    std::ifstream config;
+void Title::startSelectGame(std::string pathMap){
+    lvl.open(pathMap);
     config.open("/home/alestru/PetProjects/RPG/config.json");
-    gamewindow.start(tmp, nlohmann::json::parse(config));
-    tmp.close();
-    config.close();
+
+    gamewindow.start(lvl, nlohmann::json::parse(config), pluginsDir);
     gamewindow.getGame().setisGame(true);
     gamewindow.drawGame();
     gamewindow.setSize();
     gamewindow.startTick();
     gamewindow.showFullScreen();
+
+    lvl.close();
+    config.close();
     emit closeWindow();
 }
 

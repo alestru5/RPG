@@ -234,6 +234,7 @@ bool Hero::open_chest(Dungeon &dungeon) noexcept{
         (*it).setItem((*it).getChest()->getItem());
         (*it).setChest(nullptr);
         c_bunch -= 1;
+
         return true;
     }
     if (check.second){

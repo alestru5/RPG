@@ -8,10 +8,6 @@
 #include <QGraphicsView>
 #include <QMessageBox>
 
-
-
-
-
 class Title;
 class View;
 

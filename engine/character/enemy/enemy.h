@@ -7,7 +7,6 @@
 #include "../../helps/enums.h"
 #include "../../helps/sets/setdamage.h"
 
-
 class Enemy: public Character{
 private:
     name_enemy name;

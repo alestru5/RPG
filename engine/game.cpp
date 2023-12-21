@@ -1,10 +1,15 @@
 #include "game.h"
 
-void Game::initGame(std::ifstream& map, const json& config){
+void Game::initGame(std::ifstream& map, const json& config, std::string pluginsDir){
     try{
+        PluginManager manager;
+        manager.scan(pluginsDir, ".so");
+        for(auto& pluginInfo : manager.getPlugins()) {
+            Item& plugin = pluginInfo.second.plugin;
+            pluginByItem.insert({plugin.getItemType(), std::ref(plugin)});
+        }
         dungeon.initializeLevelsFile(map, config, *this);
         isGame = false;
-
     } catch(...){
         throw;
     }

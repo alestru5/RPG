@@ -1,7 +1,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-
 #include <QLabel>
 #include <QWidget>
 #include <QPushButton>

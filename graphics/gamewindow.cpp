@@ -46,7 +46,7 @@ void GameWindow::setSize(){
 }
 GameWindow::GameWindow(QMainWindow *parent): QMainWindow(parent){}
 
-void GameWindow::start(std::ifstream &in, const json& config){
+void GameWindow::start(std::ifstream &in, const json& config, std::string pluginsDir){
     setWindowTitle("Vagabund");
     pauseMenu = new PauseMenu(this);
     connect(pauseMenu, &PauseMenu::resumeGame, this, &GameWindow::pause);
@@ -85,7 +85,7 @@ void GameWindow::start(std::ifstream &in, const json& config){
     bar->scene()->addItem(hpBar);
     bar->scene()->addItem(eBar);
 
-    game.initGame(in, config);
+    game.initGame(in, config, pluginsDir);
 
     inventorySlot.assign(2, std::vector<QLabel*>(5));
     for (int i = 0; i < 2; i++){
@@ -409,8 +409,7 @@ void GameWindow::drawGame(){
                 tile[i][j]->setPixmap(chestPix.scaledToHeight(tileHeight));
 
             }
-            else if (game.getDungeon().getCurLevel()[i][j].getItem()){
-
+            else if (game.getDungeon().getCurLevel()[i][j].getItem() != nullptr){
                 if (game.getDungeon().getCurLevel()[i][j].getItem()->getItemType() == "bunch"){
 
                     tile[i][j]->setPixmap(bunchPix.scaledToHeight(tileHeight));

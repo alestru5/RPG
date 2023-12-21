@@ -9,10 +9,16 @@ void Potion::use(Dungeon &dungeon){
 
 Potion& Potion::operator =(const Potion &I) noexcept{
     if (this != &I){
-        potion_name = I.potion_name;
         item_type = I.item_type;
+        potion_name = I.potion_name; 
         changes = I.changes;
     }
     return *this;
 }
 
+Item& Potion::buildItem(const json& data) {
+    item_type = data.at("item_type").get<std::string>();
+    potion_name = data.at("item_name").get<std::string>();
+    changes = std::make_pair("experience", 100);
+    return *this;
+}

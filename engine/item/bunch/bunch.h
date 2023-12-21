@@ -19,7 +19,7 @@ class Bunch: public Item{
         /*!
          * @brief Пустой конструктор
          */
-        Bunch() noexcept: count(0), item_type("bunch"){}
+        Bunch() noexcept: count(0), item_type("bunch"), bunch_name("empty"){}
         Bunch(std::string name, int c) noexcept: bunch_name(name), count(c), item_type("bunch") {}
 
         /*!
@@ -37,7 +37,7 @@ class Bunch: public Item{
         std::string getItemName() const noexcept override { return bunch_name; }
         int getValue() const noexcept override { return count; }
         void use(Dungeon &dungeon) override;
-        Item& buildItem(const json& data) override {}
+        Item& buildItem(const json& data) override;
 
 };
 extern "C" const Item& load_bunch() {

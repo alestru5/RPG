@@ -16,3 +16,10 @@ void Bunch::use(Dungeon &dungeon){
     I[dungeon.getHero().getCurr_Chosen_Item()] = nullptr;
     dungeon.getHero().setInventory(I);
 }
+
+Item& Bunch::buildItem(const json& data) {
+    item_type = data.at("item_type").get<std::string>();
+    bunch_name = data.at("item_name").get<std::string>();
+    count = data.at("count").get<int>();
+    return *this;
+}

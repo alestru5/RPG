@@ -25,7 +25,6 @@ class Title : public QGraphicsScene{
         void quitGame();
 
     private:
-        int selection = 0;
         const int width = 1920;
         const int height = 1080;
         View *viewer;
@@ -40,5 +39,9 @@ class Title : public QGraphicsScene{
         QPushButton **mapsButton;
 
         GameWindow gamewindow;
+
+        std::string pluginsDir = "/home/alestru/PetProjects/RPG/engine/item/plugins";
+        std::ifstream lvl;
+        std::ifstream config;
 };
 #endif // TITLE_H

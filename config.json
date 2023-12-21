@@ -1608,62 +1608,86 @@
         {
             "item_type": "potion",
             "item_name": "experience",
-            "experience": 100,
-            "hp": 0,
-            "agility": 0,
-            "intelligence": 0,
-            "strength": 0,
-            "endurance": 0
+            "changes":[
+                {
+                    "experience": 100,
+                    "hp": 0,
+                    "agility": 0,
+                    "intelligence": 0,
+                    "strength": 0,
+                    "endurance": 0
+                }
+            ]    
         },
         {
             "item_type": "potion",
             "item_name": "hp",
-            "experience": 0,
-            "hp": 100,
-            "agility": 0,
-            "intelligence": 0,
-            "strength": 0,
-            "endurance": 0
+            "changes":[
+                {
+                    "experience": 0,
+                    "hp": 100,
+                    "agility": 0,
+                    "intelligence": 0,
+                    "strength": 0,
+                    "endurance": 0
+                }
+            ] 
         },
         {
             "item_type": "potion",
             "item_name": "agility",
-            "experience": 0,
-            "hp": 0,
-            "agility": 5,
-            "intelligence": 0,
-            "strength": 0,
-            "endurance": 0
+            "changes":[
+                {
+                    "experience": 0,
+                    "hp": 0,
+                    "agility": 5,
+                    "intelligence": 0,
+                    "strength": 0,
+                    "endurance": 0
+                }
+            ] 
         },
         {
             "item_type": "potion",
             "item_name": "intelligence",
-            "experience": 0,
-            "hp": 0,
-            "agility": 0,
-            "intelligence": 5,
-            "strength": 0,
-            "endurance": 0
+            "changes":[
+                {
+                    "experience": 0,
+                    "hp": 0,
+                    "agility": 0,
+                    "intelligence": 5,
+                    "strength": 0,
+                    "endurance": 0
+                }
+            ] 
         },
         {
             "item_type": "potion",
             "item_name": "strength",
-            "experience": 0,
-            "hp": 0,
-            "agility": 0,
-            "intelligence": 0,
-            "strength": 5,
-            "endurance": 0
+            "changes":[
+                {
+                    "experience": 0,
+                    "hp": 0,
+                    "agility": 0,
+                    "intelligence": 0,
+                    "strength": 5,
+                    "endurance": 0
+                }
+            ] 
         },
         {
             "item_type": "potion",
             "item_name": "endurance",
-            "experience": 0,
-            "hp": 0,
-            "agility": 0,
-            "intelligence": 0,
-            "strength": 0,
-            "endurance": 5
+            "changes":[
+                {
+                    "experience": 0,
+                    "hp": 0,
+                    "agility": 0,
+                    "intelligence": 0,
+                    "strength": 0,
+                    "endurance": 5
+                }
+            ] 
         }
     ] 
 }

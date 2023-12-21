@@ -37,6 +37,16 @@ void Equipment::use(Dungeon &dungeon){
     I[dungeon.getHero().getCurr_Chosen_Item()] = tmp;
     dungeon.getHero().setInventory(I);
 }
+
+Item& Equipment::buildItem(const json& data) {
+    item_type = data.at("item_type").get<std::string>();
+    equipment_name = data.at("item_name").get<std::string>();
+    equipment_type = data.at("equipment_type").get<std::string>();
+    min_protect = data.at("min_protect").get<int>();
+    max_protect = data.at("max_protect").get<int>();
+    return *this;
+}
+
 const Item& load_equipment(){
     static Equipment pluginInst;
     return pluginInst;
